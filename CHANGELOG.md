@@ -28,3 +28,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Tapestry viewer: loom-woven SVG and text report rendered from an exported
   `memory-pack.json`; SVG output is deterministic and XML-escaped.
+
+## [0.7.0] - 2024-11-19
+
+### Added
+
+- Portable export: `export` writes a checksummed memory pack readable on any
