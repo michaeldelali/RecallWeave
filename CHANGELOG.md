@@ -23,3 +23,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Viewer bumped to match the 1.0 pack schema.
 
 ## [0.8.0] - 2025-11-21
+
+### Added
+
+- Tapestry viewer: loom-woven SVG and text report rendered from an exported
+  `memory-pack.json`; SVG output is deterministic and XML-escaped.
