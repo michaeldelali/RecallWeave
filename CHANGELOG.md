@@ -7,3 +7,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+
+- (planned) remote mirrors: push a store to object storage with the chain intact.
+- (planned) query DSL: structured queries beyond the current filters.
+
+## [1.0.0] - 2026-08-11
+
