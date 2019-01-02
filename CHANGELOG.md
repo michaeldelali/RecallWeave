@@ -18,3 +18,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Stable 1.0 store format, pinned and documented in `docs/MEMORY.md`.
 - Release profile tuned: LTO + stripped binaries.
 
+### Changed
+
+- Viewer bumped to match the 1.0 pack schema.
+
+## [0.8.0] - 2025-11-21
