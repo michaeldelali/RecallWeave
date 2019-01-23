@@ -44,3 +44,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Forgetting: time-based and manual forgetting with an audit trail.
 - Compaction that rewrites the tail while preserving the integrity chain.
 
+## [0.5.0] - 2022-10-16
+
+### Added
+
+- Conflict detection: crossed threads spotted at weave time, with both
+  conflicting records named in the output.
