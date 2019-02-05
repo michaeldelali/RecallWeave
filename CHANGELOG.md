@@ -50,3 +50,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Conflict detection: crossed threads spotted at weave time, with both
   conflicting records named in the output.
+
+## [0.4.0] - 2021-12-03
+
+### Added
+
