@@ -60,3 +60,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   rewriting history.
 
 ## [0.3.0] - 2020-11-12
+
+### Added
+
+- Typed memory kinds (fact / note / link / event) with kind-aware validation
+  at weave time.
+
