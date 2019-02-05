@@ -55,3 +55,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Deterministic dedupe: identical payloads collapse to one row.
+- Supersession: re-weaving a row supersedes the old record instead of
+  rewriting history.
+
+## [0.3.0] - 2020-11-12
