@@ -66,3 +66,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Typed memory kinds (fact / note / link / event) with kind-aware validation
   at weave time.
 
+## [0.2.0] - 2019-08-27
+
+### Added
+
+- Integrity chain: every record chained to its predecessor; `verify` walks the
