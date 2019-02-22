@@ -71,3 +71,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - Integrity chain: every record chained to its predecessor; `verify` walks the
+  chain and names the first bad record.
+
+### Changed
+
+- Store layout fixed to the append-only `log.jsonl` format.
