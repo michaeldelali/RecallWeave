@@ -76,3 +76,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Changed
 
 - Store layout fixed to the append-only `log.jsonl` format.
+
+## [0.1.0] - 2018-04-23
+
+### Added
+
