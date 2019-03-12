@@ -2,3 +2,5 @@
 name = "recallweave"
 version = "1.0.0"
 edition = "2021"
+rust-version = "1.74"
+description = "A local-first agent memory lifecycle engine: typed memories in an append-only, integrity-chained log with dedupe, conflict detection, forgetting, compaction, verification, query, and portable export."
