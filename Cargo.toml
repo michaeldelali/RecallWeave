@@ -13,3 +13,4 @@ categories = ["command-line-utilities", "data-structures"]
 # recallweave is intentionally dependency-free: standard library only.
 # See docs/MEMORY.md for the rationale.
 [dependencies]
+
