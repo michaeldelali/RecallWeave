@@ -9,3 +9,5 @@ readme = "README.md"
 repository = "https://github.com/michaeldelali/recallweave"
 keywords = ["memory", "agent", "append-only", "local-first", "cli"]
 categories = ["command-line-utilities", "data-structures"]
+
+# recallweave is intentionally dependency-free: standard library only.
