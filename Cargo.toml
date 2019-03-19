@@ -7,3 +7,5 @@ description = "A local-first agent memory lifecycle engine: typed memories in an
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/michaeldelali/recallweave"
+keywords = ["memory", "agent", "append-only", "local-first", "cli"]
+categories = ["command-line-utilities", "data-structures"]
