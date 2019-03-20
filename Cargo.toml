@@ -16,3 +16,5 @@ categories = ["command-line-utilities", "data-structures"]
 
 [lib]
 name = "recallweave"
+path = "src/lib.rs"
+
