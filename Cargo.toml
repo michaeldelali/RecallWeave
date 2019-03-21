@@ -20,3 +20,4 @@ path = "src/lib.rs"
 
 [[bin]]
 name = "recallweave"
+path = "src/main.rs"
