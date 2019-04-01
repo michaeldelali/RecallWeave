@@ -6,3 +6,6 @@
 #   make viewer       install deps and build the TypeScript viewer
 #   make demo         run the demo script and regenerate the tapestry SVG
 #   make verify       build + test + clippy + fmt-check + viewer build/test
+#   make fmt          format Rust sources
+#   make clean        remove build artifacts and the demo store
+
