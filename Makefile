@@ -9,3 +9,6 @@
 #   make fmt          format Rust sources
 #   make clean        remove build artifacts and the demo store
 
+CARGO ?= cargo
+NPM   ?= npm
+NODE  ?= node
