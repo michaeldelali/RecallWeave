@@ -12,3 +12,6 @@
 CARGO ?= cargo
 NPM   ?= npm
 NODE  ?= node
+
+.PHONY: all build test viewer viewer-build viewer-test demo verify fmt fmt-check clippy clean
+
