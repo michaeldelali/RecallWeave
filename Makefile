@@ -21,3 +21,7 @@ build:
 	$(CARGO) build --release
 
 test:
+	$(CARGO) test
+	$(MAKE) viewer-test
+
+viewer: viewer-build
