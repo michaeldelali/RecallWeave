@@ -18,3 +18,6 @@ NODE  ?= node
 all: build
 
 build:
+	$(CARGO) build --release
+
+test:
