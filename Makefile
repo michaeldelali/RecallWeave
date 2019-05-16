@@ -34,3 +34,6 @@ viewer-test: viewer-build
 
 demo: build viewer-build
 	sh examples/demo.sh
+	$(NODE) viewer/dist/cli.js examples/memory-pack.json --svg docs/assets/tapestry-demo.svg
+
+fmt:
