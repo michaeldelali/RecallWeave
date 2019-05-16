@@ -28,3 +28,6 @@ viewer: viewer-build
 
 viewer-build:
 	cd viewer && $(NPM) install && $(NPM) run build
+
+viewer-test: viewer-build
+	cd viewer && $(NPM) test
