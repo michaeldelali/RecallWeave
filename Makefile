@@ -31,3 +31,6 @@ viewer-build:
 
 viewer-test: viewer-build
 	cd viewer && $(NPM) test
+
+demo: build viewer-build
+	sh examples/demo.sh
