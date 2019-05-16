@@ -37,3 +37,6 @@ demo: build viewer-build
 	$(NODE) viewer/dist/cli.js examples/memory-pack.json --svg docs/assets/tapestry-demo.svg
 
 fmt:
+	$(CARGO) fmt
+
+fmt-check:
