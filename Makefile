@@ -40,3 +40,6 @@ fmt:
 	$(CARGO) fmt
 
 fmt-check:
+	$(CARGO) fmt --check
+
+clippy:
