@@ -59,3 +59,16 @@ chain, is a few hundred lines you can audit in an afternoon. The companion
 - [Worked example: an agent's week](#-worked-example-an-agents-week)
 - [Design principles](#-design-principles)
 - [Honest limitations](#-honest-limitations)
+- [Building, testing, layout](#-building-testing-and-project-layout)
+- [License](#-license)
+
+---
+
+## 🪡 The weaving metaphor
+
+A loom holds a set of taut vertical threads — the **warp** — under tension. The
+weaver passes a **shuttle** back and forth, trailing a horizontal thread — the
+**weft** — over and under the warp. Row by row, the passes accumulate into cloth.
+Once a row is beaten into place it is *fixed*; you do not go back and re-thread
+it. To change the finished cloth you either weave *more* on top, or you cut a
+thread and let it fray.
