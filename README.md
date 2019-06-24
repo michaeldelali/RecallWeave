@@ -46,3 +46,16 @@ chain, is a few hundred lines you can audit in an afternoon. The companion
 
 ---
 
+## Table of contents
+
+- [The weaving metaphor](#-the-weaving-metaphor)
+- [Quick start](#-quick-start)
+- [The threads: memory kinds](#-the-threads-memory-kinds)
+- [The loom: the append-only weave](#-the-loom-the-append-only-weave)
+- [Tending the cloth: the lifecycle](#-tending-the-cloth-the-lifecycle)
+- [Forgetting, on purpose](#-forgetting-on-purpose)
+- [The tapestry viewer](#-the-tapestry-viewer)
+- [Command reference](#-command-reference)
+- [Worked example: an agent's week](#-worked-example-an-agents-week)
+- [Design principles](#-design-principles)
+- [Honest limitations](#-honest-limitations)
