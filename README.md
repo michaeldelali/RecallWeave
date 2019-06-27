@@ -72,3 +72,15 @@ weaver passes a **shuttle** back and forth, trailing a horizontal thread — the
 Once a row is beaten into place it is *fixed*; you do not go back and re-thread
 it. To change the finished cloth you either weave *more* on top, or you cut a
 thread and let it fray.
+
+recallweave takes that literally:
+
+| loom                        | recallweave                                              |
+|-----------------------------|----------------------------------------------------------|
+| a pass of the shuttle       | appending one event to the log                           |
+| a weft thread               | a single memory                                          |
+| the colour of a thread      | the memory's *kind*                                      |
+| thread thickness / length   | *confidence*                                             |
+| a finished, beaten-in row   | an immutable log record                                  |
+| cutting a thread            | a **tombstone**                                          |
+| re-weaving over an old row  | a **supersession**                                       |
