@@ -84,3 +84,16 @@ recallweave takes that literally:
 | a finished, beaten-in row   | an immutable log record                                  |
 | cutting a thread            | a **tombstone**                                          |
 | re-weaving over an old row  | a **supersession**                                       |
+| a thread that frays with time | a **TTL** expiry                                        |
+| folding the cloth to store it | **compaction**                                         |
+| checking the weave for slips | integrity **verification**                              |
+| rolling the cloth off the loom to show someone | exporting a **memory-pack**             |
+
+The two animated panels in this README (`docs/assets/memory-loom.svg` and
+`docs/assets/forgetting-weave.svg`) are hand-authored SVGs that show the shuttle
+weaving typed threads, and threads fading, being cut, and re-woven during
+forgetting and compaction. They are local files — no external assets, no
+tracking — so they render anywhere the SVG does.
+
+---
+
