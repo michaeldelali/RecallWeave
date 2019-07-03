@@ -97,3 +97,16 @@ tracking — so they render anywhere the SVG does.
 
 ---
 
+## 🚀 Quick start
+
+You need a Rust toolchain (1.74+). Node 18+ is only needed for the viewer.
+
+```bash
+# build the engine
+cargo build --release
+
+# point every command at a store directory with --dir (default: .recallweave)
+alias rw='./target/release/recallweave --dir mymemory'
+
+# weave in some memories
+rw add --kind semantic   --content "prod region is eu-west-1" --tags infra,region
