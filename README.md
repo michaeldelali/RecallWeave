@@ -110,3 +110,16 @@ alias rw='./target/release/recallweave --dir mymemory'
 
 # weave in some memories
 rw add --kind semantic   --content "prod region is eu-west-1" --tags infra,region
+rw add --kind preference --content "prefers concise answers"  --tags style --confidence 0.8
+rw add --kind procedural --content "rotate the API token via ops runbook step 3" --tags ops
+rw add --kind episodic   --content "deploy failed at 14:03"    --tags infra --ttl 86400
+
+# read the cloth
+rw list
+rw query --kind preference --contains concise
+rw stats
+
+# check the weave has not been tampered with
+rw verify
+
+# roll it off the loom into a portable pack
