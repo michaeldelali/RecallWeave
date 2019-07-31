@@ -123,3 +123,16 @@ rw stats
 rw verify
 
 # roll it off the loom into a portable pack
+rw export --out memory-pack.json
+```
+
+Then turn the pack into a tapestry:
+
+```bash
+cd viewer
+npm install
+npm run build
+node dist/cli.js ../memory-pack.json --svg tapestry.svg
+```
+
+---
