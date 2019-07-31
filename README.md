@@ -136,3 +136,15 @@ node dist/cli.js ../memory-pack.json --svg tapestry.svg
 ```
 
 ---
+
+## 🎨 The threads: memory kinds
+
+recallweave is *typed on purpose*. A memory's kind changes how you should treat
+it, so the type is first-class rather than a free-text tag.
+
+- **🟢 semantic** — durable facts. *"The prod region is eu-west-1."* These are the
+  backbone threads; they rarely expire, and when they change you usually
+  **supersede** rather than delete.
+- **🟡 preference** — stated or inferred preferences. *"Prefers concise answers."*
+  The liveliest, most conflict-prone threads: people change their minds. This is
+  the only kind the polarity conflict detector inspects.
