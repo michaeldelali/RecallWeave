@@ -148,3 +148,16 @@ it, so the type is first-class rather than a free-text tag.
 - **🟡 preference** — stated or inferred preferences. *"Prefers concise answers."*
   The liveliest, most conflict-prone threads: people change their minds. This is
   the only kind the polarity conflict detector inspects.
+- **🔵 procedural** — how-to knowledge. *"Rotate the token by running step 3 of the
+  ops runbook."* Recipes worth keeping verbatim.
+- **🔴 episodic** — things that happened at a moment. *"Deploy failed at 14:03."*
+  The threads most likely to fray: give them a **TTL** and let the loom forget
+  them on schedule.
+
+Every thread also carries the metadata that makes a memory trustworthy:
+**provenance** (`source` + `detail` — *why do I believe this?*), **confidence**
+in `[0,1]`, **tags**, **links** to related memories, a **fingerprint** for
+dedupe, and lifecycle fields (`ttl_secs`, `supersedes`, `superseded_by`,
+`tombstoned`). The full schema lives in [`docs/MEMORY.md`](docs/MEMORY.md).
+
+---
