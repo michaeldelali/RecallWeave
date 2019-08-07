@@ -161,3 +161,16 @@ dedupe, and lifecycle fields (`ttl_secs`, `supersedes`, `superseded_by`,
 `tombstoned`). The full schema lives in [`docs/MEMORY.md`](docs/MEMORY.md).
 
 ---
+
+## 🧶 The loom: the append-only weave
+
+The store is a directory (default `.recallweave/`) holding a single
+`log.jsonl` — **one JSON event per line, in the order it happened.** Three event
+types are ever written:
+
+- `assert` — a new memory (a new weft thread).
+- `tombstone` — retire a memory (cut a thread), with a reason.
+- `supersede` — replace one memory with another (re-weave a row).
+
+The **current state** is not stored anywhere. It is *derived* by replaying every
+event in order:
