@@ -174,3 +174,16 @@ types are ever written:
 
 The **current state** is not stored anywhere. It is *derived* by replaying every
 event in order:
+
+```
+   log.jsonl (events)  ──replay──▶  materialized state (id → Memory)
+         ▲                                   │
+         │ append                            ▼
+    assert / tombstone / supersede    query · verify · export · compact
+```
+
+Because state is a pure function of the log, the log is the single source of
+truth and nothing is silently lost. You can always ask *"how did I come to
+believe this?"* and replay to find out.
+
+### Tamper-evidence: the integrity chain
