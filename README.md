@@ -187,3 +187,16 @@ truth and nothing is silently lost. You can always ask *"how did I come to
 believe this?"* and replay to find out.
 
 ### Tamper-evidence: the integrity chain
+
+Each record commits to the one before it. It stores `prev` — the digest of the
+previous record — and `digest`, a 256-bit hash over its own canonical payload
+*chained* with `prev`. The first record's `prev` is 64 zeros (GENESIS). Alter any
+byte of any record and every digest downstream stops matching:
+
+```bash
+$ rw verify
+integrity OK: 7 records, chain intact
+
+# ... someone edits log.jsonl by hand ...
+$ rw verify
+integrity FAILED (7 records):
