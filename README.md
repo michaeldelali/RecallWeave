@@ -200,3 +200,15 @@ integrity OK: 7 records, chain intact
 # ... someone edits log.jsonl by hand ...
 $ rw verify
 integrity FAILED (7 records):
+  - seq 3: digest mismatch (record contents were altered)
+```
+
+This is a **checksum chain, not a signature.** It catches accidental corruption
+and casual tampering. It does not stop a determined attacker who rewrites the
+whole file — for that, sign the exported pack out of band. (Said plainly again in
+the limitations.)
+
+---
+
+## 🧷 Tending the cloth: the lifecycle
+
