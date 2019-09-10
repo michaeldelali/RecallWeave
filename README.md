@@ -225,3 +225,16 @@ rw add --kind semantic --content "PROD region   is  eu-west-1"   # → deduped
 If a **live** memory of the **same kind** already has that fingerprint, no new
 record is written and the existing id comes back with `deduped: true`. Fully
 deterministic, fully explainable — and, honestly, only lexical: a paraphrase is a
+different thread.
+
+### Supersession — re-weaving a row
+
+When a fact changes, you do not delete the old one; you weave a new row over it:
+
+```bash
+rw supersede --old mem_9f21b35efe51 --content "prod region is us-east-1"
+```
+
+The old memory gains a `superseded_by` pointer and drops out of the live set; the
+new one records what it `supersedes`. History is intact until you compact.
+
