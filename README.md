@@ -238,3 +238,16 @@ rw supersede --old mem_9f21b35efe51 --content "prod region is us-east-1"
 The old memory gains a `superseded_by` pointer and drops out of the live set; the
 new one records what it `supersedes`. History is intact until you compact.
 
+### Conflict detection — spotting crossed threads
+
+`conflicts` reports (and never mutates) two kinds of clash among live memories:
+
+1. **duplicate-content-different-kind** — the same normalized content stored as,
+   say, both `semantic` and `preference`. Usually a modelling slip.
+2. **preference-polarity** — two live preferences that share a subject token but
+   differ on a recognised antonym (`dark`/`light`, `concise`/`verbose`, …):
+
+```bash
+$ rw conflicts
+1 conflict(s):
+  [preference-polarity] mem_0572… <-> mem_881f…: preferences appear to conflict on 'dark' vs 'light'
