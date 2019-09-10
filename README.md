@@ -251,3 +251,16 @@ new one records what it `supersedes`. History is intact until you compact.
 $ rw conflicts
 1 conflict(s):
   [preference-polarity] mem_0572… <-> mem_881f…: preferences appear to conflict on 'dark' vs 'light'
+```
+
+The shared-subject guard means *"prefers dark theme"* vs *"prefers light beer"*
+does **not** trip it. This is a small, transparent heuristic — a nudge, not an
+oracle.
+
+---
+
+## 🍂 Forgetting, on purpose
+
+![the forgetting weave](docs/assets/forgetting-weave.svg)
+
+Forgetting is a feature, not a failure. Three mechanisms let the cloth shed what
