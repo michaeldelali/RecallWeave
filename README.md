@@ -212,3 +212,16 @@ the limitations.)
 
 ## 🧷 Tending the cloth: the lifecycle
 
+### Deterministic dedupe
+
+Before fingerprinting, content is **normalized**: trimmed, internal whitespace
+collapsed, lowercased. So these two are the *same* memory:
+
+```bash
+rw add --kind semantic --content "prod region is eu-west-1"
+rw add --kind semantic --content "PROD region   is  eu-west-1"   # → deduped
+```
+
+If a **live** memory of the **same kind** already has that fingerprint, no new
+record is written and the existing id comes back with `deduped: true`. Fully
+deterministic, fully explainable — and, honestly, only lexical: a paraphrase is a
