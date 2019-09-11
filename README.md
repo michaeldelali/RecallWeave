@@ -264,3 +264,15 @@ oracle.
 ![the forgetting weave](docs/assets/forgetting-weave.svg)
 
 Forgetting is a feature, not a failure. Three mechanisms let the cloth shed what
+it no longer needs:
+
+- **Time-to-live.** Give a memory `--ttl <seconds>`; once `created_at + ttl` has
+  passed it drops out of `list`/`query` automatically, and `rw gc` makes the
+  retirement explicit by tombstoning it with reason `ttl-expired`.
+- **Manual tombstones.** `rw forget <id> --reason "no longer relevant"` cuts a
+  specific thread.
+- **Compaction.** `rw compact` folds the cloth: it reads the live set, drops
+  every tombstoned / superseded / expired record, and re-weaves the survivors
+  into a fresh log from GENESIS — preserving their ids and creation times, so the
+  materialized live set is byte-for-byte identical before and after, and the
+  integrity chain is rebuilt cleanly.
