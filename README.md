@@ -276,3 +276,16 @@ it no longer needs:
   into a fresh log from GENESIS — preserving their ids and creation times, so the
   materialized live set is byte-for-byte identical before and after, and the
   integrity chain is rebuilt cleanly.
+
+```bash
+$ rw compact
+compacted 12 -> 6 records (dropped 3 tombstoned, 2 superseded, 1 expired)
+$ rw verify
+integrity OK: 6 records, chain intact
+```
+
+The `forgetting-weave.svg` panel animates exactly this: a TTL thread fading to
+dashed as its little clock drains, a tombstoned thread being cut with a marker
+dropped in the gap, and a compaction sweep tightening the remaining cloth.
+
+---
