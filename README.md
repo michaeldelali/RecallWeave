@@ -315,3 +315,16 @@ node dist/cli.js ../examples/memory-pack.json --svg -             # SVG to stdou
 The rendering is deterministic: the same pack always yields byte-identical SVG,
 and all user content is XML-escaped (there is a test for a `<script>` payload).
 
+---
+
+## 📖 Command reference
+
+Every command takes `--dir <path>` (default `.recallweave`), an optional
+`--now <epoch>` to pin the clock for reproducible runs, and `--json` where a
+machine-readable form makes sense.
+
+| command                    | what it weaves                                                  |
+|----------------------------|-----------------------------------------------------------------|
+| `add`                      | assert a memory (`--kind --content [--confidence --ttl --tags --links --source --detail --supersedes]`) |
+| `supersede`                | replace a memory (`--old --content [--kind --confidence ...]`)  |
+| `list [--all]`             | list live memories (`--all` includes retired)                   |
