@@ -328,3 +328,15 @@ machine-readable form makes sense.
 | `add`                      | assert a memory (`--kind --content [--confidence --ttl --tags --links --source --detail --supersedes]`) |
 | `supersede`                | replace a memory (`--old --content [--kind --confidence ...]`)  |
 | `list [--all]`             | list live memories (`--all` includes retired)                   |
+| `query`                    | filter (`--kind --tag --contains --min-confidence --source --sort --limit [--all]`) |
+| `get <id>`                 | show one memory in detail                                       |
+| `forget <id> [--reason]`   | tombstone a memory                                              |
+| `gc`                       | tombstone all TTL-expired memories                              |
+| `conflicts`                | report conflicts among live memories                            |
+| `compact`                  | rewrite the log, dropping retired records                       |
+| `verify`                   | check the integrity chain (non-zero exit on failure)           |
+| `export [--out file]`      | write a portable memory-pack                                    |
+| `stats`                    | summarize the store                                             |
+| `help`, `version`          | the usual                                                       |
+
+Run `recallweave help` for the full flag list.
