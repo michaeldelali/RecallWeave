@@ -302,3 +302,16 @@ The TypeScript viewer (`viewer/`) renders two things from a pack:
 
 - a **text report** for the terminal and CI logs, and
 - a woven **SVG tapestry**: each kind is a warp band, each memory a weft thread
+  (length = confidence, colour = kind, a knot = has links), retired threads
+  dashed and faded, and conflicts drawn as animated crossed red threads.
+
+```bash
+cd viewer && npm install && npm run build
+node dist/cli.js ../examples/memory-pack.json                     # text report
+node dist/cli.js ../examples/memory-pack.json --svg tapestry.svg  # + SVG
+node dist/cli.js ../examples/memory-pack.json --svg -             # SVG to stdout
+```
+
+The rendering is deterministic: the same pack always yields byte-identical SVG,
+and all user content is XML-escaped (there is a test for a `<script>` payload).
+
