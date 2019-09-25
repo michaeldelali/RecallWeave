@@ -289,3 +289,16 @@ dashed as its little clock drains, a tombstoned thread being cut with a marker
 dropped in the gap, and a compaction sweep tightening the remaining cloth.
 
 ---
+
+## 🖼 The tapestry viewer
+
+The engine and the viewer are **decoupled by design**: the viewer never reads the
+log or understands the hash chain. It consumes only the portable **memory-pack**
+(`format: "recallweave-pack"`), a self-describing JSON document with the live
+memories, per-kind and per-tag counts, detected conflicts, and the integrity
+head.
+
+The TypeScript viewer (`viewer/`) renders two things from a pack:
+
+- a **text report** for the terminal and CI logs, and
+- a woven **SVG tapestry**: each kind is a warp band, each memory a weft thread
