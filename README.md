@@ -366,3 +366,16 @@ episodic note with a one-day TTL — the exact scene both README panels illustra
 ## 🎯 Design principles
 
 1. **Lifecycle over lookup.** The hard part of agent memory is not finding a
+   string; it is knowing what to trust, what changed, and what to forget.
+2. **The log is the truth.** State is always a pure replay of an append-only log,
+   so history is inspectable and forgetting is a deliberate act.
+3. **Deterministic and explainable.** Same inputs, same ids, same fingerprints,
+   same SVG. Every dedupe and every conflict has a reason you can print.
+4. **Auditable to the bottom.** Standard library only; the JSON codec, hash
+   chain, and CLI parser are all short enough to read.
+5. **Local-first.** Everything is a file on your disk. No network, no service, no
+   telemetry. Portability is an explicit export, not an accident.
+6. **Honest about scope.** It says loudly what it does not do.
+
+---
+
