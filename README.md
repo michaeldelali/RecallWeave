@@ -340,3 +340,16 @@ machine-readable form makes sense.
 | `help`, `version`          | the usual                                                       |
 
 Run `recallweave help` for the full flag list.
+
+---
+
+## 🧪 Worked example: an agent's week
+
+The repository ships a real, runnable demo (see `examples/`). It builds a store,
+records a spread of memories, changes its mind, lets an episodic note expire, and
+exports a pack — every step executed by the real binary, not mocked:
+
+```bash
+# from the project root, on any OS with a shell
+sh examples/demo.sh          # bash / sh
+# or
