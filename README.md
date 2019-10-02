@@ -353,3 +353,16 @@ exports a pack — every step executed by the real binary, not mocked:
 # from the project root, on any OS with a shell
 sh examples/demo.sh          # bash / sh
 # or
+pwsh examples/demo.ps1        # PowerShell
+```
+
+That produces `examples/memory-pack.json` (committed) whose tapestry is rendered
+to `docs/assets/tapestry-demo.svg`. The demo store shows a superseded region
+fact, two preferences in genuine polarity conflict, a procedural runbook, and an
+episodic note with a one-day TTL — the exact scene both README panels illustrate.
+
+---
+
+## 🎯 Design principles
+
+1. **Lifecycle over lookup.** The hard part of agent memory is not finding a
