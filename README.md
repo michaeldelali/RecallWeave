@@ -404,3 +404,16 @@ surprised by it.
   the log. In-process writes are atomic (temp file + rename); across processes,
   you are on your own.
 - **Time is simple.** Epoch-second arithmetic, overridable with `--now`. No
+  timezones, no calendars.
+- **History grows until you compact**, and compaction discards the audit trail of
+  retired memories to reclaim space.
+
+These are deliberate trade-offs for a small, auditable, local-first tool. See
+[`docs/MEMORY.md`](docs/MEMORY.md) for the reasoning behind each.
+
+---
+
+## 🛠 Building, testing, and project layout
+
+```bash
+make build     # cargo build --release
