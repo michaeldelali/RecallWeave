@@ -392,3 +392,15 @@ surprised by it.
 - **The conflict detector is a small heuristic.** Preference-polarity uses a
   hand-curated antonym table plus a shared-token check. It misses conflicts
   phrased outside the table and can false-positive on coincidental antonyms. It
+  is a nudge, not a truth oracle.
+- **The digest is a checksum, not cryptography.** `verify` catches accidental
+  corruption and casual tampering. It is **not** SHA-256 and makes no
+  collision/preimage-resistance claims. Anyone who can rewrite the whole file can
+  recompute a valid chain; sign the exported pack out of band if you need
+  authenticity.
+- **Confidence is metadata, never computed.** The engine stores and filters on
+  it but never updates it. There is no belief revision.
+- **Single-writer, no locking.** Concurrent writers to one directory can corrupt
+  the log. In-process writes are atomic (temp file + rename); across processes,
+  you are on your own.
+- **Time is simple.** Epoch-second arithmetic, overridable with `--now`. No
