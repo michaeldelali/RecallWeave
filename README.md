@@ -379,3 +379,16 @@ episodic note with a one-day TTL — the exact scene both README panels illustra
 
 ---
 
+## ⚠️ Honest limitations
+
+Read this. It is the difference between using recallweave well and being
+surprised by it.
+
+- **No semantic matching, at all.** Dedupe, conflict detection, and
+  `query --contains` are **purely lexical**. *"Prefers dark theme"* and *"wants a
+  dark colour scheme"* are unrelated strings to this engine. No embeddings, no
+  vectors, no synonyms, no paraphrase detection. If you need similarity search,
+  run a vector store alongside recallweave and let each do what it is good at.
+- **The conflict detector is a small heuristic.** Preference-polarity uses a
+  hand-curated antonym table plus a shared-token check. It misses conflicts
+  phrased outside the table and can false-positive on coincidental antonyms. It
