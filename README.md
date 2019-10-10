@@ -417,3 +417,16 @@ These are deliberate trade-offs for a small, auditable, local-first tool. See
 
 ```bash
 make build     # cargo build --release
+make test      # cargo test  +  viewer tests
+make demo      # run the demo and regenerate the tapestry SVG
+make verify    # build, test, clippy, fmt-check, viewer build+test
+make clean     # remove build artifacts
+```
+
+```
+recallweave/
+├── src/                    # Rust engine (stdlib only)
+│   ├── json.rs             #   hand-written JSON codec
+│   ├── hash.rs             #   FNV fingerprints + 256-bit digest chain
+│   ├── model.rs            #   Memory, Event, LogRecord + (de)serialization
+│   ├── store.rs            #   append-only log, dedupe, conflicts, compaction…
