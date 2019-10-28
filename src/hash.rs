@@ -16,3 +16,11 @@
 //! claims; it is a strong, well-distributed checksum suitable for detecting
 //! accidental corruption and casual tampering in a local-first file. This
 //! limitation is documented honestly in `docs/MEMORY.md`.
+
+/// FNV-1a 64-bit hash. Deterministic and fast; used for content fingerprints.
+pub fn fnv1a_64(bytes: &[u8]) -> u64 {
+    const OFFSET: u64 = 0xcbf29ce484222325;
+    const PRIME: u64 = 0x00000100000001b3;
+    let mut hash = OFFSET;
+    for &b in bytes {
+        hash ^= b as u64;
