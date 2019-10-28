@@ -66,3 +66,12 @@ pub fn normalize_content(content: &str) -> String {
 struct Digest256 {
     state: [u64; 4],
 }
+
+impl Digest256 {
+    fn new() -> Self {
+        // Distinct, high-entropy initial constants for each lane (fractional
+        // bits of square roots, a common way to pick "nothing up my sleeve"
+        // numbers).
+        Digest256 {
+            state: [
+                0x6a09e667f3bcc908,
