@@ -24,3 +24,12 @@ pub fn fnv1a_64(bytes: &[u8]) -> u64 {
     let mut hash = OFFSET;
     for &b in bytes {
         hash ^= b as u64;
+        hash = hash.wrapping_mul(PRIME);
+    }
+    hash
+}
+
+/// Produce a 16-character hex fingerprint from normalized content.
+///
+/// Normalization: trim, collapse internal whitespace runs to a single space,
+/// and lowercase. This means "Loves  DARK\tMode" and "loves dark mode" collapse
