@@ -58,3 +58,11 @@ pub fn normalize_content(content: &str) -> String {
             }
             prev_space = false;
         }
+    }
+    out
+}
+
+/// A 256-bit digest represented as four 64-bit lanes.
+struct Digest256 {
+    state: [u64; 4],
+}
