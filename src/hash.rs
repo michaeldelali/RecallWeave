@@ -33,3 +33,11 @@ pub fn fnv1a_64(bytes: &[u8]) -> u64 {
 ///
 /// Normalization: trim, collapse internal whitespace runs to a single space,
 /// and lowercase. This means "Loves  DARK\tMode" and "loves dark mode" collapse
+/// to the same fingerprint, which is exactly the deterministic dedupe behavior
+/// we want for near-identical restatements. It is purely lexical: it will *not*
+/// detect paraphrases like "prefers dark theme" (see honest limitations).
+pub fn content_fingerprint(content: &str) -> String {
+    let normalized = normalize_content(content);
+    format!("{:016x}", fnv1a_64(normalized.as_bytes()))
+}
+
