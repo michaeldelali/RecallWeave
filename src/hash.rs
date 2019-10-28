@@ -49,3 +49,12 @@ pub fn normalize_content(content: &str) -> String {
     for c in content.trim().chars() {
         if c.is_whitespace() {
             if !prev_space {
+                out.push(' ');
+                prev_space = true;
+            }
+        } else {
+            for lc in c.to_lowercase() {
+                out.push(lc);
+            }
+            prev_space = false;
+        }
