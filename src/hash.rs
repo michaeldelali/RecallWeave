@@ -41,3 +41,11 @@ pub fn content_fingerprint(content: &str) -> String {
     format!("{:016x}", fnv1a_64(normalized.as_bytes()))
 }
 
+/// The normalization applied before fingerprinting. Exposed for tests and for
+/// the conflict detector, which reasons about normalized content too.
+pub fn normalize_content(content: &str) -> String {
+    let mut out = String::new();
+    let mut prev_space = false;
+    for c in content.trim().chars() {
+        if c.is_whitespace() {
+            if !prev_space {
