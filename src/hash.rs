@@ -83,3 +83,11 @@ impl Digest256 {
     }
 
     fn absorb(&mut self, bytes: &[u8]) {
+        let mut counter: u64 = 0;
+        for &b in bytes {
+            let lane = (counter % 4) as usize;
+            self.state[lane] ^= (b as u64).wrapping_add(counter);
+            self.state[lane] = mix64(self.state[lane]);
+            // Cross-diffuse into the next lane so byte position matters.
+            let next = ((counter + 1) % 4) as usize;
+            self.state[next] = self.state[next].rotate_left(17) ^ self.state[lane];
