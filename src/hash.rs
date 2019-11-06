@@ -91,3 +91,12 @@ impl Digest256 {
             // Cross-diffuse into the next lane so byte position matters.
             let next = ((counter + 1) % 4) as usize;
             self.state[next] = self.state[next].rotate_left(17) ^ self.state[lane];
+            counter = counter.wrapping_add(1);
+        }
+        // Commit the total length into the state to resist length-extension
+        // style collisions between inputs that share a prefix.
+        self.state[0] ^= mix64(bytes.len() as u64);
+    }
+
+    fn finalize(mut self) -> [u64; 4] {
+        // A few finalization rounds to diffuse all lanes into each other.
