@@ -142,3 +142,11 @@ pub fn chain_digest(prev_hex: &str, record_bytes: &[u8]) -> String {
 }
 
 #[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn fingerprint_normalizes_whitespace_and_case() {
+        assert_eq!(
+            content_fingerprint("Loves  DARK\tmode"),
+            content_fingerprint("loves dark mode")
