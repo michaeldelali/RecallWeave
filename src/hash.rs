@@ -100,3 +100,11 @@ impl Digest256 {
 
     fn finalize(mut self) -> [u64; 4] {
         // A few finalization rounds to diffuse all lanes into each other.
+        for _ in 0..6 {
+            self.state[0] = mix64(self.state[0] ^ self.state[3].rotate_left(7));
+            self.state[1] = mix64(self.state[1] ^ self.state[0].rotate_left(19));
+            self.state[2] = mix64(self.state[2] ^ self.state[1].rotate_left(31));
+            self.state[3] = mix64(self.state[3] ^ self.state[2].rotate_left(43));
+        }
+        self.state
+    }
