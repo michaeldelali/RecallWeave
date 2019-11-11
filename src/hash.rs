@@ -116,3 +116,12 @@ fn mix64(mut x: u64) -> u64 {
     x = x.wrapping_add(0x9e3779b97f4a7c15);
     x = (x ^ (x >> 30)).wrapping_mul(0xbf58476d1ce4e5b9);
     x = (x ^ (x >> 27)).wrapping_mul(0x94d049bb133111eb);
+    x ^ (x >> 31)
+}
+
+/// Compute a 64-hex-character (256-bit) digest of the given bytes.
+pub fn digest_hex(bytes: &[u8]) -> String {
+    let mut d = Digest256::new();
+    d.absorb(bytes);
+    let lanes = d.finalize();
+    let mut out = String::with_capacity(64);
