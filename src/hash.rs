@@ -125,3 +125,11 @@ pub fn digest_hex(bytes: &[u8]) -> String {
     d.absorb(bytes);
     let lanes = d.finalize();
     let mut out = String::with_capacity(64);
+    for lane in lanes {
+        out.push_str(&format!("{:016x}", lane));
+    }
+    out
+}
+
+/// Chain a previous digest with new record bytes to produce the next digest.
+/// This is the per-record link in the append-only log's hash chain.
