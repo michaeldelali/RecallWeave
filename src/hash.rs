@@ -108,3 +108,11 @@ impl Digest256 {
         }
         self.state
     }
+}
+
+/// SplitMix64-style mixing permutation. Bijective over u64 for its core, used
+/// here as a strong avalanche mixer.
+fn mix64(mut x: u64) -> u64 {
+    x = x.wrapping_add(0x9e3779b97f4a7c15);
+    x = (x ^ (x >> 30)).wrapping_mul(0xbf58476d1ce4e5b9);
+    x = (x ^ (x >> 27)).wrapping_mul(0x94d049bb133111eb);
