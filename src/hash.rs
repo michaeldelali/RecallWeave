@@ -133,3 +133,12 @@ pub fn digest_hex(bytes: &[u8]) -> String {
 
 /// Chain a previous digest with new record bytes to produce the next digest.
 /// This is the per-record link in the append-only log's hash chain.
+pub fn chain_digest(prev_hex: &str, record_bytes: &[u8]) -> String {
+    let mut buf = Vec::with_capacity(prev_hex.len() + 1 + record_bytes.len());
+    buf.extend_from_slice(prev_hex.as_bytes());
+    buf.push(b'\n');
+    buf.extend_from_slice(record_bytes);
+    digest_hex(&buf)
+}
+
+#[cfg(test)]
