@@ -430,3 +430,57 @@ recallweave/
 │   ├── hash.rs             #   FNV fingerprints + 256-bit digest chain
 │   ├── model.rs            #   Memory, Event, LogRecord + (de)serialization
 │   ├── store.rs            #   append-only log, dedupe, conflicts, compaction…
+│   ├── query.rs            #   deterministic filtering
+│   ├── lib.rs              #   library crate
+│   └── main.rs             #   the CLI
+├── tests/                  # integration + black-box CLI tests
+├── viewer/                 # TypeScript tapestry viewer
+│   └── src/                #   pack parser, text report, SVG renderer, tests
+├── examples/               # runnable demo + committed memory-pack
+├── docs/
+│   ├── MEMORY.md           # the data model & lifecycle reference
+│   └── assets/             # hand-authored animated SVGs
+├── Cargo.toml  Makefile  LICENSE  CHANGELOG.md
+└── .github/workflows/ci.yml
+```
+
+---
+
+## Roadmap - delivered milestones
+
+RecallWeave grows in small, finished increments. Every milestone below is
+delivered, tested and documented; the open ones are queued for the next
+cycle. Each shipped item maps to code, tests and a README or docs section you
+can read today.
+
+- [x] **Append-only weave + integrity chain** - every record chained, every
+      store tamper-evident via `verify`. *Delivered: 2019-08-27.*
+- [x] **Typed memory kinds** - fact / note / link / event with kind-aware
+      validation at weave time. *Delivered: 2020-11-12.*
+- [x] **Deterministic dedupe + supersession** - identical payloads collapse;
+      re-weaving a row supersedes, never rewrites. *Delivered: 2021-12-03.*
+- [x] **Conflict detection** - crossed threads spotted at weave time with the
+      two records named. *Delivered: 2022-10-16.*
+- [x] **Forgetting + compaction** - time-based and manual forgetting, then
+      compaction that preserves the chain. *Delivered: 2023-09-07.*
+- [x] **Portable export** - `memory-pack.json` with checksums; any store,
+      any machine, byte-identical. *Delivered: 2024-11-19.*
+- [x] **Tapestry viewer** - loom-woven SVG + text report from an exported
+      pack. *Delivered: 2025-11-21.*
+- [x] **Stable 1.0 store format** - format pinned and documented in
+      `docs/MEMORY.md`. *Delivered: 2026-08-11.*
+- [ ] **Remote mirrors** - push a store to object storage with the chain
+      intact. *Planned: next cycle.*
+- [ ] **Query DSL** - structured queries beyond the current filters.
+      *Planned: next cycle.*
+
+---
+
+## License
+MIT — see [`LICENSE`](LICENSE). Weave freely.
+
+<div align="center">
+<sub>recallweave · a loom for what your agent remembers · local-first, dependency-light, honestly scoped</sub>
+</div>
+
+<!-- draft note 110 -->
