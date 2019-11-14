@@ -150,3 +150,11 @@ mod tests {
         assert_eq!(
             content_fingerprint("Loves  DARK\tmode"),
             content_fingerprint("loves dark mode")
+        );
+    }
+
+    #[test]
+    fn fingerprint_differs_for_different_content() {
+        assert_ne!(
+            content_fingerprint("loves dark mode"),
+            content_fingerprint("loves light mode")
