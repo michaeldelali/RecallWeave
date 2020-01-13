@@ -43,3 +43,18 @@ impl Json {
     pub fn as_u64(&self) -> Option<u64> {
         match self {
             Json::Num(n) if *n >= 0.0 && n.fract() == 0.0 => Some(*n as u64),
+            _ => None,
+        }
+    }
+
+    pub fn as_bool(&self) -> Option<bool> {
+        match self {
+            Json::Bool(b) => Some(*b),
+            _ => None,
+        }
+    }
+
+    pub fn as_array(&self) -> Option<&Vec<Json>> {
+        match self {
+            Json::Arr(a) => Some(a),
+            _ => None,
