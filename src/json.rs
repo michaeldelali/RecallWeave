@@ -58,3 +58,18 @@ impl Json {
         match self {
             Json::Arr(a) => Some(a),
             _ => None,
+        }
+    }
+
+    pub fn as_object(&self) -> Option<&BTreeMap<String, Json>> {
+        match self {
+            Json::Obj(o) => Some(o),
+            _ => None,
+        }
+    }
+
+    /// Convenience accessor for a field of an object.
+    pub fn get(&self, key: &str) -> Option<&Json> {
+        self.as_object().and_then(|o| o.get(key))
+    }
+
