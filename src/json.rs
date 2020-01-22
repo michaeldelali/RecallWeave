@@ -88,3 +88,18 @@ impl Json {
         out
     }
 
+    fn write_compact(&self, out: &mut String) {
+        match self {
+            Json::Null => out.push_str("null"),
+            Json::Bool(true) => out.push_str("true"),
+            Json::Bool(false) => out.push_str("false"),
+            Json::Num(n) => out.push_str(&format_number(*n)),
+            Json::Str(s) => write_json_string(s, out),
+            Json::Arr(items) => {
+                out.push('[');
+                for (i, item) in items.iter().enumerate() {
+                    if i > 0 {
+                        out.push(',');
+                    }
+                    item.write_compact(out);
+                }
