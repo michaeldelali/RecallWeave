@@ -73,3 +73,18 @@ impl Json {
         self.as_object().and_then(|o| o.get(key))
     }
 
+    /// Serialize to a compact single-line string (no whitespace).
+    /// Used for the append-only log so each record is exactly one line.
+    pub fn to_compact(&self) -> String {
+        let mut out = String::new();
+        self.write_compact(&mut out);
+        out
+    }
+
+    /// Serialize to a human-readable, indented string. Used for exported packs.
+    pub fn to_pretty(&self) -> String {
+        let mut out = String::new();
+        self.write_pretty(&mut out, 0);
+        out
+    }
+
