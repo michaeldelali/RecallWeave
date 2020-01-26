@@ -118,3 +118,18 @@ impl Json {
                 out.push('}');
             }
         }
+    }
+
+    fn write_pretty(&self, out: &mut String, depth: usize) {
+        let pad = "  ".repeat(depth);
+        let pad_inner = "  ".repeat(depth + 1);
+        match self {
+            Json::Arr(items) if !items.is_empty() => {
+                out.push_str("[\n");
+                for (i, item) in items.iter().enumerate() {
+                    out.push_str(&pad_inner);
+                    item.write_pretty(out, depth + 1);
+                    if i + 1 < items.len() {
+                        out.push(',');
+                    }
+                    out.push('\n');
