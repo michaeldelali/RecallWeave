@@ -103,3 +103,18 @@ impl Json {
                     }
                     item.write_compact(out);
                 }
+                out.push(']');
+            }
+            Json::Obj(map) => {
+                out.push('{');
+                for (i, (k, v)) in map.iter().enumerate() {
+                    if i > 0 {
+                        out.push(',');
+                    }
+                    write_json_string(k, out);
+                    out.push(':');
+                    v.write_compact(out);
+                }
+                out.push('}');
+            }
+        }
