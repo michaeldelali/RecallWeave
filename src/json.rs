@@ -133,3 +133,17 @@ impl Json {
                         out.push(',');
                     }
                     out.push('\n');
+                }
+                out.push_str(&pad);
+                out.push(']');
+            }
+            Json::Obj(map) if !map.is_empty() => {
+                out.push_str("{\n");
+                let len = map.len();
+                for (i, (k, v)) in map.iter().enumerate() {
+                    out.push_str(&pad_inner);
+                    write_json_string(k, out);
+                    out.push_str(": ");
+                    v.write_pretty(out, depth + 1);
+                    if i + 1 < len {
+                        out.push(',');
