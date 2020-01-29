@@ -147,3 +147,18 @@ impl Json {
                     v.write_pretty(out, depth + 1);
                     if i + 1 < len {
                         out.push(',');
+                    }
+                    out.push('\n');
+                }
+                out.push_str(&pad);
+                out.push('}');
+            }
+            // Empty containers and scalars: fall back to compact form.
+            _ => self.write_compact(out),
+        }
+    }
+
+    /// Parse a JSON string into a `Json` value.
+    pub fn parse(input: &str) -> Result<Json, String> {
+        let mut parser = Parser {
+            chars: input.chars().collect(),
