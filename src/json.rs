@@ -162,3 +162,18 @@ impl Json {
     pub fn parse(input: &str) -> Result<Json, String> {
         let mut parser = Parser {
             chars: input.chars().collect(),
+            pos: 0,
+        };
+        parser.skip_ws();
+        let value = parser.parse_value()?;
+        parser.skip_ws();
+        if parser.pos != parser.chars.len() {
+            return Err(format!("trailing characters at position {}", parser.pos));
+        }
+        Ok(value)
+    }
+}
+
+/// Format an f64 the way we want it in JSON: integers without a decimal point,
+/// finite floats with the shortest round-tripping representation Rust gives us.
+fn format_number(n: f64) -> String {
