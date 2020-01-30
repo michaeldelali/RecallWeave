@@ -177,3 +177,18 @@ impl Json {
 /// Format an f64 the way we want it in JSON: integers without a decimal point,
 /// finite floats with the shortest round-tripping representation Rust gives us.
 fn format_number(n: f64) -> String {
+    if n.is_finite() {
+        if n.fract() == 0.0 && n.abs() < 1e15 {
+            format!("{}", n as i64)
+        } else {
+            let mut s = String::new();
+            let _ = write!(s, "{}", n);
+            s
+        }
+    } else {
+        // JSON has no representation for NaN/Infinity; emit null defensively.
+        "null".to_string()
+    }
+}
+
+fn write_json_string(s: &str, out: &mut String) {
