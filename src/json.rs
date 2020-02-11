@@ -207,3 +207,18 @@ fn write_json_string(s: &str, out: &mut String) {
             }
             c => out.push(c),
         }
+    }
+    out.push('"');
+}
+
+struct Parser {
+    chars: Vec<char>,
+    pos: usize,
+}
+
+impl Parser {
+    fn peek(&self) -> Option<char> {
+        self.chars.get(self.pos).copied()
+    }
+
+    fn next(&mut self) -> Option<char> {
