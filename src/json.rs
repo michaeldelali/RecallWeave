@@ -222,3 +222,18 @@ impl Parser {
     }
 
     fn next(&mut self) -> Option<char> {
+        let c = self.chars.get(self.pos).copied();
+        if c.is_some() {
+            self.pos += 1;
+        }
+        c
+    }
+
+    fn skip_ws(&mut self) {
+        while let Some(c) = self.peek() {
+            if c == ' ' || c == '\t' || c == '\n' || c == '\r' {
+                self.pos += 1;
+            } else {
+                break;
+            }
+        }
