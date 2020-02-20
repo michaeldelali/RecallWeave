@@ -237,3 +237,18 @@ impl Parser {
                 break;
             }
         }
+    }
+
+    fn parse_value(&mut self) -> Result<Json, String> {
+        self.skip_ws();
+        match self.peek() {
+            Some('{') => self.parse_object(),
+            Some('[') => self.parse_array(),
+            Some('"') => Ok(Json::Str(self.parse_string()?)),
+            Some('t') | Some('f') => self.parse_bool(),
+            Some('n') => self.parse_null(),
+            Some(c) if c == '-' || c.is_ascii_digit() => self.parse_number(),
+            Some(c) => Err(format!("unexpected character '{}' at {}", c, self.pos)),
+            None => Err("unexpected end of input".to_string()),
+        }
+    }
