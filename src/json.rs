@@ -252,3 +252,18 @@ impl Parser {
             None => Err("unexpected end of input".to_string()),
         }
     }
+
+    fn parse_object(&mut self) -> Result<Json, String> {
+        self.next(); // consume '{'
+        let mut map = BTreeMap::new();
+        self.skip_ws();
+        if self.peek() == Some('}') {
+            self.next();
+            return Ok(Json::Obj(map));
+        }
+        loop {
+            self.skip_ws();
+            if self.peek() != Some('"') {
+                return Err(format!("expected string key at {}", self.pos));
+            }
+            let key = self.parse_string()?;
