@@ -282,3 +282,18 @@ impl Parser {
         }
         Ok(Json::Obj(map))
     }
+
+    fn parse_array(&mut self) -> Result<Json, String> {
+        self.next(); // consume '['
+        let mut items = Vec::new();
+        self.skip_ws();
+        if self.peek() == Some(']') {
+            self.next();
+            return Ok(Json::Arr(items));
+        }
+        loop {
+            let value = self.parse_value()?;
+            items.push(value);
+            self.skip_ws();
+            match self.next() {
+                Some(',') => continue,
