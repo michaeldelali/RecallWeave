@@ -267,3 +267,18 @@ impl Parser {
                 return Err(format!("expected string key at {}", self.pos));
             }
             let key = self.parse_string()?;
+            self.skip_ws();
+            if self.next() != Some(':') {
+                return Err(format!("expected ':' at {}", self.pos));
+            }
+            let value = self.parse_value()?;
+            map.insert(key, value);
+            self.skip_ws();
+            match self.next() {
+                Some(',') => continue,
+                Some('}') => break,
+                other => return Err(format!("expected ',' or '}}', got {:?}", other)),
+            }
+        }
+        Ok(Json::Obj(map))
+    }
