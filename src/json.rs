@@ -297,3 +297,18 @@ impl Parser {
             self.skip_ws();
             match self.next() {
                 Some(',') => continue,
+                Some(']') => break,
+                other => return Err(format!("expected ',' or ']', got {:?}", other)),
+            }
+        }
+        Ok(Json::Arr(items))
+    }
+
+    fn parse_string(&mut self) -> Result<String, String> {
+        self.next(); // consume opening quote
+        let mut s = String::new();
+        loop {
+            match self.next() {
+                Some('"') => break,
+                Some('\\') => match self.next() {
+                    Some('"') => s.push('"'),
