@@ -312,3 +312,18 @@ impl Parser {
                 Some('"') => break,
                 Some('\\') => match self.next() {
                     Some('"') => s.push('"'),
+                    Some('\\') => s.push('\\'),
+                    Some('/') => s.push('/'),
+                    Some('n') => s.push('\n'),
+                    Some('r') => s.push('\r'),
+                    Some('t') => s.push('\t'),
+                    Some('b') => s.push('\u{08}'),
+                    Some('f') => s.push('\u{0C}'),
+                    Some('u') => {
+                        let cp = self.parse_hex4()?;
+                        // Handle UTF-16 surrogate pairs.
+                        if (0xD800..=0xDBFF).contains(&cp) {
+                            if self.next() != Some('\\') || self.next() != Some('u') {
+                                return Err("invalid surrogate pair".to_string());
+                            }
+                            let low = self.parse_hex4()?;
