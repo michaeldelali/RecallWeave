@@ -327,3 +327,17 @@ impl Parser {
                                 return Err("invalid surrogate pair".to_string());
                             }
                             let low = self.parse_hex4()?;
+                            let combined = 0x10000 + ((cp - 0xD800) << 10) + (low - 0xDC00);
+                            match char::from_u32(combined) {
+                                Some(c) => s.push(c),
+                                None => return Err("invalid code point".to_string()),
+                            }
+                        } else {
+                            match char::from_u32(cp) {
+                                Some(c) => s.push(c),
+                                None => return Err("invalid code point".to_string()),
+                            }
+                        }
+                    }
+                    other => return Err(format!("invalid escape {:?}", other)),
+                },
