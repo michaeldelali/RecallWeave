@@ -341,3 +341,18 @@ impl Parser {
                     }
                     other => return Err(format!("invalid escape {:?}", other)),
                 },
+                Some(c) => s.push(c),
+                None => return Err("unterminated string".to_string()),
+            }
+        }
+        Ok(s)
+    }
+
+    fn parse_hex4(&mut self) -> Result<u32, String> {
+        let mut value = 0u32;
+        for _ in 0..4 {
+            let c = self.next().ok_or("unexpected end in \\u escape")?;
+            let digit = c
+                .to_digit(16)
+                .ok_or_else(|| format!("invalid hex digit '{}'", c))?;
+            value = value * 16 + digit;
