@@ -356,3 +356,18 @@ impl Parser {
                 .to_digit(16)
                 .ok_or_else(|| format!("invalid hex digit '{}'", c))?;
             value = value * 16 + digit;
+        }
+        Ok(value)
+    }
+
+    fn parse_bool(&mut self) -> Result<Json, String> {
+        if self.match_literal("true") {
+            Ok(Json::Bool(true))
+        } else if self.match_literal("false") {
+            Ok(Json::Bool(false))
+        } else {
+            Err(format!("invalid literal at {}", self.pos))
+        }
+    }
+
+    fn parse_null(&mut self) -> Result<Json, String> {
