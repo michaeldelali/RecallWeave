@@ -371,3 +371,18 @@ impl Parser {
     }
 
     fn parse_null(&mut self) -> Result<Json, String> {
+        if self.match_literal("null") {
+            Ok(Json::Null)
+        } else {
+            Err(format!("invalid literal at {}", self.pos))
+        }
+    }
+
+    fn match_literal(&mut self, lit: &str) -> bool {
+        let end = self.pos + lit.len();
+        if end <= self.chars.len() {
+            let slice: String = self.chars[self.pos..end].iter().collect();
+            if slice == lit {
+                self.pos = end;
+                return true;
+            }
