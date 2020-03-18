@@ -386,3 +386,18 @@ impl Parser {
                 self.pos = end;
                 return true;
             }
+        }
+        false
+    }
+
+    fn parse_number(&mut self) -> Result<Json, String> {
+        let start = self.pos;
+        if self.peek() == Some('-') {
+            self.next();
+        }
+        while let Some(c) = self.peek() {
+            if c.is_ascii_digit() {
+                self.next();
+            } else {
+                break;
+            }
