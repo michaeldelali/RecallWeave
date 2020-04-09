@@ -8,3 +8,4 @@
 //! portable export format ("memory-pack").
 //!
 //! The library is exercised by the `recallweave` binary (see `src/main.rs`) and
+//! by the integration tests in `tests/`. See `docs/MEMORY.md` for the data model
