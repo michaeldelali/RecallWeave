@@ -5,3 +5,5 @@
 //! of typed memories and provides the full lifecycle around them: assertion,
 //! deterministic dedupe, supersession, tombstoning, TTL-based forgetting,
 //! compaction, conflict detection, integrity verification, query/filter, and a
+//! portable export format ("memory-pack").
+//!
