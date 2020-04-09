@@ -7,3 +7,4 @@
 //! compaction, conflict detection, integrity verification, query/filter, and a
 //! portable export format ("memory-pack").
 //!
+//! The library is exercised by the `recallweave` binary (see `src/main.rs`) and
