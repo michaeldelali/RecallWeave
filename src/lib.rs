@@ -12,3 +12,5 @@
 //! and an honest account of what this engine does and does not do (notably: it
 //! performs no semantic/vector matching).
 
+pub mod hash;
+pub mod json;
