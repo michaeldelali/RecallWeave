@@ -11,3 +11,4 @@
 //! by the integration tests in `tests/`. See `docs/MEMORY.md` for the data model
 //! and an honest account of what this engine does and does not do (notably: it
 //! performs no semantic/vector matching).
+
