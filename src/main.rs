@@ -87,3 +87,21 @@ fn run(args: Vec<String>) -> Result<(), String> {
             Ok(())
         }
         "version" | "--version" | "-V" => {
+            println!("recallweave {}", recallweave::VERSION);
+            Ok(())
+        }
+        "add" => cmd_add(args),
+        "list" => cmd_list(args),
+        "query" => cmd_query(args),
+        "get" => cmd_get(args),
+        "supersede" => cmd_supersede(args),
+        "forget" => cmd_forget(args),
+        "gc" | "forget-expired" => cmd_forget_expired(args),
+        "conflicts" => cmd_conflicts(args),
+        "compact" => cmd_compact(args),
+        "verify" => cmd_verify(args),
+        "export" => cmd_export(args),
+        "stats" => cmd_stats(args),
+        other => Err(format!(
+            "unknown command '{}'. Try 'recallweave help'.",
+            other
