@@ -69,3 +69,21 @@ fn run(args: Vec<String>) -> Result<(), String> {
         }
     }
     let cmd = match cmd {
+        Some(c) => c,
+        None => {
+            // Only global flags were given; nothing to do but show help.
+            print_help();
+            return Ok(());
+        }
+    };
+    // Re-attach the leading global flags in front of the remaining args so the
+    // per-command parser sees them.
+    for tok in leading.into_iter().rev() {
+        args.push_front(tok);
+    }
+    match cmd.as_str() {
+        "help" | "--help" | "-h" => {
+            print_help();
+            Ok(())
+        }
+        "version" | "--version" | "-V" => {
