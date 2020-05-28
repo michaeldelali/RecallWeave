@@ -105,3 +105,21 @@ fn run(args: Vec<String>) -> Result<(), String> {
         other => Err(format!(
             "unknown command '{}'. Try 'recallweave help'.",
             other
+        )),
+    }
+}
+
+// ---- flag parsing helpers --------------------------------------------------
+
+/// A tiny option bag: pulls `--key value` and `--flag` out of the arg deque,
+/// leaving positional arguments behind.
+struct Flags {
+    map: std::collections::HashMap<String, String>,
+    bools: std::collections::HashSet<String>,
+    positionals: Vec<String>,
+}
+
+impl Flags {
+    fn parse(args: VecDeque<String>, bool_flags: &[&str]) -> Result<Flags, String> {
+        let mut map = std::collections::HashMap::new();
+        let mut bools = std::collections::HashSet::new();
