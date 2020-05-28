@@ -141,3 +141,21 @@ impl Flags {
         }
         Ok(Flags {
             map,
+            bools,
+            positionals,
+        })
+    }
+
+    fn get(&self, key: &str) -> Option<&str> {
+        self.map.get(key).map(|s| s.as_str())
+    }
+
+    fn get_or(&self, key: &str, default: &str) -> String {
+        self.map
+            .get(key)
+            .cloned()
+            .unwrap_or_else(|| default.to_string())
+    }
+
+    fn has(&self, key: &str) -> bool {
+        self.bools.contains(key)
