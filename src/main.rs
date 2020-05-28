@@ -123,3 +123,21 @@ impl Flags {
     fn parse(args: VecDeque<String>, bool_flags: &[&str]) -> Result<Flags, String> {
         let mut map = std::collections::HashMap::new();
         let mut bools = std::collections::HashSet::new();
+        let mut positionals = Vec::new();
+        let mut it = args.into_iter();
+        while let Some(tok) = it.next() {
+            if let Some(name) = tok.strip_prefix("--") {
+                if bool_flags.contains(&name) {
+                    bools.insert(name.to_string());
+                } else {
+                    let value = it
+                        .next()
+                        .ok_or_else(|| format!("flag --{} requires a value", name))?;
+                    map.insert(name.to_string(), value);
+                }
+            } else {
+                positionals.push(tok);
+            }
+        }
+        Ok(Flags {
+            map,
