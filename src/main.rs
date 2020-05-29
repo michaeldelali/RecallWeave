@@ -159,3 +159,22 @@ impl Flags {
 
     fn has(&self, key: &str) -> bool {
         self.bools.contains(key)
+    }
+
+    fn dir(&self) -> PathBuf {
+        PathBuf::from(self.get_or("dir", ".recallweave"))
+    }
+}
+
+fn parse_tags(raw: Option<&str>) -> Vec<String> {
+    match raw {
+        Some(s) if !s.is_empty() => s
+            .split(',')
+            .map(|t| t.trim().to_string())
+            .filter(|t| !t.is_empty())
+            .collect(),
+        _ => Vec::new(),
+    }
+}
+
+// ---- commands --------------------------------------------------------------
