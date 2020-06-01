@@ -178,3 +178,21 @@ fn parse_tags(raw: Option<&str>) -> Vec<String> {
 }
 
 // ---- commands --------------------------------------------------------------
+
+fn cmd_add(args: VecDeque<String>) -> Result<(), String> {
+    let flags = Flags::parse(args, &["json"])?;
+    let kind = MemoryKind::parse(
+        flags
+            .get("kind")
+            .ok_or("add requires --kind <episodic|semantic|procedural|preference>")?,
+    )?;
+    let content = flags
+        .get("content")
+        .or_else(|| flags.positionals.first().map(|s| s.as_str()))
+        .ok_or("add requires --content <text> (or a positional content argument)")?
+        .to_string();
+    let confidence: f64 = flags
+        .get_or("confidence", "1.0")
+        .parse()
+        .map_err(|_| "confidence must be a number in [0,1]".to_string())?;
+    let ttl = match flags.get("ttl") {
