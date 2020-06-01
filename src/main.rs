@@ -196,3 +196,21 @@ fn cmd_add(args: VecDeque<String>) -> Result<(), String> {
         .parse()
         .map_err(|_| "confidence must be a number in [0,1]".to_string())?;
     let ttl = match flags.get("ttl") {
+        Some(v) => Some(
+            v.parse::<u64>()
+                .map_err(|_| "ttl must be a non-negative integer (seconds)".to_string())?,
+        ),
+        None => None,
+    };
+    let spec = AssertSpec {
+        kind,
+        content,
+        provenance: Provenance {
+            source: flags.get_or("source", "user"),
+            detail: flags.get_or("detail", ""),
+        },
+        confidence,
+        tags: parse_tags(flags.get("tags")),
+        links: parse_tags(flags.get("links")),
+        ttl_secs: ttl,
+        supersedes: flags.get("supersedes").map(|s| s.to_string()),
