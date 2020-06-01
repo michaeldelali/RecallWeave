@@ -214,3 +214,21 @@ fn cmd_add(args: VecDeque<String>) -> Result<(), String> {
         links: parse_tags(flags.get("links")),
         ttl_secs: ttl,
         supersedes: flags.get("supersedes").map(|s| s.to_string()),
+    };
+
+    let mut store = Store::open(&flags.dir())?;
+    let now = clock(&flags);
+    let (id, deduped) = store.assert(spec, now)?;
+    if flags.has("json") {
+        let obj = recallweave::json::obj(vec![
+            ("id", recallweave::json::s(&id)),
+            ("deduped", Json::Bool(deduped)),
+        ]);
+        println!("{}", obj.to_compact());
+    } else if deduped {
+        println!("deduped -> existing memory {}", id);
+    } else {
+        println!("added {}", id);
+    }
+    Ok(())
+}
