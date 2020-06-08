@@ -232,3 +232,21 @@ fn cmd_add(args: VecDeque<String>) -> Result<(), String> {
     }
     Ok(())
 }
+
+fn cmd_list(args: VecDeque<String>) -> Result<(), String> {
+    let flags = Flags::parse(args, &["json", "all"])?;
+    let store = Store::open(&flags.dir())?;
+    let now = clock(&flags);
+    let mems = if flags.has("all") {
+        store.all()
+    } else {
+        store.live(now)
+    };
+    print_memories(&mems, flags.has("json"));
+    Ok(())
+}
+
+fn cmd_query(args: VecDeque<String>) -> Result<(), String> {
+    let flags = Flags::parse(args, &["json", "all"])?;
+    let store = Store::open(&flags.dir())?;
+    let now = clock(&flags);
