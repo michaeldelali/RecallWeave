@@ -250,3 +250,22 @@ fn cmd_query(args: VecDeque<String>) -> Result<(), String> {
     let flags = Flags::parse(args, &["json", "all"])?;
     let store = Store::open(&flags.dir())?;
     let now = clock(&flags);
+    let pool = if flags.has("all") {
+        store.all()
+    } else {
+        store.live(now)
+    };
+    let query = Query {
+        kind: match flags.get("kind") {
+            Some(k) => Some(MemoryKind::parse(k)?),
+            None => None,
+        },
+        tag: flags.get("tag").map(|s| s.to_string()),
+        contains: flags.get("contains").map(|s| s.to_string()),
+        min_confidence: match flags.get("min-confidence") {
+            Some(v) => Some(
+                v.parse()
+                    .map_err(|_| "min-confidence must be a number".to_string())?,
+            ),
+            None => None,
+        },
