@@ -323,3 +323,21 @@ fn cmd_supersede(args: VecDeque<String>) -> Result<(), String> {
     let now = clock(&flags);
     // Inherit kind from the old memory unless overridden.
     let old_kind = {
+        let map = store.materialize();
+        let m = map
+            .get(&old_id)
+            .ok_or_else(|| format!("no memory with id '{}'", old_id))?;
+        m.kind
+    };
+    let kind = match flags.get("kind") {
+        Some(k) => MemoryKind::parse(k)?,
+        None => old_kind,
+    };
+    let confidence: f64 = flags
+        .get_or("confidence", "1.0")
+        .parse()
+        .map_err(|_| "confidence must be a number in [0,1]".to_string())?;
+    let spec = AssertSpec {
+        kind,
+        content,
+        provenance: Provenance {
