@@ -287,3 +287,21 @@ fn cmd_query(args: VecDeque<String>) -> Result<(), String> {
     Ok(())
 }
 
+fn cmd_get(args: VecDeque<String>) -> Result<(), String> {
+    let flags = Flags::parse(args, &["json"])?;
+    let id = flags
+        .positionals
+        .first()
+        .or_else(|| flags.map.get("id"))
+        .ok_or("get requires an id (positional or --id)")?
+        .clone();
+    let store = Store::open(&flags.dir())?;
+    let map = store.materialize();
+    let mem = map
+        .get(&id)
+        .ok_or_else(|| format!("no memory with id '{}'", id))?;
+    if flags.has("json") {
+        println!("{}", mem.to_json().to_pretty());
+    } else {
+        print_memory_detail(mem);
+    }
