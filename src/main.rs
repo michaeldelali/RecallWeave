@@ -305,3 +305,21 @@ fn cmd_get(args: VecDeque<String>) -> Result<(), String> {
     } else {
         print_memory_detail(mem);
     }
+    Ok(())
+}
+
+fn cmd_supersede(args: VecDeque<String>) -> Result<(), String> {
+    let flags = Flags::parse(args, &["json"])?;
+    let old_id = flags
+        .get("old")
+        .ok_or("supersede requires --old <id>")?
+        .to_string();
+    let content = flags
+        .get("content")
+        .ok_or("supersede requires --content <text>")?
+        .to_string();
+    let store_dir = flags.dir();
+    let mut store = Store::open(&store_dir)?;
+    let now = clock(&flags);
+    // Inherit kind from the old memory unless overridden.
+    let old_kind = {
