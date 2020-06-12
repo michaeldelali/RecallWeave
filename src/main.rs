@@ -269,3 +269,21 @@ fn cmd_query(args: VecDeque<String>) -> Result<(), String> {
             ),
             None => None,
         },
+        source: flags.get("source").map(|s| s.to_string()),
+        sort: match flags.get("sort") {
+            Some(s) => Some(Sort::parse(s)?),
+            None => None,
+        },
+        limit: match flags.get("limit") {
+            Some(v) => Some(
+                v.parse()
+                    .map_err(|_| "limit must be an integer".to_string())?,
+            ),
+            None => None,
+        },
+    };
+    let results = query.run(&pool);
+    print_memories(&results, flags.has("json"));
+    Ok(())
+}
+
