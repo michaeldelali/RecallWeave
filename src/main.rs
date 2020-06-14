@@ -341,3 +341,22 @@ fn cmd_supersede(args: VecDeque<String>) -> Result<(), String> {
         kind,
         content,
         provenance: Provenance {
+            source: flags.get_or("source", "user"),
+            detail: flags.get_or("detail", ""),
+        },
+        confidence,
+        tags: parse_tags(flags.get("tags")),
+        links: parse_tags(flags.get("links")),
+        ttl_secs: None,
+        supersedes: Some(old_id.clone()),
+    };
+    let (new_id, _) = store.assert(spec, now)?;
+    if flags.has("json") {
+        let obj = recallweave::json::obj(vec![
+            ("old", recallweave::json::s(&old_id)),
+            ("new", recallweave::json::s(&new_id)),
+        ]);
+        println!("{}", obj.to_compact());
+    } else {
+        println!("{} superseded by {}", old_id, new_id);
+    }
