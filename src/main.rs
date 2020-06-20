@@ -360,3 +360,21 @@ fn cmd_supersede(args: VecDeque<String>) -> Result<(), String> {
     } else {
         println!("{} superseded by {}", old_id, new_id);
     }
+    Ok(())
+}
+
+fn cmd_forget(args: VecDeque<String>) -> Result<(), String> {
+    let flags = Flags::parse(args, &["json"])?;
+    let id = flags
+        .positionals
+        .first()
+        .or_else(|| flags.map.get("id"))
+        .ok_or("forget requires an id (positional or --id)")?
+        .clone();
+    let reason = flags.get_or("reason", "manual");
+    let mut store = Store::open(&flags.dir())?;
+    let now = clock(&flags);
+    store.tombstone(&id, &reason, now)?;
+    if flags.has("json") {
+        println!("{{\"forgotten\":\"{}\"}}", id);
+    } else {
