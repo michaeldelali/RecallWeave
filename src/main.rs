@@ -378,3 +378,21 @@ fn cmd_forget(args: VecDeque<String>) -> Result<(), String> {
     if flags.has("json") {
         println!("{{\"forgotten\":\"{}\"}}", id);
     } else {
+        println!("forgot {} ({})", id, reason);
+    }
+    Ok(())
+}
+
+fn cmd_forget_expired(args: VecDeque<String>) -> Result<(), String> {
+    let flags = Flags::parse(args, &["json"])?;
+    let mut store = Store::open(&flags.dir())?;
+    let now = clock(&flags);
+    let forgotten = store.forget_expired(now)?;
+    if flags.has("json") {
+        let arr =
+            recallweave::json::arr(forgotten.iter().map(|i| recallweave::json::s(i)).collect());
+        println!("{}", arr.to_compact());
+    } else if forgotten.is_empty() {
+        println!("nothing expired");
+    } else {
+        println!("forgot {} expired memories:", forgotten.len());
