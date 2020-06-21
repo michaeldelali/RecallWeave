@@ -451,3 +451,21 @@ fn cmd_compact(args: VecDeque<String>) -> Result<(), String> {
                 "dropped_tombstoned",
                 recallweave::json::num(report.dropped_tombstoned as f64),
             ),
+            (
+                "dropped_superseded",
+                recallweave::json::num(report.dropped_superseded as f64),
+            ),
+            (
+                "dropped_expired",
+                recallweave::json::num(report.dropped_expired as f64),
+            ),
+        ]);
+        println!("{}", obj.to_compact());
+    } else {
+        println!(
+            "compacted {} -> {} records (dropped {} tombstoned, {} superseded, {} expired)",
+            report.before_records,
+            report.after_records,
+            report.dropped_tombstoned,
+            report.dropped_superseded,
+            report.dropped_expired
