@@ -432,3 +432,22 @@ fn cmd_conflicts(args: VecDeque<String>) -> Result<(), String> {
     Ok(())
 }
 
+fn cmd_compact(args: VecDeque<String>) -> Result<(), String> {
+    let flags = Flags::parse(args, &["json"])?;
+    let mut store = Store::open(&flags.dir())?;
+    let now = clock(&flags);
+    let report = store.compact(now)?;
+    if flags.has("json") {
+        let obj = recallweave::json::obj(vec![
+            (
+                "before_records",
+                recallweave::json::num(report.before_records as f64),
+            ),
+            (
+                "after_records",
+                recallweave::json::num(report.after_records as f64),
+            ),
+            (
+                "dropped_tombstoned",
+                recallweave::json::num(report.dropped_tombstoned as f64),
+            ),
