@@ -469,3 +469,21 @@ fn cmd_compact(args: VecDeque<String>) -> Result<(), String> {
             report.dropped_tombstoned,
             report.dropped_superseded,
             report.dropped_expired
+        );
+    }
+    Ok(())
+}
+
+fn cmd_verify(args: VecDeque<String>) -> Result<(), String> {
+    let flags = Flags::parse(args, &["json"])?;
+    let store = Store::open(&flags.dir())?;
+    let report = store.verify();
+    if flags.has("json") {
+        let errs: Vec<Json> = report
+            .errors
+            .iter()
+            .map(|e| recallweave::json::s(e))
+            .collect();
+        let obj = recallweave::json::obj(vec![
+            ("records", recallweave::json::num(report.records as f64)),
+            ("ok", Json::Bool(report.ok)),
