@@ -396,3 +396,21 @@ fn cmd_forget_expired(args: VecDeque<String>) -> Result<(), String> {
         println!("nothing expired");
     } else {
         println!("forgot {} expired memories:", forgotten.len());
+        for id in forgotten {
+            println!("  {}", id);
+        }
+    }
+    Ok(())
+}
+
+fn cmd_conflicts(args: VecDeque<String>) -> Result<(), String> {
+    let flags = Flags::parse(args, &["json"])?;
+    let store = Store::open(&flags.dir())?;
+    let now = clock(&flags);
+    let conflicts = store.detect_conflicts(now);
+    if flags.has("json") {
+        let items: Vec<Json> = conflicts
+            .iter()
+            .map(|c| {
+                recallweave::json::obj(vec![
+                    ("a", recallweave::json::s(&c.a)),
