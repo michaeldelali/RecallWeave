@@ -414,3 +414,21 @@ fn cmd_conflicts(args: VecDeque<String>) -> Result<(), String> {
             .map(|c| {
                 recallweave::json::obj(vec![
                     ("a", recallweave::json::s(&c.a)),
+                    ("b", recallweave::json::s(&c.b)),
+                    ("kind", recallweave::json::s(&c.kind)),
+                    ("explanation", recallweave::json::s(&c.explanation)),
+                ])
+            })
+            .collect();
+        println!("{}", recallweave::json::arr(items).to_pretty());
+    } else if conflicts.is_empty() {
+        println!("no conflicts detected");
+    } else {
+        println!("{} conflict(s):", conflicts.len());
+        for c in conflicts {
+            println!("  [{}] {} <-> {}: {}", c.kind, c.a, c.b, c.explanation);
+        }
+    }
+    Ok(())
+}
+
