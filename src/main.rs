@@ -523,3 +523,22 @@ fn cmd_export(args: VecDeque<String>) -> Result<(), String> {
 }
 
 fn cmd_stats(args: VecDeque<String>) -> Result<(), String> {
+    let flags = Flags::parse(args, &["json"])?;
+    let store = Store::open(&flags.dir())?;
+    let now = clock(&flags);
+    let pack = store.export_pack(now);
+    if flags.has("json") {
+        // Reuse the pack minus the memory bodies for a compact summary.
+        let mut summary = std::collections::BTreeMap::new();
+        for key in [
+            "record_count",
+            "live_count",
+            "counts_by_kind",
+            "tag_counts",
+            "integrity_head",
+        ] {
+            if let Some(v) = pack.get(key) {
+                summary.insert(key.to_string(), v.clone());
+            }
+        }
+        println!("{}", Json::Obj(summary).to_pretty());
