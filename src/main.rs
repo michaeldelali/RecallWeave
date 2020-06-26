@@ -560,3 +560,21 @@ fn cmd_stats(args: VecDeque<String>) -> Result<(), String> {
         println!(
             "head:       {}",
             pack.get("integrity_head")
+                .and_then(Json::as_str)
+                .unwrap_or("")
+        );
+    }
+    Ok(())
+}
+
+// ---- output helpers --------------------------------------------------------
+
+fn print_memories(mems: &[recallweave::model::Memory], as_json: bool) {
+    if as_json {
+        let items: Vec<Json> = mems.iter().map(|m| m.to_json()).collect();
+        println!("{}", recallweave::json::arr(items).to_pretty());
+        return;
+    }
+    if mems.is_empty() {
+        println!("(no memories)");
+        return;
