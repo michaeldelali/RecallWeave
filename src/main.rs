@@ -542,3 +542,21 @@ fn cmd_stats(args: VecDeque<String>) -> Result<(), String> {
             }
         }
         println!("{}", Json::Obj(summary).to_pretty());
+    } else {
+        println!(
+            "records:    {}",
+            pack.get("record_count").and_then(Json::as_u64).unwrap_or(0)
+        );
+        println!(
+            "live:       {}",
+            pack.get("live_count").and_then(Json::as_u64).unwrap_or(0)
+        );
+        if let Some(Json::Obj(kinds)) = pack.get("counts_by_kind") {
+            println!("by kind:");
+            for (k, v) in kinds {
+                println!("  {:<11} {}", k, v.as_u64().unwrap_or(0));
+            }
+        }
+        println!(
+            "head:       {}",
+            pack.get("integrity_head")
