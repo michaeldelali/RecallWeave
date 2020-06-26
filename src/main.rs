@@ -487,3 +487,21 @@ fn cmd_verify(args: VecDeque<String>) -> Result<(), String> {
         let obj = recallweave::json::obj(vec![
             ("records", recallweave::json::num(report.records as f64)),
             ("ok", Json::Bool(report.ok)),
+            ("errors", recallweave::json::arr(errs)),
+        ]);
+        println!("{}", obj.to_pretty());
+    } else if report.ok {
+        println!("integrity OK: {} records, chain intact", report.records);
+    } else {
+        println!("integrity FAILED ({} records):", report.records);
+        for e in &report.errors {
+            println!("  - {}", e);
+        }
+    }
+    if report.ok {
+        Ok(())
+    } else {
+        Err("integrity verification failed".to_string())
+    }
+}
+
