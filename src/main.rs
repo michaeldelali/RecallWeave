@@ -505,3 +505,21 @@ fn cmd_verify(args: VecDeque<String>) -> Result<(), String> {
     }
 }
 
+fn cmd_export(args: VecDeque<String>) -> Result<(), String> {
+    let flags = Flags::parse(args, &[])?;
+    let store = Store::open(&flags.dir())?;
+    let now = clock(&flags);
+    let pack = store.export_pack(now);
+    let text = pack.to_pretty();
+    match flags.get("out") {
+        Some(path) => {
+            std::fs::write(path, text.as_bytes())
+                .map_err(|e| format!("writing pack to {}: {}", path, e))?;
+            eprintln!("wrote memory-pack to {}", path);
+        }
+        None => println!("{}", text),
+    }
+    Ok(())
+}
+
+fn cmd_stats(args: VecDeque<String>) -> Result<(), String> {
