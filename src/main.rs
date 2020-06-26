@@ -578,3 +578,21 @@ fn print_memories(mems: &[recallweave::model::Memory], as_json: bool) {
     if mems.is_empty() {
         println!("(no memories)");
         return;
+    }
+    for m in mems {
+        let status = if m.tombstoned {
+            " [tombstoned]"
+        } else if m.superseded_by.is_some() {
+            " [superseded]"
+        } else {
+            ""
+        };
+        println!(
+            "{}  {:<10} c={:.2}  {}{}",
+            m.id,
+            m.kind.as_str(),
+            m.confidence,
+            m.content,
+            status
+        );
+        if !m.tags.is_empty() {
