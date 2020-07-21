@@ -614,3 +614,22 @@ fn print_memory_detail(m: &recallweave::model::Memory) {
     println!("created_at:    {}", m.created_at);
     println!(
         "ttl_secs:      {}",
+        m.ttl_secs
+            .map(|t| t.to_string())
+            .unwrap_or_else(|| "-".to_string())
+    );
+    println!(
+        "tags:          {}",
+        if m.tags.is_empty() {
+            "-".to_string()
+        } else {
+            m.tags.join(", ")
+        }
+    );
+    println!(
+        "links:         {}",
+        if m.links.is_empty() {
+            "-".to_string()
+        } else {
+            m.links.join(", ")
+        }
