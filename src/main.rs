@@ -596,3 +596,21 @@ fn print_memories(mems: &[recallweave::model::Memory], as_json: bool) {
             status
         );
         if !m.tags.is_empty() {
+            println!("    tags: {}", m.tags.join(", "));
+        }
+    }
+}
+
+fn print_memory_detail(m: &recallweave::model::Memory) {
+    println!("id:            {}", m.id);
+    println!("kind:          {}", m.kind.as_str());
+    println!("content:       {}", m.content);
+    println!("fingerprint:   {}", m.fingerprint);
+    println!("confidence:    {:.2}", m.confidence);
+    println!(
+        "provenance:    {} ({})",
+        m.provenance.source, m.provenance.detail
+    );
+    println!("created_at:    {}", m.created_at);
+    println!(
+        "ttl_secs:      {}",
