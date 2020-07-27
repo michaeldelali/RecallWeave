@@ -37,3 +37,16 @@ impl MemoryKind {
     }
 
     pub fn parse(value: &str) -> Result<MemoryKind, String> {
+        match value {
+            "episodic" => Ok(MemoryKind::Episodic),
+            "semantic" => Ok(MemoryKind::Semantic),
+            "procedural" => Ok(MemoryKind::Procedural),
+            "preference" => Ok(MemoryKind::Preference),
+            other => Err(format!(
+                "unknown memory kind '{}' (expected episodic|semantic|procedural|preference)",
+                other
+            )),
+        }
+    }
+}
+
