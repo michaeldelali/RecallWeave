@@ -50,3 +50,16 @@ impl MemoryKind {
     }
 }
 
+/// Where a memory came from. Provenance is first-class: an agent should always
+/// be able to answer "why do I believe this?".
+#[derive(Debug, Clone, PartialEq)]
+pub struct Provenance {
+    /// e.g. "user", "tool:web", "inference", "import"
+    pub source: String,
+    /// Free-form detail: a URL, a conversation id, a tool name, etc.
+    pub detail: String,
+}
+
+impl Provenance {
+    pub fn to_json(&self) -> Json {
+        obj(vec![
