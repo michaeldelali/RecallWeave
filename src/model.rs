@@ -63,3 +63,17 @@ pub struct Provenance {
 impl Provenance {
     pub fn to_json(&self) -> Json {
         obj(vec![
+            ("source", s(&self.source)),
+            ("detail", s(&self.detail)),
+        ])
+    }
+
+    pub fn from_json(v: &Json) -> Result<Provenance, String> {
+        Ok(Provenance {
+            source: v
+                .get("source")
+                .and_then(Json::as_str)
+                .unwrap_or("unknown")
+                .to_string(),
+            detail: v
+                .get("detail")
