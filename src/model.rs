@@ -90,3 +90,17 @@ pub struct Memory {
     pub id: String,
     pub kind: MemoryKind,
     pub content: String,
+    /// A short lexical fingerprint of the normalized content (dedupe key).
+    pub fingerprint: String,
+    pub provenance: Provenance,
+    /// Subjective confidence in [0.0, 1.0].
+    pub confidence: f64,
+    /// Sorted, de-duplicated tag list.
+    pub tags: Vec<String>,
+    /// IDs of related memories (a lightweight knowledge graph).
+    pub links: Vec<String>,
+    /// Logical creation time (seconds since Unix epoch).
+    pub created_at: u64,
+    /// Optional time-to-live in seconds. `None` means "keep indefinitely".
+    pub ttl_secs: Option<u64>,
+    /// If this memory replaced another, the id of the memory it superseded.
