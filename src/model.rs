@@ -77,3 +77,16 @@ impl Provenance {
                 .to_string(),
             detail: v
                 .get("detail")
+                .and_then(Json::as_str)
+                .unwrap_or("")
+                .to_string(),
+        })
+    }
+}
+
+/// A single memory record in its current, materialized form.
+#[derive(Debug, Clone, PartialEq)]
+pub struct Memory {
+    pub id: String,
+    pub kind: MemoryKind,
+    pub content: String,
