@@ -104,3 +104,16 @@ pub struct Memory {
     /// Optional time-to-live in seconds. `None` means "keep indefinitely".
     pub ttl_secs: Option<u64>,
     /// If this memory replaced another, the id of the memory it superseded.
+    pub supersedes: Option<String>,
+    /// If a later memory replaced this one, its id. Set during materialization.
+    pub superseded_by: Option<String>,
+    /// True once a tombstone event has retired this memory.
+    pub tombstoned: bool,
+    /// The reason recorded when tombstoned (forgotten, superseded, conflict...).
+    pub tombstone_reason: Option<String>,
+}
+
+impl Memory {
+    /// Has this memory expired relative to `now` (epoch seconds)?
+    pub fn is_expired(&self, now: u64) -> bool {
+        match self.ttl_secs {
