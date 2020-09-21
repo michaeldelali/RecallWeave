@@ -130,3 +130,17 @@ impl Memory {
     pub fn to_json(&self) -> Json {
         let mut pairs: Vec<(&str, Json)> = vec![
             ("id", s(&self.id)),
+            ("kind", s(self.kind.as_str())),
+            ("content", s(&self.content)),
+            ("fingerprint", s(&self.fingerprint)),
+            ("provenance", self.provenance.to_json()),
+            ("confidence", num(self.confidence)),
+            ("tags", arr(self.tags.iter().map(|t| s(t)).collect())),
+            ("links", arr(self.links.iter().map(|l| s(l)).collect())),
+            ("created_at", num(self.created_at as f64)),
+            ("tombstoned", Json::Bool(self.tombstoned)),
+        ];
+        pairs.push((
+            "ttl_secs",
+            match self.ttl_secs {
+                Some(t) => num(t as f64),
