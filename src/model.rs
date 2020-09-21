@@ -144,3 +144,16 @@ impl Memory {
             "ttl_secs",
             match self.ttl_secs {
                 Some(t) => num(t as f64),
+                None => Json::Null,
+            },
+        ));
+        pairs.push((
+            "supersedes",
+            match &self.supersedes {
+                Some(x) => s(x),
+                None => Json::Null,
+            },
+        ));
+        pairs.push((
+            "superseded_by",
+            match &self.superseded_by {
