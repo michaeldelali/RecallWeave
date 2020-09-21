@@ -117,3 +117,16 @@ impl Memory {
     /// Has this memory expired relative to `now` (epoch seconds)?
     pub fn is_expired(&self, now: u64) -> bool {
         match self.ttl_secs {
+            Some(ttl) => now >= self.created_at.saturating_add(ttl),
+            None => false,
+        }
+    }
+
+    /// Is this memory "live": not tombstoned, not superseded, not expired?
+    pub fn is_live(&self, now: u64) -> bool {
+        !self.tombstoned && self.superseded_by.is_none() && !self.is_expired(now)
+    }
+
+    pub fn to_json(&self) -> Json {
+        let mut pairs: Vec<(&str, Json)> = vec![
+            ("id", s(&self.id)),
