@@ -197,3 +197,17 @@ impl Memory {
             tags: str_vec(v, "tags"),
             links: str_vec(v, "links"),
             created_at: v.get("created_at").and_then(Json::as_u64).unwrap_or(0),
+            ttl_secs: v.get("ttl_secs").and_then(Json::as_u64),
+            supersedes: opt_str(v, "supersedes"),
+            superseded_by: opt_str(v, "superseded_by"),
+            tombstoned: v.get("tombstoned").and_then(Json::as_bool).unwrap_or(false),
+            tombstone_reason: opt_str(v, "tombstone_reason"),
+        })
+    }
+}
+
+/// An event appended to the log. The log is the source of truth; [`Memory`]
+/// values are derived by replaying events in order.
+#[derive(Debug, Clone, PartialEq)]
+pub enum Event {
+    /// A new memory was asserted.
