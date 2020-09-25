@@ -171,3 +171,16 @@ impl Memory {
         obj(pairs)
     }
 
+    pub fn from_json(v: &Json) -> Result<Memory, String> {
+        let id = req_str(v, "id")?;
+        let kind = MemoryKind::parse(&req_str(v, "kind")?)?;
+        let content = req_str(v, "content")?;
+        let fingerprint = v
+            .get("fingerprint")
+            .and_then(Json::as_str)
+            .map(|x| x.to_string())
+            .unwrap_or_else(|| content_fingerprint(&content));
+        let provenance = match v.get("provenance") {
+            Some(p) => Provenance::from_json(p)?,
+            None => Provenance {
+                source: "unknown".to_string(),
