@@ -184,3 +184,16 @@ impl Memory {
             Some(p) => Provenance::from_json(p)?,
             None => Provenance {
                 source: "unknown".to_string(),
+                detail: String::new(),
+            },
+        };
+        Ok(Memory {
+            id,
+            kind,
+            content,
+            fingerprint,
+            provenance,
+            confidence: v.get("confidence").and_then(Json::as_f64).unwrap_or(1.0),
+            tags: str_vec(v, "tags"),
+            links: str_vec(v, "links"),
+            created_at: v.get("created_at").and_then(Json::as_u64).unwrap_or(0),
