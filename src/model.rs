@@ -157,3 +157,17 @@ impl Memory {
         pairs.push((
             "superseded_by",
             match &self.superseded_by {
+                Some(x) => s(x),
+                None => Json::Null,
+            },
+        ));
+        pairs.push((
+            "tombstone_reason",
+            match &self.tombstone_reason {
+                Some(x) => s(x),
+                None => Json::Null,
+            },
+        ));
+        obj(pairs)
+    }
+
