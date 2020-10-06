@@ -211,3 +211,16 @@ impl Memory {
 #[derive(Debug, Clone, PartialEq)]
 pub enum Event {
     /// A new memory was asserted.
+    Assert(Memory),
+    /// A memory was retired. Carries the target id and a reason.
+    Tombstone { id: String, reason: String },
+    /// One memory replaced another. The `new` memory's `supersedes` points at
+    /// `old_id`; recording it as a distinct event keeps the intent explicit.
+    Supersede { old_id: String, new: Memory },
+}
+
+/// A log line: an event plus the integrity chain fields.
+#[derive(Debug, Clone, PartialEq)]
+pub struct LogRecord {
+    /// Monotonic sequence number, starting at 1.
+    pub seq: u64,
