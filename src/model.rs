@@ -238,3 +238,16 @@ impl LogRecord {
     /// intentionally excludes `digest` itself but includes everything else, so
     /// any edit to seq/ts/event/prev is detected by verification.
     pub fn payload_json(&self) -> Json {
+        let (etype, ebody) = match &self.event {
+            Event::Assert(m) => ("assert", m.to_json()),
+            Event::Tombstone { id, reason } => {
+                ("tombstone", obj(vec![("id", s(id)), ("reason", s(reason))]))
+            }
+            Event::Supersede { old_id, new } => (
+                "supersede",
+                obj(vec![("old_id", s(old_id)), ("new", new.to_json())]),
+            ),
+        };
+        obj(vec![
+            ("seq", num(self.seq as f64)),
+            ("ts", num(self.ts as f64)),
