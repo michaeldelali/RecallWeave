@@ -224,3 +224,17 @@ pub enum Event {
 pub struct LogRecord {
     /// Monotonic sequence number, starting at 1.
     pub seq: u64,
+    /// Wall-clock timestamp the record was written (epoch seconds).
+    pub ts: u64,
+    pub event: Event,
+    /// Digest of the previous record ("0"*64 for the first record).
+    pub prev: String,
+    /// Chained digest committing to `prev` + this record's payload.
+    pub digest: String,
+}
+
+impl LogRecord {
+    /// The canonical payload bytes over which the digest is computed. It
+    /// intentionally excludes `digest` itself but includes everything else, so
+    /// any edit to seq/ts/event/prev is detected by verification.
+    pub fn payload_json(&self) -> Json {
