@@ -251,3 +251,16 @@ impl LogRecord {
         obj(vec![
             ("seq", num(self.seq as f64)),
             ("ts", num(self.ts as f64)),
+            ("type", s(etype)),
+            ("event", ebody),
+            ("prev", s(&self.prev)),
+        ])
+    }
+
+    /// Full on-disk JSON for the record (payload + digest).
+    pub fn to_json(&self) -> Json {
+        let mut map = match self.payload_json() {
+            Json::Obj(m) => m,
+            _ => BTreeMap::new(),
+        };
+        map.insert("digest".to_string(), s(&self.digest));
