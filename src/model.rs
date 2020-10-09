@@ -264,3 +264,17 @@ impl LogRecord {
             _ => BTreeMap::new(),
         };
         map.insert("digest".to_string(), s(&self.digest));
+        Json::Obj(map)
+    }
+
+    pub fn from_json(v: &Json) -> Result<LogRecord, String> {
+        let seq = v.get("seq").and_then(Json::as_u64).ok_or("missing seq")?;
+        let ts = v.get("ts").and_then(Json::as_u64).unwrap_or(0);
+        let prev = req_str(v, "prev")?;
+        let digest = req_str(v, "digest")?;
+        let etype = req_str(v, "type")?;
+        let body = v.get("event").ok_or("missing event body")?;
+        let event = match etype.as_str() {
+            "assert" => Event::Assert(Memory::from_json(body)?),
+            "tombstone" => Event::Tombstone {
+                id: req_str(body, "id")?,
