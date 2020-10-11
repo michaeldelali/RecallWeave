@@ -278,3 +278,16 @@ impl LogRecord {
             "assert" => Event::Assert(Memory::from_json(body)?),
             "tombstone" => Event::Tombstone {
                 id: req_str(body, "id")?,
+                reason: body
+                    .get("reason")
+                    .and_then(Json::as_str)
+                    .unwrap_or("")
+                    .to_string(),
+            },
+            "supersede" => Event::Supersede {
+                old_id: req_str(body, "old_id")?,
+                new: Memory::from_json(body.get("new").ok_or("missing new memory")?)?,
+            },
+            other => return Err(format!("unknown event type '{}'", other)),
+        };
+        Ok(LogRecord {
