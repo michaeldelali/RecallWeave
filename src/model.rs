@@ -305,3 +305,16 @@ impl LogRecord {
 fn req_str(v: &Json, key: &str) -> Result<String, String> {
     v.get(key)
         .and_then(Json::as_str)
+        .map(|x| x.to_string())
+        .ok_or_else(|| format!("missing or non-string field '{}'", key))
+}
+
+fn opt_str(v: &Json, key: &str) -> Option<String> {
+    match v.get(key) {
+        Some(Json::Str(x)) => Some(x.clone()),
+        _ => None,
+    }
+}
+
+fn str_vec(v: &Json, key: &str) -> Vec<String> {
+    match v.get(key).and_then(Json::as_array) {
