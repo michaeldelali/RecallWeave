@@ -291,3 +291,17 @@ impl LogRecord {
             other => return Err(format!("unknown event type '{}'", other)),
         };
         Ok(LogRecord {
+            seq,
+            ts,
+            event,
+            prev,
+            digest,
+        })
+    }
+}
+
+// ---- small JSON extraction helpers -----------------------------------------
+
+fn req_str(v: &Json, key: &str) -> Result<String, String> {
+    v.get(key)
+        .and_then(Json::as_str)
