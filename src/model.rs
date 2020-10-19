@@ -318,3 +318,16 @@ fn opt_str(v: &Json, key: &str) -> Option<String> {
 
 fn str_vec(v: &Json, key: &str) -> Vec<String> {
     match v.get(key).and_then(Json::as_array) {
+        Some(items) => items
+            .iter()
+            .filter_map(Json::as_str)
+            .map(|x| x.to_string())
+            .collect(),
+        None => Vec::new(),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
