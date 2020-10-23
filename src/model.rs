@@ -331,3 +331,17 @@ fn str_vec(v: &Json, key: &str) -> Vec<String> {
 mod tests {
     use super::*;
 
+    fn sample() -> Memory {
+        Memory {
+            id: "m-1".into(),
+            kind: MemoryKind::Preference,
+            content: "prefers dark mode".into(),
+            fingerprint: content_fingerprint("prefers dark mode"),
+            provenance: Provenance {
+                source: "user".into(),
+                detail: "chat#42".into(),
+            },
+            confidence: 0.9,
+            tags: vec!["ui".into(), "theme".into()],
+            links: vec![],
+            created_at: 1000,
