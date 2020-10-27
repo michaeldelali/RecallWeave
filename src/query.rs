@@ -20,3 +20,13 @@ pub enum Sort {
     Confidence,
     /// By id, ascending (fully deterministic tiebreak-free ordering).
     Id,
+}
+
+impl Sort {
+    pub fn parse(v: &str) -> Result<Sort, String> {
+        match v {
+            "newest" => Ok(Sort::Newest),
+            "oldest" => Ok(Sort::Oldest),
+            "confidence" => Ok(Sort::Confidence),
+            "id" => Ok(Sort::Id),
+            other => Err(format!(
