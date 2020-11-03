@@ -41,3 +41,13 @@ impl Sort {
 #[derive(Debug, Clone, Default)]
 pub struct Query {
     pub kind: Option<MemoryKind>,
+    pub tag: Option<String>,
+    /// Case-insensitive substring match against normalized content.
+    pub contains: Option<String>,
+    pub min_confidence: Option<f64>,
+    pub source: Option<String>,
+    pub sort: Option<Sort>,
+    pub limit: Option<usize>,
+}
+
+impl Query {
