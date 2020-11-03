@@ -30,3 +30,14 @@ impl Sort {
             "confidence" => Ok(Sort::Confidence),
             "id" => Ok(Sort::Id),
             other => Err(format!(
+                "unknown sort '{}' (expected newest|oldest|confidence|id)",
+                other
+            )),
+        }
+    }
+}
+
+/// A conjunctive query over memories.
+#[derive(Debug, Clone, Default)]
+pub struct Query {
+    pub kind: Option<MemoryKind>,
