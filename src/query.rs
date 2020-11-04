@@ -51,3 +51,13 @@ pub struct Query {
 }
 
 impl Query {
+    /// Apply the query to a set of memories, returning matches in sorted order.
+    pub fn run(&self, memories: &[Memory]) -> Vec<Memory> {
+        let needle = self.contains.as_ref().map(|c| normalize_content(c));
+
+        let mut out: Vec<Memory> = memories
+            .iter()
+            .filter(|m| self.kind.map(|k| m.kind == k).unwrap_or(true))
+            .filter(|m| {
+                self.tag
+                    .as_ref()
