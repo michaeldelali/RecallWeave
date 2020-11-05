@@ -81,3 +81,14 @@ impl Query {
                     .map(|s| &m.provenance.source == s)
                     .unwrap_or(true)
             })
+            .cloned()
+            .collect();
+
+        match self.sort.unwrap_or(Sort::Newest) {
+            Sort::Newest => {
+                out.sort_by(|a, b| b.created_at.cmp(&a.created_at).then(a.id.cmp(&b.id)))
+            }
+            Sort::Oldest => {
+                out.sort_by(|a, b| a.created_at.cmp(&b.created_at).then(a.id.cmp(&b.id)))
+            }
+            Sort::Confidence => out.sort_by(|a, b| {
