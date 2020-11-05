@@ -71,3 +71,13 @@ impl Query {
                     .unwrap_or(true)
             })
             .filter(|m| {
+                self.min_confidence
+                    .map(|c| m.confidence >= c)
+                    .unwrap_or(true)
+            })
+            .filter(|m| {
+                self.source
+                    .as_ref()
+                    .map(|s| &m.provenance.source == s)
+                    .unwrap_or(true)
+            })
