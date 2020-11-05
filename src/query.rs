@@ -61,3 +61,13 @@ impl Query {
             .filter(|m| {
                 self.tag
                     .as_ref()
+                    .map(|t| m.tags.iter().any(|x| x == t))
+                    .unwrap_or(true)
+            })
+            .filter(|m| {
+                needle
+                    .as_ref()
+                    .map(|n| normalize_content(&m.content).contains(n.as_str()))
+                    .unwrap_or(true)
+            })
+            .filter(|m| {
