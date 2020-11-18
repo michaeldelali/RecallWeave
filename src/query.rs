@@ -123,3 +123,13 @@ mod tests {
         source: &str,
     ) -> Memory {
         Memory {
+            id: id.into(),
+            kind,
+            content: content.into(),
+            fingerprint: content_fingerprint(content),
+            provenance: Provenance {
+                source: source.into(),
+                detail: String::new(),
+            },
+            confidence: conf,
+            tags: tags.iter().map(|s| s.to_string()).collect(),
