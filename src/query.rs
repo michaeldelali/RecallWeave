@@ -92,3 +92,13 @@ impl Query {
                 out.sort_by(|a, b| a.created_at.cmp(&b.created_at).then(a.id.cmp(&b.id)))
             }
             Sort::Confidence => out.sort_by(|a, b| {
+                b.confidence
+                    .partial_cmp(&a.confidence)
+                    .unwrap_or(std::cmp::Ordering::Equal)
+                    .then(a.id.cmp(&b.id))
+            }),
+            Sort::Id => out.sort_by(|a, b| a.id.cmp(&b.id)),
+        }
+
+        if let Some(limit) = self.limit {
+            out.truncate(limit);
