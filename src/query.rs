@@ -112,3 +112,14 @@ mod tests {
     use super::*;
     use crate::hash::content_fingerprint;
     use crate::model::Provenance;
+
+    fn mem(
+        id: &str,
+        kind: MemoryKind,
+        content: &str,
+        conf: f64,
+        created: u64,
+        tags: &[&str],
+        source: &str,
+    ) -> Memory {
+        Memory {
