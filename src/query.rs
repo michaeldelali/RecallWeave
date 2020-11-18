@@ -102,3 +102,13 @@ impl Query {
 
         if let Some(limit) = self.limit {
             out.truncate(limit);
+        }
+        out
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::hash::content_fingerprint;
+    use crate::model::Provenance;
