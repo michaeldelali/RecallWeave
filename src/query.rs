@@ -133,3 +133,13 @@ mod tests {
             },
             confidence: conf,
             tags: tags.iter().map(|s| s.to_string()).collect(),
+            links: vec![],
+            created_at: created,
+            ttl_secs: None,
+            supersedes: None,
+            superseded_by: None,
+            tombstoned: false,
+            tombstone_reason: None,
+        }
+    }
+
