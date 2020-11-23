@@ -143,3 +143,13 @@ mod tests {
         }
     }
 
+    fn corpus() -> Vec<Memory> {
+        vec![
+            mem(
+                "a",
+                MemoryKind::Semantic,
+                "prod region is eu-west-1",
+                0.9,
+                100,
+                &["infra"],
+                "user",
