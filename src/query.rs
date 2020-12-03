@@ -153,3 +153,14 @@ mod tests {
                 100,
                 &["infra"],
                 "user",
+            ),
+            mem(
+                "b",
+                MemoryKind::Preference,
+                "prefers dark mode",
+                0.7,
+                200,
+                &["ui"],
+                "user",
+            ),
+            mem(
