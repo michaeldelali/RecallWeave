@@ -164,3 +164,13 @@ mod tests {
                 "user",
             ),
             mem(
+                "c",
+                MemoryKind::Episodic,
+                "deploy failed on Tuesday",
+                0.5,
+                300,
+                &["infra"],
+                "tool",
+            ),
+        ]
+    }
