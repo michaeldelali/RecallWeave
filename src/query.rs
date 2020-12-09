@@ -174,3 +174,13 @@ mod tests {
             ),
         ]
     }
+
+    #[test]
+    fn filter_by_kind() {
+        let q = Query {
+            kind: Some(MemoryKind::Preference),
+            ..Default::default()
+        };
+        let r = q.run(&corpus());
+        assert_eq!(r.len(), 1);
+        assert_eq!(r[0].id, "b");
