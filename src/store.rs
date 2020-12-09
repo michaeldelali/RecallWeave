@@ -81,3 +81,21 @@ impl Store {
     }
 
     /// Open an existing store or create an empty one at `dir`.
+    pub fn open(dir: &Path) -> Result<Store, String> {
+        let path = Self::log_path(dir);
+        let records = if path.exists() {
+            let text = fs::read_to_string(&path)
+                .map_err(|e| format!("reading {}: {}", path.display(), e))?;
+            let mut recs = Vec::new();
+            for (i, line) in text.lines().enumerate() {
+                let line = line.trim();
+                if line.is_empty() {
+                    continue;
+                }
+                let value =
+                    Json::parse(line).map_err(|e| format!("line {}: parse error: {}", i + 1, e))?;
+                let rec =
+                    LogRecord::from_json(&value).map_err(|e| format!("line {}: {}", i + 1, e))?;
+                recs.push(rec);
+            }
+            recs
