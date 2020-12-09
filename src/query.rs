@@ -184,3 +184,13 @@ mod tests {
         let r = q.run(&corpus());
         assert_eq!(r.len(), 1);
         assert_eq!(r[0].id, "b");
+    }
+
+    #[test]
+    fn filter_by_tag_and_substring() {
+        let q = Query {
+            tag: Some("infra".into()),
+            contains: Some("DEPLOY".into()),
+            ..Default::default()
+        };
+        let r = q.run(&corpus());
