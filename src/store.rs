@@ -99,3 +99,22 @@ impl Store {
                 recs.push(rec);
             }
             recs
+        } else {
+            Vec::new()
+        };
+        Ok(Store {
+            dir: dir.to_path_buf(),
+            records,
+        })
+    }
+
+    /// Number of log records currently held.
+    pub fn len(&self) -> usize {
+        self.records.len()
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.records.is_empty()
+    }
+
+    /// The digest of the most recent record (or GENESIS if empty).
