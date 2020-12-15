@@ -136,3 +136,21 @@ impl Store {
         // Compute the digest over the canonical payload.
         let mut partial = LogRecord {
             seq,
+            ts,
+            event,
+            prev: prev.clone(),
+            digest: String::new(),
+        };
+        let payload = partial.payload_json().to_compact();
+        partial.digest = chain_digest(&prev, payload.as_bytes());
+        self.records.push(partial);
+        self.persist()
+    }
+
+    /// Write the entire log to disk atomically (write temp, then rename).
+    fn persist(&self) -> Result<(), String> {
+        fs::create_dir_all(&self.dir)
+            .map_err(|e| format!("creating {}: {}", self.dir.display(), e))?;
+        let path = Self::log_path(&self.dir);
+        let tmp = self.dir.join("log.jsonl.tmp");
+        let mut file = fs::File::create(&tmp).map_err(|e| format!("creating temp log: {}", e))?;
