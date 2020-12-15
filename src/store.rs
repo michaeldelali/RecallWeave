@@ -118,3 +118,21 @@ impl Store {
     }
 
     /// The digest of the most recent record (or GENESIS if empty).
+    fn head_digest(&self) -> String {
+        self.records
+            .last()
+            .map(|r| r.digest.clone())
+            .unwrap_or_else(|| GENESIS.to_string())
+    }
+
+    fn next_seq(&self) -> u64 {
+        self.records.last().map(|r| r.seq + 1).unwrap_or(1)
+    }
+
+    /// Build a record with proper chaining, append it in memory, and persist.
+    fn append(&mut self, ts: u64, event: Event) -> Result<(), String> {
+        let seq = self.next_seq();
+        let prev = self.head_digest();
+        // Compute the digest over the canonical payload.
+        let mut partial = LogRecord {
+            seq,
