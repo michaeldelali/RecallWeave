@@ -154,3 +154,22 @@ impl Store {
         let path = Self::log_path(&self.dir);
         let tmp = self.dir.join("log.jsonl.tmp");
         let mut file = fs::File::create(&tmp).map_err(|e| format!("creating temp log: {}", e))?;
+        for rec in &self.records {
+            let line = rec.to_json().to_compact();
+            file.write_all(line.as_bytes())
+                .and_then(|_| file.write_all(b"\n"))
+                .map_err(|e| format!("writing log: {}", e))?;
+        }
+        file.flush().map_err(|e| format!("flushing log: {}", e))?;
+        drop(file);
+        fs::rename(&tmp, &path).map_err(|e| format!("renaming temp log into place: {}", e))?;
+        Ok(())
+    }
+
+    /// Fold every event into the current materialized memory map.
+    ///
+    /// This is the definitive interpreter of the log. Ordering matters:
+    /// supersession and tombstone events are applied to whatever the map holds
+    /// at that point, so replaying is fully deterministic.
+    pub fn materialize(&self) -> BTreeMap<String, Memory> {
+        let mut map: BTreeMap<String, Memory> = BTreeMap::new();
