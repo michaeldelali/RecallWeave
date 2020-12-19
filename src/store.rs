@@ -228,3 +228,22 @@ impl Store {
             kind.as_str(),
             content_fingerprint(content),
             created_at
+        );
+        let fp = content_fingerprint(&seed);
+        format!("mem_{}", &fp[..12])
+    }
+
+    /// Assert a new memory. Returns `(id, deduped)`.
+    ///
+    /// Deterministic dedupe: if a *live* memory of the same kind already has the
+    /// same content fingerprint, no new record is written and the existing id is
+    /// returned with `deduped = true`. This is exact/normalized-lexical dedupe,
+    /// not semantic — see honest limitations in the docs.
+    pub fn assert(&mut self, spec: AssertSpec, now: u64) -> Result<(String, bool), String> {
+        let fingerprint = content_fingerprint(&spec.content);
+        let existing = self.materialize();
+        for m in existing.values() {
+            if m.is_live(now) && m.kind == spec.kind && m.fingerprint == fingerprint {
+                return Ok((m.id.clone(), true));
+            }
+        }
