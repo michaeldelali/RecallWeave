@@ -191,3 +191,22 @@ impl Store {
                     let mut new_mem = new.clone();
                     if new_mem.supersedes.is_none() {
                         new_mem.supersedes = Some(old_id.clone());
+                    }
+                    map.insert(new_mem.id.clone(), new_mem);
+                }
+            }
+        }
+        map
+    }
+
+    /// All live memories at time `now`, sorted by id for deterministic output.
+    pub fn live(&self, now: u64) -> Vec<Memory> {
+        let mut v: Vec<Memory> = self
+            .materialize()
+            .into_values()
+            .filter(|m| m.is_live(now))
+            .collect();
+        v.sort_by(|a, b| a.id.cmp(&b.id));
+        v
+    }
+
