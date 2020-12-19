@@ -210,3 +210,21 @@ impl Store {
         v
     }
 
+    /// All memories (including retired) sorted by creation then id.
+    pub fn all(&self) -> Vec<Memory> {
+        let mut v: Vec<Memory> = self.materialize().into_values().collect();
+        v.sort_by(|a, b| a.created_at.cmp(&b.created_at).then(a.id.cmp(&b.id)));
+        v
+    }
+
+    /// Deterministically derive an id from content, kind and creation time.
+    ///
+    /// The id is stable: the same (kind, content, created_at) always yields the
+    /// same id. That makes fixtures and tests reproducible and means importing
+    /// the same memory twice collapses to one id.
+    pub fn derive_id(kind: MemoryKind, content: &str, created_at: u64) -> String {
+        let seed = format!(
+            "{}|{}|{}",
+            kind.as_str(),
+            content_fingerprint(content),
+            created_at
