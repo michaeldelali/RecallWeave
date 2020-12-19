@@ -173,3 +173,21 @@ impl Store {
     /// at that point, so replaying is fully deterministic.
     pub fn materialize(&self) -> BTreeMap<String, Memory> {
         let mut map: BTreeMap<String, Memory> = BTreeMap::new();
+        for rec in &self.records {
+            match &rec.event {
+                Event::Assert(m) => {
+                    map.insert(m.id.clone(), m.clone());
+                }
+                Event::Tombstone { id, reason } => {
+                    if let Some(m) = map.get_mut(id) {
+                        m.tombstoned = true;
+                        m.tombstone_reason = Some(reason.clone());
+                    }
+                }
+                Event::Supersede { old_id, new } => {
+                    if let Some(old) = map.get_mut(old_id) {
+                        old.superseded_by = Some(new.id.clone());
+                    }
+                    let mut new_mem = new.clone();
+                    if new_mem.supersedes.is_none() {
+                        new_mem.supersedes = Some(old_id.clone());
