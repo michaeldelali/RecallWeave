@@ -265,3 +265,22 @@ impl Store {
             supersedes: spec.supersedes.clone(),
             superseded_by: None,
             tombstoned: false,
+            tombstone_reason: None,
+        };
+        match spec.supersedes {
+            Some(old_id) => self.append(now, Event::Supersede { old_id, new: mem })?,
+            None => self.append(now, Event::Assert(mem))?,
+        }
+        Ok((id, false))
+    }
+
+    /// Retire a memory by id with a reason. No-op error if the id is unknown.
+    pub fn tombstone(&mut self, id: &str, reason: &str, now: u64) -> Result<(), String> {
+        let map = self.materialize();
+        if !map.contains_key(id) {
+            return Err(format!("no memory with id '{}'", id));
+        }
+        self.append(
+            now,
+            Event::Tombstone {
+                id: id.to_string(),
