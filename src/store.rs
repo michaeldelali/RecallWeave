@@ -247,3 +247,21 @@ impl Store {
                 return Ok((m.id.clone(), true));
             }
         }
+        let id = Self::derive_id(spec.kind, &spec.content, now);
+        let mut tags = spec.tags.clone();
+        tags.sort();
+        tags.dedup();
+        let mem = Memory {
+            id: id.clone(),
+            kind: spec.kind,
+            content: spec.content,
+            fingerprint,
+            provenance: spec.provenance,
+            confidence: spec.confidence.clamp(0.0, 1.0),
+            tags,
+            links: spec.links,
+            created_at: now,
+            ttl_secs: spec.ttl_secs,
+            supersedes: spec.supersedes.clone(),
+            superseded_by: None,
+            tombstoned: false,
