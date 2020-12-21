@@ -284,3 +284,21 @@ impl Store {
             now,
             Event::Tombstone {
                 id: id.to_string(),
+                reason: reason.to_string(),
+            },
+        )
+    }
+
+    /// Forget every expired memory that is still active (not already tombstoned
+    /// or superseded) at time `now`. Returns the ids that were tombstoned.
+    ///
+    /// Note: an expired memory is *not* `is_live` (TTL excludes it), so we test
+    /// the active flags directly rather than via `is_live`.
+    pub fn forget_expired(&mut self, now: u64) -> Result<Vec<String>, String> {
+        let mut expired: Vec<String> = self
+            .materialize()
+            .into_values()
+            .filter(|m| !m.tombstoned && m.superseded_by.is_none() && m.is_expired(now))
+            .map(|m| m.id)
+            .collect();
+        expired.sort();
