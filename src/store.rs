@@ -320,3 +320,22 @@ impl Store {
     /// 2. **Preference polarity clash** — two live `preference` memories that
     ///    share a *subject* token but differ in a recognized antonym (like
     ///    `dark`/`light`, `concise`/`verbose`, `enable`/`disable`). This is a
+    ///    heuristic over a small built-in antonym table, not semantic reasoning.
+    ///
+    /// Both detectors are lexical and honest about it. They never mutate state;
+    /// resolving a conflict is an explicit `supersede`/`tombstone` by the caller.
+    pub fn detect_conflicts(&self, now: u64) -> Vec<Conflict> {
+        let live: Vec<Memory> = self.live(now);
+        let mut conflicts = Vec::new();
+
+        // (1) same fingerprint, different kind.
+        for i in 0..live.len() {
+            for j in (i + 1)..live.len() {
+                let a = &live[i];
+                let b = &live[j];
+                if a.fingerprint == b.fingerprint && a.kind != b.kind {
+                    conflicts.push(Conflict {
+                        a: a.id.clone(),
+                        b: b.id.clone(),
+                        kind: "duplicate-content-different-kind".to_string(),
+                        explanation: format!(
