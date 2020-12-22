@@ -339,3 +339,21 @@ impl Store {
                         b: b.id.clone(),
                         kind: "duplicate-content-different-kind".to_string(),
                         explanation: format!(
+                            "identical normalized content stored as both '{}' and '{}'",
+                            a.kind.as_str(),
+                            b.kind.as_str()
+                        ),
+                    });
+                }
+            }
+        }
+
+        // (2) preference polarity clash.
+        let prefs: Vec<&Memory> = live
+            .iter()
+            .filter(|m| m.kind == MemoryKind::Preference)
+            .collect();
+        for i in 0..prefs.len() {
+            for j in (i + 1)..prefs.len() {
+                let a = prefs[i];
+                let b = prefs[j];
