@@ -302,3 +302,21 @@ impl Store {
             .map(|m| m.id)
             .collect();
         expired.sort();
+        let mut done = Vec::new();
+        for id in expired {
+            self.tombstone(&id, "ttl-expired", now)?;
+            done.push(id);
+        }
+        Ok(done)
+    }
+
+    /// Detect conflicts among live memories.
+    ///
+    /// The engine ships two deterministic, explainable detectors:
+    ///
+    /// 1. **Duplicate fingerprint across kinds** — the same normalized content
+    ///    recorded under two different kinds. Usually a modeling mistake.
+    ///
+    /// 2. **Preference polarity clash** — two live `preference` memories that
+    ///    share a *subject* token but differ in a recognized antonym (like
+    ///    `dark`/`light`, `concise`/`verbose`, `enable`/`disable`). This is a
