@@ -376,3 +376,21 @@ impl Store {
 
         conflicts.sort_by(|x, y| (&x.a, &x.b).cmp(&(&y.a, &y.b)));
         conflicts
+    }
+
+    /// Rewrite the log to drop retired memories while preserving live state.
+    ///
+    /// Compaction re-asserts each live memory into a fresh log, rebuilding the
+    /// integrity chain from GENESIS. Retired records (tombstoned, superseded,
+    /// expired) are dropped. Creation timestamps and ids are preserved so the
+    /// materialized live set is byte-for-byte equivalent before and after.
+    pub fn compact(&mut self, now: u64) -> Result<CompactionReport, String> {
+        let map = self.materialize();
+        let before = self.records.len();
+
+        let mut dropped_tombstoned = 0;
+        let mut dropped_superseded = 0;
+        let mut dropped_expired = 0;
+        let mut keep: Vec<Memory> = Vec::new();
+
+        for m in map.into_values() {
