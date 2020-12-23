@@ -357,3 +357,22 @@ impl Store {
             for j in (i + 1)..prefs.len() {
                 let a = prefs[i];
                 let b = prefs[j];
+                if let Some((wa, wb)) = antonym_clash(&a.content, &b.content) {
+                    // Require a shared subject token so unrelated prefs don't clash.
+                    if shares_subject(&a.content, &b.content, &wa, &wb) {
+                        conflicts.push(Conflict {
+                            a: a.id.clone(),
+                            b: b.id.clone(),
+                            kind: "preference-polarity".to_string(),
+                            explanation: format!(
+                                "preferences appear to conflict on '{}' vs '{}'",
+                                wa, wb
+                            ),
+                        });
+                    }
+                }
+            }
+        }
+
+        conflicts.sort_by(|x, y| (&x.a, &x.b).cmp(&(&y.a, &y.b)));
+        conflicts
