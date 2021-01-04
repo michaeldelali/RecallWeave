@@ -431,3 +431,21 @@ impl Store {
         let seq = self.next_seq();
         let prev = self.head_digest();
         let mut partial = LogRecord {
+            seq,
+            ts,
+            event,
+            prev: prev.clone(),
+            digest: String::new(),
+        };
+        let payload = partial.payload_json().to_compact();
+        partial.digest = chain_digest(&prev, payload.as_bytes());
+        self.records.push(partial);
+    }
+
+    /// Verify the integrity chain: sequence monotonicity, prev-links, and the
+    /// recomputed digest of every record. Detects any post-hoc tampering with
+    /// the on-disk log.
+    pub fn verify(&self) -> VerifyReport {
+        let mut errors = Vec::new();
+        let mut expected_prev = GENESIS.to_string();
+
