@@ -449,3 +449,22 @@ impl Store {
         let mut errors = Vec::new();
         let mut expected_prev = GENESIS.to_string();
 
+        for (i, rec) in self.records.iter().enumerate() {
+            let expected_seq = (i as u64) + 1;
+            if rec.seq != expected_seq {
+                errors.push(format!(
+                    "record with digest {}... has seq {} but expected {}",
+                    short(&rec.digest),
+                    rec.seq,
+                    expected_seq
+                ));
+            }
+            if rec.prev != expected_prev {
+                errors.push(format!(
+                    "seq {}: prev-link mismatch (chain broken)",
+                    rec.seq
+                ));
+            }
+            let payload = rec.payload_json().to_compact();
+            let recomputed = chain_digest(&rec.prev, payload.as_bytes());
+            if recomputed != rec.digest {
