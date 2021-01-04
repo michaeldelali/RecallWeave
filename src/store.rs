@@ -394,3 +394,22 @@ impl Store {
         let mut keep: Vec<Memory> = Vec::new();
 
         for m in map.into_values() {
+            if m.tombstoned {
+                dropped_tombstoned += 1;
+            } else if m.superseded_by.is_some() {
+                dropped_superseded += 1;
+            } else if m.is_expired(now) {
+                dropped_expired += 1;
+            } else {
+                keep.push(m);
+            }
+        }
+        keep.sort_by(|a, b| a.created_at.cmp(&b.created_at).then(a.id.cmp(&b.id)));
+
+        // Rebuild the records from scratch. We clear supersession links since
+        // the superseded originals are gone after compaction.
+        self.records.clear();
+        for mut m in keep {
+            m.supersedes = None;
+            m.superseded_by = None;
+            let ts = m.created_at;
