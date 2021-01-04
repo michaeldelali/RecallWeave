@@ -413,3 +413,21 @@ impl Store {
             m.supersedes = None;
             m.superseded_by = None;
             let ts = m.created_at;
+            self.append_no_persist(ts, Event::Assert(m));
+        }
+        self.persist()?;
+
+        Ok(CompactionReport {
+            before_records: before,
+            after_records: self.records.len(),
+            dropped_tombstoned,
+            dropped_superseded,
+            dropped_expired,
+        })
+    }
+
+    /// Like `append` but does not flush to disk (used in batch rebuilds).
+    fn append_no_persist(&mut self, ts: u64, event: Event) {
+        let seq = self.next_seq();
+        let prev = self.head_digest();
+        let mut partial = LogRecord {
