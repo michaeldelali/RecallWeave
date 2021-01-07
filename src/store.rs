@@ -468,3 +468,21 @@ impl Store {
             let payload = rec.payload_json().to_compact();
             let recomputed = chain_digest(&rec.prev, payload.as_bytes());
             if recomputed != rec.digest {
+                errors.push(format!(
+                    "seq {}: digest mismatch (record contents were altered)",
+                    rec.seq
+                ));
+            }
+            expected_prev = rec.digest.clone();
+        }
+
+        VerifyReport {
+            records: self.records.len(),
+            ok: errors.is_empty(),
+            errors,
+        }
+    }
+
+    /// Build a portable memory-pack: a single self-describing JSON document with
+    /// the live memories, derived statistics, and the integrity head. The pack
+    /// is what the TypeScript viewer consumes; it is intentionally decoupled
