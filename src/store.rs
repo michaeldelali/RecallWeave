@@ -542,3 +542,21 @@ impl Store {
         root.insert("conflicts".to_string(), Json::Arr(conflict_json));
         root.insert("memories".to_string(), Json::Arr(mem_json));
         Json::Obj(root)
+    }
+}
+
+/// Current wall-clock time as epoch seconds.
+pub fn now_epoch() -> u64 {
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map(|d| d.as_secs())
+        .unwrap_or(0)
+}
+
+fn short(s: &str) -> String {
+    s.chars().take(8).collect()
+}
+
+/// Small, curated antonym table for the preference-polarity detector.
+/// Deliberately tiny and transparent — this is a heuristic, not a thesaurus.
+const ANTONYMS: &[(&str, &str)] = &[
