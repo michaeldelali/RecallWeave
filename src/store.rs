@@ -505,3 +505,21 @@ impl Store {
                 .into_iter()
                 .map(|(k, v)| (k, Json::Num(v as f64)))
                 .collect(),
+        );
+        let tag_json = Json::Obj(
+            tag_counts
+                .into_iter()
+                .map(|(k, v)| (k, Json::Num(v as f64)))
+                .collect(),
+        );
+        let conflict_json: Vec<Json> = conflicts
+            .iter()
+            .map(|c| {
+                let mut m = BTreeMap::new();
+                m.insert("a".to_string(), Json::Str(c.a.clone()));
+                m.insert("b".to_string(), Json::Str(c.b.clone()));
+                m.insert("kind".to_string(), Json::Str(c.kind.clone()));
+                m.insert("explanation".to_string(), Json::Str(c.explanation.clone()));
+                Json::Obj(m)
+            })
+            .collect();
