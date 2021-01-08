@@ -486,3 +486,22 @@ impl Store {
     /// Build a portable memory-pack: a single self-describing JSON document with
     /// the live memories, derived statistics, and the integrity head. The pack
     /// is what the TypeScript viewer consumes; it is intentionally decoupled
+    /// from the log format so viewers never need to understand chaining.
+    pub fn export_pack(&self, now: u64) -> Json {
+        let live = self.live(now);
+        let mut by_kind: BTreeMap<String, u64> = BTreeMap::new();
+        let mut tag_counts: BTreeMap<String, u64> = BTreeMap::new();
+        for m in &live {
+            *by_kind.entry(m.kind.as_str().to_string()).or_insert(0) += 1;
+            for t in &m.tags {
+                *tag_counts.entry(t.clone()).or_insert(0) += 1;
+            }
+        }
+        let conflicts = self.detect_conflicts(now);
+
+        let mem_json: Vec<Json> = live.iter().map(|m| m.to_json()).collect();
+        let kind_json = Json::Obj(
+            by_kind
+                .into_iter()
+                .map(|(k, v)| (k, Json::Num(v as f64)))
+                .collect(),
