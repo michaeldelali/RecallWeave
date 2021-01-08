@@ -523,3 +523,22 @@ impl Store {
                 Json::Obj(m)
             })
             .collect();
+
+        let mut root = BTreeMap::new();
+        root.insert(
+            "format".to_string(),
+            Json::Str("recallweave-pack".to_string()),
+        );
+        root.insert("format_version".to_string(), Json::Num(1.0));
+        root.insert("generated_at".to_string(), Json::Num(now as f64));
+        root.insert("integrity_head".to_string(), Json::Str(self.head_digest()));
+        root.insert(
+            "record_count".to_string(),
+            Json::Num(self.records.len() as f64),
+        );
+        root.insert("live_count".to_string(), Json::Num(live.len() as f64));
+        root.insert("counts_by_kind".to_string(), kind_json);
+        root.insert("tag_counts".to_string(), tag_json);
+        root.insert("conflicts".to_string(), Json::Arr(conflict_json));
+        root.insert("memories".to_string(), Json::Arr(mem_json));
+        Json::Obj(root)
