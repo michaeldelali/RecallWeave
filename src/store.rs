@@ -560,3 +560,22 @@ fn short(s: &str) -> String {
 /// Small, curated antonym table for the preference-polarity detector.
 /// Deliberately tiny and transparent — this is a heuristic, not a thesaurus.
 const ANTONYMS: &[(&str, &str)] = &[
+    ("dark", "light"),
+    ("concise", "verbose"),
+    ("enable", "disable"),
+    ("enabled", "disabled"),
+    ("on", "off"),
+    ("formal", "casual"),
+    ("metric", "imperial"),
+    ("verbose", "terse"),
+    ("increase", "decrease"),
+    ("allow", "deny"),
+];
+
+/// If two texts contain a recognized antonym pair, return the pair.
+fn antonym_clash(a: &str, b: &str) -> Option<(String, String)> {
+    let ta = tokenize(a);
+    let tb = tokenize(b);
+    for (x, y) in ANTONYMS {
+        let ax = ta.iter().any(|t| t == x);
+        let ay = ta.iter().any(|t| t == y);
