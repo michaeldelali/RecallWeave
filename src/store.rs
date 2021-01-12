@@ -579,3 +579,21 @@ fn antonym_clash(a: &str, b: &str) -> Option<(String, String)> {
     for (x, y) in ANTONYMS {
         let ax = ta.iter().any(|t| t == x);
         let ay = ta.iter().any(|t| t == y);
+        let bx = tb.iter().any(|t| t == x);
+        let by = tb.iter().any(|t| t == y);
+        if ax && by {
+            return Some(((*x).to_string(), (*y).to_string()));
+        }
+        if ay && bx {
+            return Some(((*y).to_string(), (*x).to_string()));
+        }
+    }
+    None
+}
+
+/// Do the two preference texts share a subject token besides the antonym words?
+/// This guards against flagging "prefers dark mode" vs "likes light beer".
+fn shares_subject(a: &str, b: &str, wa: &str, wb: &str) -> bool {
+    let ta = tokenize(a);
+    let tb = tokenize(b);
+    const STOP: &[&str] = &[
