@@ -597,3 +597,21 @@ fn shares_subject(a: &str, b: &str, wa: &str, wb: &str) -> bool {
     let ta = tokenize(a);
     let tb = tokenize(b);
     const STOP: &[&str] = &[
+        "a", "an", "the", "to", "of", "in", "on", "for", "and", "or", "prefers", "prefer", "likes",
+        "like", "wants", "want", "uses", "use", "mode", "please", "always", "i",
+    ];
+    for t in &ta {
+        if t == wa || t == wb {
+            continue;
+        }
+        if STOP.contains(&t.as_str()) {
+            continue;
+        }
+        if tb.contains(t) {
+            return true;
+        }
+    }
+    false
+}
+
+/// Lowercase alphanumeric tokenization.
