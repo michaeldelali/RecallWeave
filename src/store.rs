@@ -615,3 +615,22 @@ fn shares_subject(a: &str, b: &str, wa: &str, wb: &str) -> bool {
 }
 
 /// Lowercase alphanumeric tokenization.
+fn tokenize(text: &str) -> Vec<String> {
+    let mut tokens = Vec::new();
+    let mut cur = String::new();
+    for c in text.chars() {
+        if c.is_alphanumeric() {
+            for lc in c.to_lowercase() {
+                cur.push(lc);
+            }
+        } else if !cur.is_empty() {
+            tokens.push(std::mem::take(&mut cur));
+        }
+    }
+    if !cur.is_empty() {
+        tokens.push(cur);
+    }
+    tokens
+}
+
+#[cfg(test)]
