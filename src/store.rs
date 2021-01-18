@@ -634,3 +634,21 @@ fn tokenize(text: &str) -> Vec<String> {
 }
 
 #[cfg(test)]
+mod tests {
+    use super::*;
+    use std::env;
+
+    fn tmp_store() -> Store {
+        let mut dir = env::temp_dir();
+        let unique = format!(
+            "recallweave_test_{}_{}",
+            std::process::id(),
+            now_epoch_nanos()
+        );
+        dir.push(unique);
+        Store::open(&dir).unwrap()
+    }
+
+    fn now_epoch_nanos() -> u128 {
+        SystemTime::now()
+            .duration_since(UNIX_EPOCH)
