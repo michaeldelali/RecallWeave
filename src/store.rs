@@ -689,3 +689,22 @@ mod tests {
         let mut s = tmp_store();
         let (id1, dup1) = s
             .assert(spec(MemoryKind::Preference, "prefers  DARK mode"), 100)
+            .unwrap();
+        let (id2, dup2) = s
+            .assert(spec(MemoryKind::Preference, "prefers dark mode"), 200)
+            .unwrap();
+        assert!(!dup1);
+        assert!(dup2);
+        assert_eq!(id1, id2);
+        assert_eq!(s.live(300).len(), 1);
+    }
+
+    #[test]
+    fn supersession_retires_old() {
+        let mut s = tmp_store();
+        let (old, _) = s
+            .assert(spec(MemoryKind::Semantic, "prod is us-east-1"), 100)
+            .unwrap();
+        let mut sp = spec(MemoryKind::Semantic, "prod is eu-west-1");
+        sp.supersedes = Some(old.clone());
+        let (newid, _) = s.assert(sp, 200).unwrap();
