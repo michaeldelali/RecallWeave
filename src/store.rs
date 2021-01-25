@@ -671,3 +671,21 @@ mod tests {
             supersedes: None,
         }
     }
+
+    #[test]
+    fn assert_and_materialize() {
+        let mut s = tmp_store();
+        let (id, dup) = s
+            .assert(spec(MemoryKind::Semantic, "prod is eu-west-1"), 100)
+            .unwrap();
+        assert!(!dup);
+        let live = s.live(100);
+        assert_eq!(live.len(), 1);
+        assert_eq!(live[0].id, id);
+    }
+
+    #[test]
+    fn dedupe_is_deterministic() {
+        let mut s = tmp_store();
+        let (id1, dup1) = s
+            .assert(spec(MemoryKind::Preference, "prefers  DARK mode"), 100)
