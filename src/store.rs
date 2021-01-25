@@ -652,3 +652,22 @@ mod tests {
     fn now_epoch_nanos() -> u128 {
         SystemTime::now()
             .duration_since(UNIX_EPOCH)
+            .map(|d| d.as_nanos())
+            .unwrap_or(0)
+    }
+
+    fn spec(kind: MemoryKind, content: &str) -> AssertSpec {
+        AssertSpec {
+            kind,
+            content: content.to_string(),
+            provenance: Provenance {
+                source: "test".into(),
+                detail: String::new(),
+            },
+            confidence: 0.9,
+            tags: vec![],
+            links: vec![],
+            ttl_secs: None,
+            supersedes: None,
+        }
+    }
