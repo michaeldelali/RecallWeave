@@ -708,3 +708,21 @@ mod tests {
         let mut sp = spec(MemoryKind::Semantic, "prod is eu-west-1");
         sp.supersedes = Some(old.clone());
         let (newid, _) = s.assert(sp, 200).unwrap();
+        let live = s.live(300);
+        assert_eq!(live.len(), 1);
+        assert_eq!(live[0].id, newid);
+        let all = s.materialize();
+        assert_eq!(all[&old].superseded_by, Some(newid));
+    }
+
+    #[test]
+    fn ttl_forgetting() {
+        let mut s = tmp_store();
+        let mut sp = spec(MemoryKind::Episodic, "deploy happened");
+        sp.ttl_secs = Some(50);
+        let (id, _) = s.assert(sp, 100).unwrap();
+        assert_eq!(s.live(120).len(), 1);
+        assert_eq!(s.live(160).len(), 0); // expired but not yet tombstoned
+        let forgotten = s.forget_expired(160).unwrap();
+        assert_eq!(forgotten, vec![id.clone()]);
+        assert!(s.materialize()[&id].tombstoned);
