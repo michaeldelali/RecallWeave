@@ -30,3 +30,20 @@ fn fresh_dir(tag: &str) -> PathBuf {
 }
 
 struct Out {
+    code: i32,
+    stdout: String,
+    stderr: String,
+}
+
+fn run(dir: &PathBuf, args: &[&str]) -> Out {
+    let mut cmd = Command::new(bin());
+    cmd.arg("--dir").arg(dir);
+    for a in args {
+        cmd.arg(a);
+    }
+    let output = cmd.output().expect("failed to execute recallweave binary");
+    Out {
+        code: output.status.code().unwrap_or(-1),
+        stdout: String::from_utf8_lossy(&output.stdout).to_string(),
+        stderr: String::from_utf8_lossy(&output.stderr).to_string(),
+    }
