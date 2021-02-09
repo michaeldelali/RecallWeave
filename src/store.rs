@@ -726,3 +726,22 @@ mod tests {
         let forgotten = s.forget_expired(160).unwrap();
         assert_eq!(forgotten, vec![id.clone()]);
         assert!(s.materialize()[&id].tombstoned);
+    }
+
+    #[test]
+    fn conflict_same_content_different_kind() {
+        let mut s = tmp_store();
+        s.assert(spec(MemoryKind::Semantic, "coffee is good"), 100)
+            .unwrap();
+        s.assert(spec(MemoryKind::Preference, "coffee is good"), 100)
+            .unwrap();
+        let c = s.detect_conflicts(200);
+        assert_eq!(c.len(), 1);
+        assert_eq!(c[0].kind, "duplicate-content-different-kind");
+    }
+
+    #[test]
+    fn conflict_preference_polarity() {
+        let mut s = tmp_store();
+        s.assert(spec(MemoryKind::Preference, "prefers dark theme"), 100)
+            .unwrap();
