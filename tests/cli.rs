@@ -47,3 +47,21 @@ fn run(dir: &PathBuf, args: &[&str]) -> Out {
         stdout: String::from_utf8_lossy(&output.stdout).to_string(),
         stderr: String::from_utf8_lossy(&output.stderr).to_string(),
     }
+}
+
+#[test]
+fn help_and_version() {
+    let dir = fresh_dir("help");
+    let h = run(&dir, &["help"]);
+    assert_eq!(h.code, 0);
+    assert!(h
+        .stdout
+        .contains("local-first agent memory lifecycle engine"));
+
+    let v = run(&dir, &["version"]);
+    assert_eq!(v.code, 0);
+    assert!(v.stdout.contains("recallweave"));
+}
+
+#[test]
+fn add_list_and_dedupe() {
