@@ -83,3 +83,20 @@ fn add_list_and_dedupe() {
     assert_eq!(a.code, 0, "stderr: {}", a.stderr);
     assert!(a.stdout.starts_with("added "));
 
+    // Re-add normalized-identical content: should dedupe.
+    let b = run(
+        &dir,
+        &[
+            "add",
+            "--kind",
+            "semantic",
+            "--content",
+            "PROD region   is eu-west-1",
+            "--now",
+            "1010",
+            "--json",
+        ],
+    );
+    assert_eq!(b.code, 0);
+    assert!(b.stdout.contains("\"deduped\":true"), "got: {}", b.stdout);
+
