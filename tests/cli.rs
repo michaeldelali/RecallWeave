@@ -118,3 +118,21 @@ fn verify_and_tamper_detection() {
             "semantic",
             "--content",
             "fact A",
+            "--now",
+            "1000",
+        ],
+    );
+    run(
+        &dir,
+        &[
+            "add",
+            "--kind",
+            "semantic",
+            "--content",
+            "fact B",
+            "--now",
+            "1001",
+        ],
+    );
+
+    let ok = run(&dir, &["verify"]);
