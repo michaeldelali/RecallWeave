@@ -100,3 +100,21 @@ fn add_list_and_dedupe() {
     assert_eq!(b.code, 0);
     assert!(b.stdout.contains("\"deduped\":true"), "got: {}", b.stdout);
 
+    let list = run(&dir, &["list", "--now", "1020"]);
+    assert_eq!(list.code, 0);
+    assert!(list.stdout.contains("prod region is eu-west-1"));
+    // Only one live memory despite two adds.
+    assert_eq!(list.stdout.matches("semantic").count(), 1);
+}
+
+#[test]
+fn verify_and_tamper_detection() {
+    let dir = fresh_dir("verify");
+    run(
+        &dir,
+        &[
+            "add",
+            "--kind",
+            "semantic",
+            "--content",
+            "fact A",
