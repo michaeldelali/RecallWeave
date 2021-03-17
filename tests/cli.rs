@@ -171,3 +171,21 @@ fn query_export_and_stats() {
         &dir,
         &[
             "add",
+            "--kind",
+            "preference",
+            "--content",
+            "prefers dark mode",
+            "--tags",
+            "ui",
+            "--now",
+            "1001",
+        ],
+    );
+    run(
+        &dir,
+        &[
+            "add",
+            "--kind",
+            "episodic",
+            "--content",
+            "deploy failed",
