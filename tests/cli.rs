@@ -153,3 +153,21 @@ fn verify_and_tamper_detection() {
 #[test]
 fn query_export_and_stats() {
     let dir = fresh_dir("query");
+    run(
+        &dir,
+        &[
+            "add",
+            "--kind",
+            "semantic",
+            "--content",
+            "region eu-west-1",
+            "--tags",
+            "infra",
+            "--now",
+            "1000",
+        ],
+    );
+    run(
+        &dir,
+        &[
+            "add",
