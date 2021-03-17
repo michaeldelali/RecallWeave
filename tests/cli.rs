@@ -224,3 +224,21 @@ fn query_export_and_stats() {
     let s = run(&dir, &["stats", "--json", "--now", "1003"]);
     assert_eq!(s.code, 0);
     assert!(s.stdout.contains("\"live_count\": 3"));
+}
+
+#[test]
+fn supersede_forget_and_compact() {
+    let dir = fresh_dir("compact");
+    let add = run(
+        &dir,
+        &[
+            "add",
+            "--kind",
+            "semantic",
+            "--content",
+            "region us-east-1",
+            "--now",
+            "1000",
+            "--json",
+        ],
+    );
