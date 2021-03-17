@@ -136,3 +136,20 @@ fn verify_and_tamper_detection() {
     );
 
     let ok = run(&dir, &["verify"]);
+    assert_eq!(ok.code, 0, "stderr: {}", ok.stderr);
+    assert!(ok.stdout.contains("integrity OK"));
+
+    // Tamper with the on-disk log directly.
+    let log = dir.join("log.jsonl");
+    let content = std::fs::read_to_string(&log).unwrap();
+    let tampered = content.replace("fact A", "fact HACKED");
+    std::fs::write(&log, tampered).unwrap();
+
+    let bad = run(&dir, &["verify"]);
+    assert_ne!(bad.code, 0, "verify must fail on tampered log");
+    assert!(bad.stdout.contains("integrity FAILED"));
+}
+
+#[test]
+fn query_export_and_stats() {
+    let dir = fresh_dir("query");
