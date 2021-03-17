@@ -206,3 +206,21 @@ fn query_export_and_stats() {
     // Export to a file.
     let pack_path = dir.join("pack.json");
     let e = run(
+        &dir,
+        &[
+            "export",
+            "--out",
+            pack_path.to_str().unwrap(),
+            "--now",
+            "1003",
+        ],
+    );
+    assert_eq!(e.code, 0, "stderr: {}", e.stderr);
+    let pack = std::fs::read_to_string(&pack_path).unwrap();
+    assert!(pack.contains("\"format\": \"recallweave-pack\""));
+    assert!(pack.contains("\"live_count\": 3"));
+
+    // Stats JSON.
+    let s = run(&dir, &["stats", "--json", "--now", "1003"]);
+    assert_eq!(s.code, 0);
+    assert!(s.stdout.contains("\"live_count\": 3"));
