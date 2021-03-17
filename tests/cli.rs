@@ -189,3 +189,20 @@ fn query_export_and_stats() {
             "episodic",
             "--content",
             "deploy failed",
+            "--tags",
+            "infra",
+            "--now",
+            "1002",
+        ],
+    );
+
+    // Query by tag.
+    let q = run(&dir, &["query", "--tag", "infra", "--now", "1003"]);
+    assert_eq!(q.code, 0);
+    assert!(q.stdout.contains("region eu-west-1"));
+    assert!(q.stdout.contains("deploy failed"));
+    assert!(!q.stdout.contains("prefers dark mode"));
+
+    // Export to a file.
+    let pack_path = dir.join("pack.json");
+    let e = run(
