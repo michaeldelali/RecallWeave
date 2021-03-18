@@ -242,3 +242,20 @@ fn supersede_forget_and_compact() {
             "--json",
         ],
     );
+    // Extract id from JSON output {"deduped":false,"id":"mem_..."}
+    let id = extract_id(&add.stdout);
+
+    let sup = run(
+        &dir,
+        &[
+            "supersede",
+            "--old",
+            &id,
+            "--content",
+            "region eu-west-1",
+            "--now",
+            "1100",
+        ],
+    );
+    assert_eq!(sup.code, 0, "stderr: {}", sup.stderr);
+    assert!(sup.stdout.contains("superseded by"));
