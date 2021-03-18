@@ -259,3 +259,21 @@ fn supersede_forget_and_compact() {
     );
     assert_eq!(sup.code, 0, "stderr: {}", sup.stderr);
     assert!(sup.stdout.contains("superseded by"));
+
+    run(
+        &dir,
+        &[
+            "add",
+            "--kind",
+            "episodic",
+            "--content",
+            "temporary note",
+            "--now",
+            "1101",
+            "--json",
+        ],
+    );
+    let list_before = run(&dir, &["list", "--now", "1200"]);
+    assert!(list_before.stdout.contains("region eu-west-1"));
+
+    // Forget the temporary episodic note by id.
