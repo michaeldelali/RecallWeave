@@ -46,3 +46,17 @@ fn spec(kind: MemoryKind, content: &str, conf: f64, tags: &[&str]) -> AssertSpec
 
 #[test]
 fn full_lifecycle_end_to_end() {
+    let dir = fresh_dir("full");
+    let mut store = Store::open(&dir).unwrap();
+
+    // Assert a spread of memory kinds.
+    let (region_id, _) = store
+        .assert(
+            spec(
+                MemoryKind::Semantic,
+                "prod region is us-east-1",
+                0.9,
+                &["infra"],
+            ),
+            1_000,
+        )
