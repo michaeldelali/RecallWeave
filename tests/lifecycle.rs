@@ -33,3 +33,16 @@ fn spec(kind: MemoryKind, content: &str, conf: f64, tags: &[&str]) -> AssertSpec
         kind,
         content: content.to_string(),
         provenance: Provenance {
+            source: "user".into(),
+            detail: "integration".into(),
+        },
+        confidence: conf,
+        tags: tags.iter().map(|s| s.to_string()).collect(),
+        links: vec![],
+        ttl_secs: None,
+        supersedes: None,
+    }
+}
+
+#[test]
+fn full_lifecycle_end_to_end() {
