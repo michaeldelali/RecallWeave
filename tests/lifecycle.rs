@@ -20,3 +20,16 @@ fn fresh_dir(tag: &str) -> PathBuf {
         .unwrap_or(0);
     let mut dir = env::temp_dir();
     dir.push(format!(
+        "recallweave_it_{}_{}_{}",
+        tag,
+        std::process::id(),
+        nanos
+    ));
+    dir
+}
+
+fn spec(kind: MemoryKind, content: &str, conf: f64, tags: &[&str]) -> AssertSpec {
+    AssertSpec {
+        kind,
+        content: content.to_string(),
+        provenance: Provenance {
