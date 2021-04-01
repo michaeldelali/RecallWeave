@@ -60,3 +60,16 @@ fn full_lifecycle_end_to_end() {
             ),
             1_000,
         )
+        .unwrap();
+    store
+        .assert(
+            spec(
+                MemoryKind::Preference,
+                "prefers concise answers",
+                0.8,
+                &["style"],
+            ),
+            1_010,
+        )
+        .unwrap();
+    store
