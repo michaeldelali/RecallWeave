@@ -73,3 +73,16 @@ fn full_lifecycle_end_to_end() {
         )
         .unwrap();
     store
+        .assert(
+            spec(
+                MemoryKind::Procedural,
+                "rotate token via ops runbook step 3",
+                0.7,
+                &["ops"],
+            ),
+            1_020,
+        )
+        .unwrap();
+
+    // Episodic memory with a TTL that will expire.
+    let mut ep = spec(
