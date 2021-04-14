@@ -86,3 +86,16 @@ fn full_lifecycle_end_to_end() {
 
     // Episodic memory with a TTL that will expire.
     let mut ep = spec(
+        MemoryKind::Episodic,
+        "deploy failed at 14:03",
+        0.6,
+        &["infra"],
+    );
+    ep.ttl_secs = Some(100);
+    let (ep_id, _) = store.assert(ep, 1_030).unwrap();
+
+    assert_eq!(store.live(1_040).len(), 4);
+    assert!(store.verify().ok);
+
+    // Dedupe: re-assert the same semantic fact with different whitespace/case.
+    let (dup_id, deduped) = store
