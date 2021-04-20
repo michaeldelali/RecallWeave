@@ -125,3 +125,17 @@ fn full_lifecycle_end_to_end() {
     let live = store.live(1_110);
     assert!(live.iter().any(|m| m.id == new_region));
     assert!(!live.iter().any(|m| m.id == region_id));
+
+    // TTL forgetting: episodic memory should expire and be tombstoned.
+    let forgotten = store.forget_expired(1_200).unwrap();
+    assert!(forgotten.contains(&ep_id));
+    assert!(!store.live(1_200).iter().any(|m| m.id == ep_id));
+
+    // Query: only preference memories.
+    let prefs = Query {
+        kind: Some(MemoryKind::Preference),
+        sort: Some(Sort::Id),
+        ..Default::default()
+    }
+    .run(&store.live(1_200));
+    assert_eq!(prefs.len(), 1);
