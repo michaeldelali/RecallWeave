@@ -112,3 +112,16 @@ fn full_lifecycle_end_to_end() {
     assert!(deduped, "normalized-identical content must dedupe");
     assert_eq!(dup_id, region_id);
     assert_eq!(store.live(1_060).len(), 4, "dedupe adds no new live memory");
+
+    // Supersede the region fact.
+    let mut sp = spec(
+        MemoryKind::Semantic,
+        "prod region is eu-west-1",
+        0.99,
+        &["infra"],
+    );
+    sp.supersedes = Some(region_id.clone());
+    let (new_region, _) = store.assert(sp, 1_100).unwrap();
+    let live = store.live(1_110);
+    assert!(live.iter().any(|m| m.id == new_region));
+    assert!(!live.iter().any(|m| m.id == region_id));
