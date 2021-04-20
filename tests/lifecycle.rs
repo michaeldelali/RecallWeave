@@ -139,3 +139,16 @@ fn full_lifecycle_end_to_end() {
     }
     .run(&store.live(1_200));
     assert_eq!(prefs.len(), 1);
+    assert_eq!(prefs[0].content, "prefers concise answers");
+
+    // Integrity holds throughout the whole history.
+    assert!(store.verify().ok);
+
+    // Export produces a well-formed pack.
+    let pack = store.export_pack(1_200);
+    assert_eq!(
+        pack.get("format").and_then(Json::as_str),
+        Some("recallweave-pack")
+    );
+    let live_count = pack.get("live_count").and_then(Json::as_u64).unwrap();
+    assert_eq!(live_count, 3, "region(new) + preference + procedural");
