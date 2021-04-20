@@ -99,3 +99,16 @@ fn full_lifecycle_end_to_end() {
 
     // Dedupe: re-assert the same semantic fact with different whitespace/case.
     let (dup_id, deduped) = store
+        .assert(
+            spec(
+                MemoryKind::Semantic,
+                "PROD region   is us-east-1",
+                0.95,
+                &[],
+            ),
+            1_050,
+        )
+        .unwrap();
+    assert!(deduped, "normalized-identical content must dedupe");
+    assert_eq!(dup_id, region_id);
+    assert_eq!(store.live(1_060).len(), 4, "dedupe adds no new live memory");
