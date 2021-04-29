@@ -152,3 +152,16 @@ fn full_lifecycle_end_to_end() {
     );
     let live_count = pack.get("live_count").and_then(Json::as_u64).unwrap();
     assert_eq!(live_count, 3, "region(new) + preference + procedural");
+
+    // Compaction removes retired records but preserves live state and integrity.
+    let before = store.live(1_200);
+    let report = store.compact(1_200).unwrap();
+    assert!(report.after_records < report.before_records);
+    let after = store.live(1_200);
+    assert_eq!(before.len(), after.len());
+    let before_ids: Vec<String> = before.iter().map(|m| m.id.clone()).collect();
+    let after_ids: Vec<String> = after.iter().map(|m| m.id.clone()).collect();
+    assert_eq!(before_ids, after_ids);
+    assert!(store.verify().ok, "chain valid after compaction");
+}
+
