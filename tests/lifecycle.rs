@@ -165,3 +165,16 @@ fn full_lifecycle_end_to_end() {
     assert!(store.verify().ok, "chain valid after compaction");
 }
 
+#[test]
+fn conflicts_surface_and_resolve() {
+    let dir = fresh_dir("conflict");
+    let mut store = Store::open(&dir).unwrap();
+
+    let (dark, _) = store
+        .assert(
+            spec(MemoryKind::Preference, "prefers dark theme", 0.7, &["ui"]),
+            500,
+        )
+        .unwrap();
+    store
+        .assert(
