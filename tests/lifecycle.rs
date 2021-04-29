@@ -178,3 +178,16 @@ fn conflicts_surface_and_resolve() {
         .unwrap();
     store
         .assert(
+            spec(MemoryKind::Preference, "prefers light theme", 0.9, &["ui"]),
+            600,
+        )
+        .unwrap();
+
+    let conflicts = store.detect_conflicts(700);
+    assert_eq!(conflicts.len(), 1);
+    assert_eq!(conflicts[0].kind, "preference-polarity");
+
+    // Resolve by superseding the older, lower-confidence preference.
+    let mut sp = spec(
+        MemoryKind::Preference,
+        "prefers light theme confirmed",
