@@ -2,3 +2,5 @@
   "name": "recallweave-tapestry",
   "version": "1.0.0",
   "description": "Tapestry viewer for recallweave memory-packs: renders a loom-woven SVG and a text report from an exported pack.",
+  "license": "MIT",
+  "type": "module",
