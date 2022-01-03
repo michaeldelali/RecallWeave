@@ -6,3 +6,5 @@
   "type": "module",
   "bin": {
     "tapestry": "dist/cli.js"
+  },
+  "scripts": {
