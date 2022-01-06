@@ -8,3 +8,5 @@
     "tapestry": "dist/cli.js"
   },
   "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "demo": "node dist/cli.js ../examples/memory-pack.json --svg ../docs/assets/tapestry-demo.svg",
