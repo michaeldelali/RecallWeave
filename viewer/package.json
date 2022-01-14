@@ -12,3 +12,5 @@
     "demo": "node dist/cli.js ../examples/memory-pack.json --svg ../docs/assets/tapestry-demo.svg",
     "test": "tsc -p tsconfig.json && node dist/pack.test.js"
   },
+  "engines": {
+    "node": ">=18"
