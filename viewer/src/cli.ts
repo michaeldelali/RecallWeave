@@ -9,3 +9,11 @@
  *
  * The viewer never talks to the Rust engine or the log directly; it consumes the
  * portable pack only. That decoupling is deliberate (see docs/MEMORY.md).
+ */
+
+import { readFileSync, writeFileSync } from "node:fs";
+import { parsePackText, PackError } from "./pack.js";
+import { renderReport } from "./report.js";
+import { renderTapestry } from "./svg.js";
+
+interface Args {
