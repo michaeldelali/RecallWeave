@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+/**
+ * `tapestry` — the recallweave memory-pack viewer.
+ *
+ * Usage:
+ *   tapestry <pack.json>              print a text report
+ *   tapestry <pack.json> --svg out.svg   also write a woven SVG tapestry
+ *   tapestry <pack.json> --svg -     write the SVG to stdout
+ *
+ * The viewer never talks to the Rust engine or the log directly; it consumes the
+ * portable pack only. That decoupling is deliberate (see docs/MEMORY.md).
