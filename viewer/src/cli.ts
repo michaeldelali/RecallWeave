@@ -17,3 +17,11 @@ import { renderReport } from "./report.js";
 import { renderTapestry } from "./svg.js";
 
 interface Args {
+  packPath: string | null;
+  svgOut: string | null;
+  help: boolean;
+}
+
+function parseArgs(argv: string[]): Args {
+  const args: Args = { packPath: null, svgOut: null, help: false };
+  for (let i = 0; i < argv.length; i++) {
