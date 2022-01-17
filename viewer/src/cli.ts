@@ -25,3 +25,11 @@ interface Args {
 function parseArgs(argv: string[]): Args {
   const args: Args = { packPath: null, svgOut: null, help: false };
   for (let i = 0; i < argv.length; i++) {
+    const a = argv[i];
+    if (a === "--help" || a === "-h") {
+      args.help = true;
+    } else if (a === "--svg") {
+      const next = argv[i + 1];
+      if (next === undefined) throw new Error("--svg requires an output path (or '-')");
+      args.svgOut = next;
+      i++;
