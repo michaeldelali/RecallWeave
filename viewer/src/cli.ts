@@ -33,3 +33,11 @@ function parseArgs(argv: string[]): Args {
       if (next === undefined) throw new Error("--svg requires an output path (or '-')");
       args.svgOut = next;
       i++;
+    } else if (a.startsWith("-") && a !== "-") {
+      throw new Error(`unknown flag '${a}'`);
+    } else if (args.packPath === null) {
+      args.packPath = a;
+    } else {
+      throw new Error(`unexpected argument '${a}'`);
+    }
+  }
