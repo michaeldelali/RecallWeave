@@ -49,3 +49,12 @@ const HELP = `tapestry — recallweave memory-pack viewer
 USAGE:
   tapestry <pack.json>                 print a text report
   tapestry <pack.json> --svg <file>    also write a woven SVG tapestry
+  tapestry <pack.json> --svg -         write the SVG to stdout instead
+
+Produce a pack with the Rust engine:
+  recallweave export --out memory-pack.json
+`;
+
+function main(): number {
+  let args: Args;
+  try {
