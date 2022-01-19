@@ -41,3 +41,11 @@ function parseArgs(argv: string[]): Args {
       throw new Error(`unexpected argument '${a}'`);
     }
   }
+  return args;
+}
+
+const HELP = `tapestry — recallweave memory-pack viewer
+
+USAGE:
+  tapestry <pack.json>                 print a text report
+  tapestry <pack.json> --svg <file>    also write a woven SVG tapestry
