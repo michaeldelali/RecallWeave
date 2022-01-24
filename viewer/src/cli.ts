@@ -66,3 +66,11 @@ function main(): number {
 
   if (args.help || args.packPath === null) {
     process.stdout.write(HELP);
+    return args.help ? 0 : 1;
+  }
+
+  let text: string;
+  try {
+    text = readFileSync(args.packPath, "utf8");
+  } catch (e) {
+    process.stderr.write(`error: cannot read ${args.packPath}: ${(e as Error).message}\n`);
