@@ -58,3 +58,11 @@ Produce a pack with the Rust engine:
 function main(): number {
   let args: Args;
   try {
+    args = parseArgs(process.argv.slice(2));
+  } catch (e) {
+    process.stderr.write(`error: ${(e as Error).message}\n`);
+    return 2;
+  }
+
+  if (args.help || args.packPath === null) {
+    process.stdout.write(HELP);
