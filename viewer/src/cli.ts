@@ -74,3 +74,11 @@ function main(): number {
     text = readFileSync(args.packPath, "utf8");
   } catch (e) {
     process.stderr.write(`error: cannot read ${args.packPath}: ${(e as Error).message}\n`);
+    return 1;
+  }
+
+  let pack;
+  try {
+    pack = parsePackText(text);
+  } catch (e) {
+    if (e instanceof PackError) {
