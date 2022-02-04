@@ -13,3 +13,13 @@ let passed = 0;
 function test(name: string, fn: () => void): void {
   try {
     fn();
+    passed++;
+    process.stdout.write(`ok   - ${name}\n`);
+  } catch (e) {
+    process.stdout.write(`FAIL - ${name}\n  ${(e as Error).message}\n`);
+    process.exitCode = 1;
+  }
+}
+
+function samplePackText(): string {
+  const pack: MemoryPack = {
