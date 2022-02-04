@@ -23,3 +23,14 @@ function test(name: string, fn: () => void): void {
 
 function samplePackText(): string {
   const pack: MemoryPack = {
+    format: "recallweave-pack",
+    format_version: 1,
+    generated_at: 1710000500,
+    integrity_head: "abc123def456abc123def456abc123def456abc123def456abc123def4560000",
+    record_count: 4,
+    live_count: 3,
+    counts_by_kind: { semantic: 1, preference: 2, episodic: 0, procedural: 0 },
+    tag_counts: { ui: 2, infra: 1 },
+    conflicts: [
+      {
+        a: "mem_a",
