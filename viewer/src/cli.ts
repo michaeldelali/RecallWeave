@@ -82,3 +82,11 @@ function main(): number {
     pack = parsePackText(text);
   } catch (e) {
     if (e instanceof PackError) {
+      process.stderr.write(`error: ${e.message}\n`);
+      return 1;
+    }
+    throw e;
+  }
+
+  if (args.svgOut !== null) {
+    const svg = renderTapestry(pack);
