@@ -34,3 +34,13 @@ function samplePackText(): string {
     conflicts: [
       {
         a: "mem_a",
+        b: "mem_b",
+        kind: "preference-polarity",
+        explanation: "preferences appear to conflict on 'dark' vs 'light'",
+      },
+    ],
+    memories: [
+      {
+        id: "mem_region",
+        kind: "semantic",
+        content: "prod region is eu-west-1",
