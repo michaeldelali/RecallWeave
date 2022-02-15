@@ -87,3 +87,13 @@ function samplePackText(): string {
         superseded_by: null,
         tombstoned: false,
         tombstone_reason: null,
+      },
+    ],
+  };
+  return JSON.stringify(pack);
+}
+
+test("parsePack accepts a valid pack", () => {
+  const pack = parsePackText(samplePackText());
+  assert.equal(pack.live_count, 3);
+  assert.equal(pack.memories.length, 3);
