@@ -66,3 +66,13 @@ function samplePackText(): string {
         tags: ["ui"],
         links: ["mem_region"],
         created_at: 1710000200,
+        ttl_secs: null,
+        supersedes: null,
+        superseded_by: null,
+        tombstoned: false,
+        tombstone_reason: null,
+      },
+      {
+        id: "mem_b",
+        kind: "preference",
+        content: "prefers light theme",
