@@ -97,3 +97,14 @@ test("parsePack accepts a valid pack", () => {
   const pack = parsePackText(samplePackText());
   assert.equal(pack.live_count, 3);
   assert.equal(pack.memories.length, 3);
+  assert.equal(pack.conflicts.length, 1);
+});
+
+test("parsePack rejects non-pack JSON", () => {
+  assert.throws(() => parsePackText('{"format":"nope"}'), PackError);
+});
+
+test("parsePack rejects malformed JSON", () => {
+  assert.throws(() => parsePackText("{not json"), PackError);
+});
+
