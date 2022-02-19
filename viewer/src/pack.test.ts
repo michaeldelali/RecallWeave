@@ -118,3 +118,14 @@ test("parsePack rejects unsupported version", () => {
 test("parsePack rejects bad memory kind", () => {
   const bad = JSON.parse(samplePackText());
   bad.memories[0].kind = "telepathic";
+  assert.throws(() => parsePackText(JSON.stringify(bad)), PackError);
+});
+
+test("report includes counts, conflicts and memories", () => {
+  const report = renderReport(parsePackText(samplePackText()));
+  assert.ok(report.includes("live memories: 3"));
+  assert.ok(report.includes("preference-polarity"));
+  assert.ok(report.includes("prefers dark theme"));
+  assert.ok(report.includes("by kind"));
+});
+
