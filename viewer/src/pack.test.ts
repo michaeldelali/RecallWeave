@@ -108,3 +108,13 @@ test("parsePack rejects malformed JSON", () => {
   assert.throws(() => parsePackText("{not json"), PackError);
 });
 
+test("parsePack rejects unsupported version", () => {
+  assert.throws(
+    () => parsePackText('{"format":"recallweave-pack","format_version":99}'),
+    PackError,
+  );
+});
+
+test("parsePack rejects bad memory kind", () => {
+  const bad = JSON.parse(samplePackText());
+  bad.memories[0].kind = "telepathic";
