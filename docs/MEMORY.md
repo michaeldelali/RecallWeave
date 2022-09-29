@@ -202,4 +202,4 @@ use case needs semantic recall, run recallweave *alongside* a vector store: use
 recallweave for the lifecycle (provenance, TTL, supersession, tombstones,
 integrity) and the vector store for similarity search.
 
-<!-- draft note 303 -->
+<!-- draft note 309 -->
