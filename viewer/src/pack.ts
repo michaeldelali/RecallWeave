@@ -17,3 +17,14 @@ export const KINDS: readonly MemoryKind[] = [
   "preference",
 ];
 
+export interface Provenance {
+  source: string;
+  detail: string;
+}
+
+export interface Memory {
+  id: string;
+  kind: MemoryKind;
+  content: string;
+  fingerprint: string;
+  provenance: Provenance;
