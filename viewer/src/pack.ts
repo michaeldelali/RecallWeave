@@ -28,3 +28,14 @@ export interface Memory {
   content: string;
   fingerprint: string;
   provenance: Provenance;
+  confidence: number;
+  tags: string[];
+  links: string[];
+  created_at: number;
+  ttl_secs: number | null;
+  supersedes: string | null;
+  superseded_by: string | null;
+  tombstoned: boolean;
+  tombstone_reason: string | null;
+}
+
