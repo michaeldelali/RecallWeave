@@ -39,3 +39,14 @@ export interface Memory {
   tombstone_reason: string | null;
 }
 
+export interface Conflict {
+  a: string;
+  b: string;
+  kind: string;
+  explanation: string;
+}
+
+export interface MemoryPack {
+  format: "recallweave-pack";
+  format_version: number;
+  generated_at: number;
