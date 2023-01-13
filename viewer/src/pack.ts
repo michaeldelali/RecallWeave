@@ -50,3 +50,14 @@ export interface MemoryPack {
   format: "recallweave-pack";
   format_version: number;
   generated_at: number;
+  integrity_head: string;
+  record_count: number;
+  live_count: number;
+  counts_by_kind: Record<string, number>;
+  tag_counts: Record<string, number>;
+  conflicts: Conflict[];
+  memories: Memory[];
+}
+
+/** Thrown when a file is not a valid recallweave pack. */
+export class PackError extends Error {}
