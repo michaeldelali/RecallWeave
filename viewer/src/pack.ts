@@ -61,3 +61,14 @@ export interface MemoryPack {
 
 /** Thrown when a file is not a valid recallweave pack. */
 export class PackError extends Error {}
+
+function isObject(v: unknown): v is Record<string, unknown> {
+  return typeof v === "object" && v !== null && !Array.isArray(v);
+}
+
+function asString(v: unknown, path: string): string {
+  if (typeof v !== "string") throw new PackError(`${path}: expected string`);
+  return v;
+}
+
+function asNumber(v: unknown, path: string): number {
