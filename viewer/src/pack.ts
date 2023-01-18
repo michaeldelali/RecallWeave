@@ -72,3 +72,14 @@ function asString(v: unknown, path: string): string {
 }
 
 function asNumber(v: unknown, path: string): number {
+  if (typeof v !== "number" || Number.isNaN(v)) {
+    throw new PackError(`${path}: expected number`);
+  }
+  return v;
+}
+
+function asBool(v: unknown, path: string): boolean {
+  if (typeof v !== "boolean") throw new PackError(`${path}: expected boolean`);
+  return v;
+}
+
