@@ -106,3 +106,14 @@ function parseMemory(v: unknown, path: string): Memory {
     content: asString(v.content, `${path}.content`),
     fingerprint: asString(v.fingerprint, `${path}.fingerprint`),
     provenance: {
+      source: asString(prov.source, `${path}.provenance.source`),
+      detail: asString(prov.detail, `${path}.provenance.detail`),
+    },
+    confidence: asNumber(v.confidence, `${path}.confidence`),
+    tags: asStringArray(v.tags, `${path}.tags`),
+    links: asStringArray(v.links, `${path}.links`),
+    created_at: asNumber(v.created_at, `${path}.created_at`),
+    ttl_secs: v.ttl_secs === null ? null : asNumber(v.ttl_secs, `${path}.ttl_secs`),
+    supersedes: v.supersedes === null ? null : asString(v.supersedes, `${path}.supersedes`),
+    superseded_by:
+      v.superseded_by === null ? null : asString(v.superseded_by, `${path}.superseded_by`),
