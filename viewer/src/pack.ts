@@ -94,3 +94,15 @@ function parseKind(v: unknown, path: string): MemoryKind {
     throw new PackError(`${path}: unknown kind '${s}'`);
   }
   return s as MemoryKind;
+}
+
+function parseMemory(v: unknown, path: string): Memory {
+  if (!isObject(v)) throw new PackError(`${path}: expected object`);
+  const prov = v.provenance;
+  if (!isObject(prov)) throw new PackError(`${path}.provenance: expected object`);
+  return {
+    id: asString(v.id, `${path}.id`),
+    kind: parseKind(v.kind, `${path}.kind`),
+    content: asString(v.content, `${path}.content`),
+    fingerprint: asString(v.fingerprint, `${path}.fingerprint`),
+    provenance: {
