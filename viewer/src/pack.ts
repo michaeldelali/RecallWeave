@@ -117,3 +117,14 @@ function parseMemory(v: unknown, path: string): Memory {
     supersedes: v.supersedes === null ? null : asString(v.supersedes, `${path}.supersedes`),
     superseded_by:
       v.superseded_by === null ? null : asString(v.superseded_by, `${path}.superseded_by`),
+    tombstoned: asBool(v.tombstoned, `${path}.tombstoned`),
+    tombstone_reason:
+      v.tombstone_reason === null
+        ? null
+        : asString(v.tombstone_reason, `${path}.tombstone_reason`),
+  };
+}
+
+function parseConflict(v: unknown, path: string): Conflict {
+  if (!isObject(v)) throw new PackError(`${path}: expected object`);
+  return {
