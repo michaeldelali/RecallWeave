@@ -83,3 +83,14 @@ function asBool(v: unknown, path: string): boolean {
   return v;
 }
 
+function asStringArray(v: unknown, path: string): string[] {
+  if (!Array.isArray(v)) throw new PackError(`${path}: expected array`);
+  return v.map((item, i) => asString(item, `${path}[${i}]`));
+}
+
+function parseKind(v: unknown, path: string): MemoryKind {
+  const s = asString(v, path);
+  if (!KINDS.includes(s as MemoryKind)) {
+    throw new PackError(`${path}: unknown kind '${s}'`);
+  }
+  return s as MemoryKind;
