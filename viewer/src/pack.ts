@@ -128,3 +128,14 @@ function parseMemory(v: unknown, path: string): Memory {
 function parseConflict(v: unknown, path: string): Conflict {
   if (!isObject(v)) throw new PackError(`${path}: expected object`);
   return {
+    a: asString(v.a, `${path}.a`),
+    b: asString(v.b, `${path}.b`),
+    kind: asString(v.kind, `${path}.kind`),
+    explanation: asString(v.explanation, `${path}.explanation`),
+  };
+}
+
+function parseNumberMap(v: unknown, path: string): Record<string, number> {
+  if (!isObject(v)) throw new PackError(`${path}: expected object`);
+  const out: Record<string, number> = {};
+  for (const [k, val] of Object.entries(v)) {
