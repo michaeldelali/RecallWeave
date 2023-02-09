@@ -139,3 +139,14 @@ function parseNumberMap(v: unknown, path: string): Record<string, number> {
   if (!isObject(v)) throw new PackError(`${path}: expected object`);
   const out: Record<string, number> = {};
   for (const [k, val] of Object.entries(v)) {
+    out[k] = asNumber(val, `${path}.${k}`);
+  }
+  return out;
+}
+
+/** Validate and narrow an arbitrary JSON value into a {@link MemoryPack}. */
+export function parsePack(raw: unknown): MemoryPack {
+  if (!isObject(raw)) throw new PackError("root: expected object");
+  if (raw.format !== "recallweave-pack") {
+    throw new PackError(
+      `not a recallweave pack (format='${String(raw.format)}')`,
