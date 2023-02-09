@@ -150,3 +150,14 @@ export function parsePack(raw: unknown): MemoryPack {
   if (raw.format !== "recallweave-pack") {
     throw new PackError(
       `not a recallweave pack (format='${String(raw.format)}')`,
+    );
+  }
+  const version = asNumber(raw.format_version, "format_version");
+  if (version !== 1) {
+    throw new PackError(`unsupported pack format_version ${version} (expected 1)`);
+  }
+  const memories = Array.isArray(raw.memories)
+    ? raw.memories.map((m, i) => parseMemory(m, `memories[${i}]`))
+    : (() => {
+        throw new PackError("memories: expected array");
+      })();
