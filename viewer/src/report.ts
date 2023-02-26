@@ -6,3 +6,9 @@
  * behaves in any terminal and in CI logs.
  */
 
+import type { MemoryPack } from "./pack.js";
+import { KINDS } from "./pack.js";
+
+function bar(count: number, max: number, width = 24): string {
+  if (max <= 0) return "";
+  const filled = Math.round((count / max) * width);
