@@ -12,3 +12,9 @@ import { KINDS } from "./pack.js";
 function bar(count: number, max: number, width = 24): string {
   if (max <= 0) return "";
   const filled = Math.round((count / max) * width);
+  return "█".repeat(filled) + "·".repeat(Math.max(0, width - filled));
+}
+
+export function renderReport(pack: MemoryPack): string {
+  const lines: string[] = [];
+  lines.push("recallweave memory tapestry");
