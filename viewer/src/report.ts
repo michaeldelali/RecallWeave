@@ -43,3 +43,9 @@ export function renderReport(pack: MemoryPack): string {
     for (const [tag, count] of tags.slice(0, 10)) {
       lines.push(`${tag.padEnd(16)} ${count}`);
     }
+    lines.push("");
+  }
+
+  if (pack.conflicts.length) {
+    lines.push(`conflicts (${pack.conflicts.length})`);
+    lines.push("---------");
