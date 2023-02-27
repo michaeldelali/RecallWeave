@@ -24,3 +24,10 @@ export function renderReport(pack: MemoryPack): string {
   lines.push(`records      : ${pack.record_count}`);
   lines.push(`live memories: ${pack.live_count}`);
   lines.push("");
+
+  lines.push("by kind");
+  lines.push("-------");
+  const maxKind = Math.max(1, ...KINDS.map((k) => pack.counts_by_kind[k] ?? 0));
+  for (const kind of KINDS) {
+    const c = pack.counts_by_kind[kind] ?? 0;
+    lines.push(`${kind.padEnd(11)} ${String(c).padStart(3)} ${bar(c, maxKind)}`);
