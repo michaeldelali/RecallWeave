@@ -31,3 +31,9 @@ export function renderReport(pack: MemoryPack): string {
   for (const kind of KINDS) {
     const c = pack.counts_by_kind[kind] ?? 0;
     lines.push(`${kind.padEnd(11)} ${String(c).padStart(3)} ${bar(c, maxKind)}`);
+  }
+  lines.push("");
+
+  const tags = Object.entries(pack.tag_counts).sort(
+    (a, b) => b[1] - a[1] || a[0].localeCompare(b[0]),
+  );
