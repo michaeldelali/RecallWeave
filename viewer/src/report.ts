@@ -37,3 +37,9 @@ export function renderReport(pack: MemoryPack): string {
   const tags = Object.entries(pack.tag_counts).sort(
     (a, b) => b[1] - a[1] || a[0].localeCompare(b[0]),
   );
+  if (tags.length) {
+    lines.push("top tags");
+    lines.push("--------");
+    for (const [tag, count] of tags.slice(0, 10)) {
+      lines.push(`${tag.padEnd(16)} ${count}`);
+    }
