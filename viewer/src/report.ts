@@ -55,3 +55,9 @@ export function renderReport(pack: MemoryPack): string {
     }
     lines.push("");
   } else {
+    lines.push("conflicts: none");
+    lines.push("");
+  }
+
+  lines.push("memories");
+  lines.push("--------");
