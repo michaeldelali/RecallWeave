@@ -49,3 +49,9 @@ export function renderReport(pack: MemoryPack): string {
   if (pack.conflicts.length) {
     lines.push(`conflicts (${pack.conflicts.length})`);
     lines.push("---------");
+    for (const c of pack.conflicts) {
+      lines.push(`  [${c.kind}] ${c.a} <-> ${c.b}`);
+      lines.push(`      ${c.explanation}`);
+    }
+    lines.push("");
+  } else {
