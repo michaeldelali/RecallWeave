@@ -18,3 +18,9 @@ function bar(count: number, max: number, width = 24): string {
 export function renderReport(pack: MemoryPack): string {
   const lines: string[] = [];
   lines.push("recallweave memory tapestry");
+  lines.push("===========================");
+  lines.push(`generated at : ${pack.generated_at}`);
+  lines.push(`integrity head: ${pack.integrity_head}`);
+  lines.push(`records      : ${pack.record_count}`);
+  lines.push(`live memories: ${pack.live_count}`);
+  lines.push("");
