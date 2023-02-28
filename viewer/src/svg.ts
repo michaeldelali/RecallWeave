@@ -32,3 +32,15 @@ function escapeXml(s: string): string {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+/** Deterministic pseudo-random in [0,1) from a string seed (FNV-1a based). */
+function seededUnit(seed: string): number {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < seed.length; i++) {
+    h ^= seed.charCodeAt(i);
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  return (h % 100000) / 100000;
+}
+
