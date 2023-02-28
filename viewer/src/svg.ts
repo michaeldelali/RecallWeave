@@ -20,3 +20,15 @@ const KIND_COLOR: Record<MemoryKind, string> = {
   preference: "#d4a017", // saffron
 };
 
+const WIDTH = 900;
+const MARGIN = 60;
+const BAND_HEIGHT = 90;
+const HEADER = 120;
+const FOOTER = 70;
+
+function escapeXml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
