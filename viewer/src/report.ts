@@ -61,3 +61,10 @@ export function renderReport(pack: MemoryPack): string {
 
   lines.push("memories");
   lines.push("--------");
+  const sorted = [...pack.memories].sort(
+    (a, b) => b.created_at - a.created_at || a.id.localeCompare(b.id),
+  );
+  for (const m of sorted) {
+    const flags = [
+      m.tombstoned ? "tombstoned" : "",
+      m.superseded_by ? "superseded" : "",
