@@ -44,3 +44,15 @@ function seededUnit(seed: string): number {
   return (h % 100000) / 100000;
 }
 
+interface ThreadPos {
+  id: string;
+  x: number;
+  y: number;
+  color: string;
+}
+
+/**
+ * Build the SVG string for a pack. The layout is fully deterministic given the
+ * pack contents, so re-rendering the same pack yields byte-identical output.
+ */
+export function renderTapestry(pack: MemoryPack): string {
