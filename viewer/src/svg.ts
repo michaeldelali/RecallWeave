@@ -56,3 +56,15 @@ interface ThreadPos {
  * pack contents, so re-rendering the same pack yields byte-identical output.
  */
 export function renderTapestry(pack: MemoryPack): string {
+  const bands = KINDS.filter((k) => (pack.counts_by_kind[k] ?? 0) > 0);
+  const height =
+    HEADER + FOOTER + Math.max(1, bands.length) * (BAND_HEIGHT + 24);
+
+  const parts: string[] = [];
+  parts.push(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${WIDTH} ${height}" ` +
+      `width="${WIDTH}" height="${height}" role="img" ` +
+      `aria-label="recallweave memory tapestry with ${pack.live_count} live memories">`,
+  );
+  parts.push(defs());
+  parts.push(
