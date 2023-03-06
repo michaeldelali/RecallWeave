@@ -68,3 +68,15 @@ export function renderTapestry(pack: MemoryPack): string {
   );
   parts.push(defs());
   parts.push(
+    `<rect x="0" y="0" width="${WIDTH}" height="${height}" fill="url(#linen)"/>`,
+  );
+
+  // Title + integrity head.
+  parts.push(
+    `<text x="${MARGIN}" y="48" font-family="Georgia, 'Times New Roman', serif" ` +
+      `font-size="30" fill="#2b2118" font-weight="bold">recallweave tapestry</text>`,
+  );
+  parts.push(
+    `<text x="${MARGIN}" y="76" font-family="monospace" font-size="13" fill="#6b5d4f">` +
+      `${pack.live_count} live memories · ${pack.record_count} log records · head ` +
+      `${escapeXml(pack.integrity_head.slice(0, 16))}…</text>`,
