@@ -80,3 +80,15 @@ export function renderTapestry(pack: MemoryPack): string {
     `<text x="${MARGIN}" y="76" font-family="monospace" font-size="13" fill="#6b5d4f">` +
       `${pack.live_count} live memories · ${pack.record_count} log records · head ` +
       `${escapeXml(pack.integrity_head.slice(0, 16))}…</text>`,
+  );
+
+  // Animated shuttle gliding across the top (the loom's shuttle passing yarn).
+  const shuttleTop = 96;
+  parts.push(
+    `<g transform="translate(0,${shuttleTop})">` +
+      `<rect x="-40" y="-7" width="40" height="14" rx="7" fill="#8a5a2b">` +
+      `<animate attributeName="x" values="${MARGIN};${WIDTH - MARGIN - 40};${MARGIN}" ` +
+      `dur="7s" repeatCount="indefinite"/></rect></g>`,
+  );
+
+  const positions: Record<string, ThreadPos> = {};
