@@ -92,3 +92,15 @@ export function renderTapestry(pack: MemoryPack): string {
   );
 
   const positions: Record<string, ThreadPos> = {};
+
+  bands.forEach((kind, bandIndex) => {
+    const bandY = HEADER + bandIndex * (BAND_HEIGHT + 24);
+    const color = KIND_COLOR[kind];
+    const inBand = pack.memories
+      .filter((m) => m.kind === kind)
+      .sort((a, b) => a.created_at - b.created_at || a.id.localeCompare(b.id));
+
+    // Warp band background + label.
+    parts.push(
+      `<rect x="${MARGIN}" y="${bandY}" width="${WIDTH - 2 * MARGIN}" ` +
+        `height="${BAND_HEIGHT}" rx="10" fill="${color}" fill-opacity="0.10" ` +
