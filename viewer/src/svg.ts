@@ -104,3 +104,15 @@ export function renderTapestry(pack: MemoryPack): string {
     parts.push(
       `<rect x="${MARGIN}" y="${bandY}" width="${WIDTH - 2 * MARGIN}" ` +
         `height="${BAND_HEIGHT}" rx="10" fill="${color}" fill-opacity="0.10" ` +
+        `stroke="${color}" stroke-opacity="0.5"/>`,
+    );
+    parts.push(
+      `<text x="${MARGIN + 8}" y="${bandY + 20}" font-family="Georgia, serif" ` +
+        `font-size="15" fill="${color}" font-weight="bold">${kind} · ${inBand.length}</text>`,
+    );
+
+    // Warp threads (faint vertical guide lines).
+    for (let gx = MARGIN + 20; gx < WIDTH - MARGIN; gx += 22) {
+      parts.push(
+        `<line x1="${gx}" y1="${bandY + 28}" x2="${gx}" y2="${bandY + BAND_HEIGHT - 8}" ` +
+          `stroke="${color}" stroke-opacity="0.08" stroke-width="1"/>`,
