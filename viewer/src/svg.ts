@@ -128,3 +128,15 @@ export function renderTapestry(pack: MemoryPack): string {
       const cy = bandY + BAND_HEIGHT / 2 + 6 + jitter;
       const conf = Math.max(0.05, Math.min(1, m.confidence));
       const len = 10 + conf * 44;
+      const faded = m.tombstoned || m.superseded_by !== null;
+      const opacity = faded ? 0.25 : 0.95;
+      const dash = faded ? ` stroke-dasharray="3 3"` : "";
+
+      // The weft thread, drawn with a gentle sway animation.
+      parts.push(
+        `<g opacity="${opacity}">` +
+          `<line x1="${(cx - len).toFixed(1)}" y1="${cy.toFixed(1)}" ` +
+          `x2="${(cx + len).toFixed(1)}" y2="${cy.toFixed(1)}" ` +
+          `stroke="${color}" stroke-width="${(1.5 + conf * 3).toFixed(1)}" ` +
+          `stroke-linecap="round"${dash}>` +
+          `<animate attributeName="y1" values="${cy.toFixed(1)};${(cy - 1.5).toFixed(1)};${cy.toFixed(1)}" ` +
