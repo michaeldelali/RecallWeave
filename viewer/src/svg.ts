@@ -152,3 +152,15 @@ export function renderTapestry(pack: MemoryPack): string {
           `</g>`,
       );
       positions[m.id] = { id: m.id, x: cx, y: cy, color };
+    });
+  });
+
+  // Conflicts: crossed red threads between the two memories.
+  pack.conflicts.forEach((c) => {
+    const a = positions[c.a];
+    const b = positions[c.b];
+    if (!a || !b) return;
+    parts.push(
+      `<g>` +
+        `<line x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" ` +
+        `x2="${b.x.toFixed(1)}" y2="${b.y.toFixed(1)}" stroke="#c1121f" ` +
