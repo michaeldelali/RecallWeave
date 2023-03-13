@@ -164,3 +164,15 @@ export function renderTapestry(pack: MemoryPack): string {
       `<g>` +
         `<line x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" ` +
         `x2="${b.x.toFixed(1)}" y2="${b.y.toFixed(1)}" stroke="#c1121f" ` +
+        `stroke-width="1.6" stroke-dasharray="5 4" opacity="0.85">` +
+        `<animate attributeName="stroke-dashoffset" values="0;18" dur="1.2s" ` +
+        `repeatCount="indefinite"/></line>` +
+        `<title>conflict (${escapeXml(c.kind)}): ${escapeXml(c.explanation)}</title>` +
+        `</g>`,
+    );
+  });
+
+  // Legend / footer.
+  const legendY = height - FOOTER + 26;
+  let lx = MARGIN;
+  for (const kind of KINDS) {
