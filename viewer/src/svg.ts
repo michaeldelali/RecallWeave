@@ -116,3 +116,15 @@ export function renderTapestry(pack: MemoryPack): string {
       parts.push(
         `<line x1="${gx}" y1="${bandY + 28}" x2="${gx}" y2="${bandY + BAND_HEIGHT - 8}" ` +
           `stroke="${color}" stroke-opacity="0.08" stroke-width="1"/>`,
+      );
+    }
+
+    // Weft threads: one per memory.
+    const usable = WIDTH - 2 * MARGIN - 40;
+    const step = inBand.length > 0 ? usable / inBand.length : usable;
+    inBand.forEach((m, i) => {
+      const cx = MARGIN + 30 + step * (i + 0.5);
+      const jitter = (seededUnit(m.id) - 0.5) * (BAND_HEIGHT - 50);
+      const cy = bandY + BAND_HEIGHT / 2 + 6 + jitter;
+      const conf = Math.max(0.05, Math.min(1, m.confidence));
+      const len = 10 + conf * 44;
