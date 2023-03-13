@@ -140,3 +140,15 @@ export function renderTapestry(pack: MemoryPack): string {
           `stroke="${color}" stroke-width="${(1.5 + conf * 3).toFixed(1)}" ` +
           `stroke-linecap="round"${dash}>` +
           `<animate attributeName="y1" values="${cy.toFixed(1)};${(cy - 1.5).toFixed(1)};${cy.toFixed(1)}" ` +
+          `dur="${(3 + seededUnit(m.id + "d") * 3).toFixed(2)}s" repeatCount="indefinite"/>` +
+          `<animate attributeName="y2" values="${cy.toFixed(1)};${(cy + 1.5).toFixed(1)};${cy.toFixed(1)}" ` +
+          `dur="${(3 + seededUnit(m.id + "d") * 3).toFixed(2)}s" repeatCount="indefinite"/>` +
+          `</line>` +
+          // knot marks memories with outgoing links
+          (m.links.length > 0
+            ? `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="3.2" fill="${color}"/>`
+            : "") +
+          `<title>${escapeXml(memoryTitle(m))}</title>` +
+          `</g>`,
+      );
+      positions[m.id] = { id: m.id, x: cx, y: cy, color };
