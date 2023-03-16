@@ -176,3 +176,15 @@ export function renderTapestry(pack: MemoryPack): string {
   const legendY = height - FOOTER + 26;
   let lx = MARGIN;
   for (const kind of KINDS) {
+    parts.push(
+      `<rect x="${lx}" y="${legendY - 11}" width="14" height="14" rx="3" fill="${KIND_COLOR[kind]}"/>`,
+    );
+    parts.push(
+      `<text x="${lx + 20}" y="${legendY}" font-family="Georgia, serif" font-size="13" ` +
+        `fill="#4a3f33">${kind}</text>`,
+    );
+    lx += 150;
+  }
+  parts.push(
+    `<text x="${MARGIN}" y="${legendY + 24}" font-family="Georgia, serif" font-size="11" ` +
+      `fill="#8a7d6d">thread length = confidence · dashed = retired · red = conflict · ` +
