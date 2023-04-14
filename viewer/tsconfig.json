@@ -9,3 +9,4 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
+    "esModuleInterop": true,
