@@ -10,3 +10,5 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
