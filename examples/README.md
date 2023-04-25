@@ -14,3 +14,9 @@ memory-pack it produces.
 
 ## Running the demo
 
+From the **project root**:
+
+```bash
+# POSIX shell
+sh examples/demo.sh
+
