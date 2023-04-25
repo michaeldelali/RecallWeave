@@ -26,3 +26,9 @@ pwsh examples/demo.ps1
 
 The demo is deterministic — every command pins `--now` — so ids, fingerprints,
 and output are stable across runs. It:
+
+1. asserts a `semantic` region fact, then **supersedes** it when the region
+   changes (`us-east-1` → `eu-west-1`);
+2. records three `preference` memories, two of which are in genuine
+   **polarity conflict** (`dark` vs `light` theme);
+3. adds a `procedural` runbook step and an `episodic` note with a **1-day TTL**;
