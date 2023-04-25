@@ -20,3 +20,9 @@ From the **project root**:
 # POSIX shell
 sh examples/demo.sh
 
+# PowerShell
+pwsh examples/demo.ps1
+```
+
+The demo is deterministic — every command pins `--now` — so ids, fingerprints,
+and output are stable across runs. It:
