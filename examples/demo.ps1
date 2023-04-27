@@ -3,3 +3,9 @@
 # exports a memory-pack. Deterministic: every command pins --now.
 #
 # Run from the project root:  pwsh examples/demo.ps1
+
+$ErrorActionPreference = "Stop"
+
+$root  = Split-Path -Parent $PSScriptRoot
+$bin   = Join-Path $root "target\release\recallweave.exe"
+$store = Join-Path $root "examples\demo-store"
