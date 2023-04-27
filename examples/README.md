@@ -32,3 +32,9 @@ and output are stable across runs. It:
 2. records three `preference` memories, two of which are in genuine
    **polarity conflict** (`dark` vs `light` theme);
 3. adds a `procedural` runbook step and an `episodic` note with a **1-day TTL**;
+4. shows that re-adding **normalized-identical** content is **deduped**;
+5. lists the live set, reports the detected **conflict**, checks **integrity**,
+   prints **stats**, and **exports** `memory-pack.json`.
+
+## Turning the pack into a tapestry
+
