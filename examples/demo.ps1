@@ -9,3 +9,9 @@ $ErrorActionPreference = "Stop"
 $root  = Split-Path -Parent $PSScriptRoot
 $bin   = Join-Path $root "target\release\recallweave.exe"
 $store = Join-Path $root "examples\demo-store"
+$pack  = Join-Path $root "examples\memory-pack.json"
+
+if (-not (Test-Path $bin)) {
+    Write-Host "building release binary..."
+    Push-Location $root; cargo build --release; Pop-Location
+}
