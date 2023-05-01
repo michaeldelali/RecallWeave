@@ -21,3 +21,9 @@ function rw { & $bin --dir $store @args }
 if (Test-Path $store) { Remove-Item -Recurse -Force $store }
 
 Write-Host "== weaving semantic + preference + procedural + episodic threads =="
+rw add --kind semantic --content "prod region is us-east-1" --tags infra,region --source user --now 1710000000 | Out-Null
+$oldId = (rw query --kind semantic --json --now 1710000050 | Select-String -Pattern 'mem_[0-9a-f]+' | ForEach-Object { $_.Matches[0].Value } | Select-Object -First 1)
+
+Write-Host "== the region changed: supersede the old fact =="
+rw supersede --old $oldId --content "prod region is eu-west-1" --confidence 0.99 --tags infra,region --now 1710000100
+
