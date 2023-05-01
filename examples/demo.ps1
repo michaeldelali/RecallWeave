@@ -15,3 +15,9 @@ if (-not (Test-Path $bin)) {
     Write-Host "building release binary..."
     Push-Location $root; cargo build --release; Pop-Location
 }
+
+function rw { & $bin --dir $store @args }
+
+if (Test-Path $store) { Remove-Item -Recurse -Force $store }
+
+Write-Host "== weaving semantic + preference + procedural + episodic threads =="
