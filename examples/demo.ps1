@@ -27,3 +27,8 @@ $oldId = (rw query --kind semantic --json --now 1710000050 | Select-String -Patt
 Write-Host "== the region changed: supersede the old fact =="
 rw supersede --old $oldId --content "prod region is eu-west-1" --confidence 0.99 --tags infra,region --now 1710000100
 
+Write-Host "== record some preferences (two of them will conflict) =="
+rw add --kind preference --content "prefers concise answers" --tags style --confidence 0.8 --now 1710000200 | Out-Null
+rw add --kind preference --content "prefers dark theme"      --tags ui    --confidence 0.7 --now 1710000200 | Out-Null
+rw add --kind preference --content "prefers light theme"     --tags ui    --confidence 0.6 --now 1710000200 | Out-Null
+
