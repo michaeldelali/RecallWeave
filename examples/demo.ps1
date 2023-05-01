@@ -38,3 +38,9 @@ rw add --kind episodic   --content "deploy failed at 14:03 due to bad env var" -
 
 Write-Host "`n== dedupe: re-adding normalized-identical content is a no-op =="
 rw add --kind semantic --content "PROD region   is  eu-west-1" --now 1710000450
+
+Write-Host "`n== list live memories =="
+rw list --now 1710000500
+
+Write-Host "`n== detected conflicts =="
+rw conflicts --now 1710000500
