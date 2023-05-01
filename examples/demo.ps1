@@ -32,3 +32,9 @@ rw add --kind preference --content "prefers concise answers" --tags style --conf
 rw add --kind preference --content "prefers dark theme"      --tags ui    --confidence 0.7 --now 1710000200 | Out-Null
 rw add --kind preference --content "prefers light theme"     --tags ui    --confidence 0.6 --now 1710000200 | Out-Null
 
+Write-Host "== a procedural recipe and an episodic note with a 1-day TTL =="
+rw add --kind procedural --content "rotate the API token by running ops runbook step 3" --tags ops --confidence 0.9 --now 1710000300 | Out-Null
+rw add --kind episodic   --content "deploy failed at 14:03 due to bad env var" --tags infra --confidence 0.6 --ttl 86400 --now 1710000400 | Out-Null
+
+Write-Host "`n== dedupe: re-adding normalized-identical content is a no-op =="
+rw add --kind semantic --content "PROD region   is  eu-west-1" --now 1710000450
