@@ -4,3 +4,10 @@
 # compaction, verify) and exports a memory-pack.
 #
 # Run from the project root:  sh examples/demo.sh
+# It is deterministic: every command pins --now so ids and output are stable.
+
+set -eu
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+BIN="$ROOT/target/release/recallweave"
+STORE="$ROOT/examples/demo-store"
