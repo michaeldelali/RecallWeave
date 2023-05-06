@@ -11,3 +11,10 @@ set -eu
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 BIN="$ROOT/target/release/recallweave"
 STORE="$ROOT/examples/demo-store"
+PACK="$ROOT/examples/memory-pack.json"
+
+if [ ! -x "$BIN" ]; then
+  echo "building release binary..."
+  ( cd "$ROOT" && cargo build --release )
+fi
+
