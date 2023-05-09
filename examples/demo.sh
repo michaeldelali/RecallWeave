@@ -18,3 +18,10 @@ if [ ! -x "$BIN" ]; then
   ( cd "$ROOT" && cargo build --release )
 fi
 
+rw() { "$BIN" --dir "$STORE" "$@"; }
+
+rm -rf "$STORE"
+
+echo "== weaving semantic + preference + procedural + episodic threads =="
+rw add --kind semantic   --content "prod region is us-east-1" --tags infra,region --source user --now 1710000000
+# capture the id of that semantic memory for supersession
