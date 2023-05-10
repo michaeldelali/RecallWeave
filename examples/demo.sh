@@ -39,3 +39,9 @@ echo "== a procedural recipe and an episodic note with a 1-day TTL =="
 rw add --kind procedural --content "rotate the API token by running ops runbook step 3" --tags ops --confidence 0.9 --now 1710000300
 rw add --kind episodic   --content "deploy failed at 14:03 due to bad env var" --tags infra --confidence 0.6 --ttl 86400 --now 1710000400
 
+echo
+echo "== dedupe: re-adding normalized-identical content is a no-op =="
+rw add --kind semantic --content "PROD region   is  eu-west-1" --now 1710000450
+
+echo
+echo "== list live memories =="
