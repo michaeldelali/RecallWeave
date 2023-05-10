@@ -25,3 +25,10 @@ rm -rf "$STORE"
 echo "== weaving semantic + preference + procedural + episodic threads =="
 rw add --kind semantic   --content "prod region is us-east-1" --tags infra,region --source user --now 1710000000
 # capture the id of that semantic memory for supersession
+OLD_ID=$(rw query --kind semantic --json --now 1710000050 | grep -o 'mem_[0-9a-f]*' | head -n1)
+
+echo "== the region changed: supersede the old fact =="
+rw supersede --old "$OLD_ID" --content "prod region is eu-west-1" --confidence 0.99 --tags infra,region --now 1710000100
+
+echo "== record some preferences (two of them will conflict) =="
+rw add --kind preference --content "prefers concise answers" --tags style --confidence 0.8 --now 1710000200
