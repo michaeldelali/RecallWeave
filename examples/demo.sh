@@ -32,3 +32,10 @@ rw supersede --old "$OLD_ID" --content "prod region is eu-west-1" --confidence 0
 
 echo "== record some preferences (two of them will conflict) =="
 rw add --kind preference --content "prefers concise answers" --tags style --confidence 0.8 --now 1710000200
+rw add --kind preference --content "prefers dark theme"      --tags ui    --confidence 0.7 --now 1710000200
+rw add --kind preference --content "prefers light theme"     --tags ui    --confidence 0.6 --now 1710000200
+
+echo "== a procedural recipe and an episodic note with a 1-day TTL =="
+rw add --kind procedural --content "rotate the API token by running ops runbook step 3" --tags ops --confidence 0.9 --now 1710000300
+rw add --kind episodic   --content "deploy failed at 14:03 due to bad env var" --tags infra --confidence 0.6 --ttl 86400 --now 1710000400
+
