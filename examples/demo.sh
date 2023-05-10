@@ -45,3 +45,10 @@ rw add --kind semantic --content "PROD region   is  eu-west-1" --now 1710000450
 
 echo
 echo "== list live memories =="
+rw list --now 1710000500
+
+echo
+echo "== detected conflicts =="
+rw conflicts --now 1710000500
+
+echo
