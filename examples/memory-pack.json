@@ -13,3 +13,17 @@
     "procedural": 1,
     "semantic": 1
   },
+  "format": "recallweave-pack",
+  "format_version": 1,
+  "generated_at": 1710000500,
+  "integrity_head": "2f4907070c7399eeb3e5637e85db596002a6a63ce2d2cf172a3319a579526a22",
+  "live_count": 6,
+  "memories": [
+    {
+      "confidence": 0.7,
+      "content": "prefers dark theme",
+      "created_at": 1710000200,
+      "fingerprint": "07ec91bc12fa710d",
+      "id": "mem_05722332c99b",
+      "kind": "preference",
+      "links": [],
