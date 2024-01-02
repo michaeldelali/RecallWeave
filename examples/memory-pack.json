@@ -1,0 +1,15 @@
+{
+  "conflicts": [
+    {
+      "a": "mem_05722332c99b",
+      "b": "mem_881fb4d43384",
+      "explanation": "preferences appear to conflict on 'dark' vs 'light'",
+      "kind": "preference-polarity"
+    }
+  ],
+  "counts_by_kind": {
+    "episodic": 1,
+    "preference": 3,
+    "procedural": 1,
+    "semantic": 1
+  },
