@@ -98,3 +98,18 @@
       "supersedes": null,
       "tags": [
         "ops"
+      ],
+      "tombstone_reason": null,
+      "tombstoned": false,
+      "ttl_secs": null
+    },
+    {
+      "confidence": 0.6,
+      "content": "prefers light theme",
+      "created_at": 1710000200,
+      "fingerprint": "a48b485ee8b489cd",
+      "id": "mem_881fb4d43384",
+      "kind": "preference",
+      "links": [],
+      "provenance": {
+        "detail": "",
