@@ -27,3 +27,18 @@
       "id": "mem_05722332c99b",
       "kind": "preference",
       "links": [],
+      "provenance": {
+        "detail": "",
+        "source": "user"
+      },
+      "superseded_by": null,
+      "supersedes": null,
+      "tags": [
+        "ui"
+      ],
+      "tombstone_reason": null,
+      "tombstoned": false,
+      "ttl_secs": null
+    },
+    {
+      "confidence": 0.8,
