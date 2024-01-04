@@ -84,3 +84,17 @@
     },
     {
       "confidence": 0.9,
+      "content": "rotate the API token by running ops runbook step 3",
+      "created_at": 1710000300,
+      "fingerprint": "66c7e181ca16b729",
+      "id": "mem_7c23e2651f32",
+      "kind": "procedural",
+      "links": [],
+      "provenance": {
+        "detail": "",
+        "source": "user"
+      },
+      "superseded_by": null,
+      "supersedes": null,
+      "tags": [
+        "ops"
