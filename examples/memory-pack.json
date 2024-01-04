@@ -56,3 +56,17 @@
       "supersedes": null,
       "tags": [
         "style"
+      ],
+      "tombstone_reason": null,
+      "tombstoned": false,
+      "ttl_secs": null
+    },
+    {
+      "confidence": 0.6,
+      "content": "deploy failed at 14:03 due to bad env var",
+      "created_at": 1710000400,
+      "fingerprint": "89e0f9f7f8bccc32",
+      "id": "mem_159b38023143",
+      "kind": "episodic",
+      "links": [],
+      "provenance": {
