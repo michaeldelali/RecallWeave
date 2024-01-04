@@ -70,3 +70,17 @@
       "kind": "episodic",
       "links": [],
       "provenance": {
+        "detail": "",
+        "source": "user"
+      },
+      "superseded_by": null,
+      "supersedes": null,
+      "tags": [
+        "infra"
+      ],
+      "tombstone_reason": null,
+      "tombstoned": false,
+      "ttl_secs": 86400
+    },
+    {
+      "confidence": 0.9,
