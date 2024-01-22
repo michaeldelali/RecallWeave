@@ -30,3 +30,15 @@ A **memory** is a typed, timestamped unit of knowledge. Every memory carries:
 | `tombstone_reason` | why it was retired (`ttl-expired`, `manual`, …)                   |
 
 ### The four kinds
+
+- **episodic** — something that happened at a time ("deploy failed at 14:03").
+  Naturally decays; the most common candidate for a TTL.
+- **semantic** — a durable fact ("prod region is eu‑west‑1").
+- **procedural** — a how‑to / recipe ("rotate the token by running …").
+- **preference** — a stated preference ("prefers concise answers"). The most
+  conflict‑prone, because preferences change over time.
+
+---
+
+## 2. The append‑only log
+
