@@ -18,3 +18,15 @@ A **memory** is a typed, timestamped unit of knowledge. Every memory carries:
 | `kind`           | `episodic` \| `semantic` \| `procedural` \| `preference`            |
 | `content`        | the human‑readable text                                             |
 | `fingerprint`    | 16‑hex lexical fingerprint of the *normalized* content (dedupe key) |
+| `provenance`     | `{ source, detail }` — *why do I believe this?*                     |
+| `confidence`     | subjective belief in `[0.0, 1.0]`                                   |
+| `tags`           | sorted, de‑duplicated labels                                        |
+| `links`          | ids of related memories (a light knowledge graph)                   |
+| `created_at`     | logical creation time (epoch seconds)                               |
+| `ttl_secs`       | optional time‑to‑live; `null` = keep indefinitely                   |
+| `supersedes`     | id of a memory this one replaced (if any)                           |
+| `superseded_by`  | id of the memory that replaced this one (derived)                   |
+| `tombstoned`     | `true` once retired                                                 |
+| `tombstone_reason` | why it was retired (`ttl-expired`, `manual`, …)                   |
+
+### The four kinds
