@@ -42,3 +42,14 @@ A **memory** is a typed, timestamped unit of knowledge. Every memory carries:
 
 ## 2. The append‑only log
 
+State lives in a directory (default `.recallweave/`) with a single file,
+`log.jsonl`: **one JSON object per line, in append order.** Nothing earlier is
+mutated during normal operation. There are three event types:
+
+- `assert` — a new memory is recorded.
+- `tombstone` — an existing memory is retired (`{ id, reason }`).
+- `supersede` — a new memory replaces an old one (`{ old_id, new }`).
+
+The **current state** is the deterministic fold of every event in order:
+
+```
