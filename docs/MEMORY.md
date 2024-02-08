@@ -53,3 +53,15 @@ mutated during normal operation. There are three event types:
 The **current state** is the deterministic fold of every event in order:
 
 ```
+log.jsonl (events)  ──replay──▶  materialized state (id → Memory)
+      ▲                                   │
+      │ append                            ▼
+ assert/tombstone/supersede    query / verify / export / compact
+```
+
+Because state is *derived*, the log is the single source of truth and history is
+never lost until you explicitly compact.
+
+### Integrity chain (tamper‑evidence)
+
+Each record stores `prev` (the digest of the previous record) and `digest` (a
