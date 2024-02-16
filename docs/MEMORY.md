@@ -65,3 +65,15 @@ never lost until you explicitly compact.
 ### Integrity chain (tamper‑evidence)
 
 Each record stores `prev` (the digest of the previous record) and `digest` (a
+256‑bit hash over the record's canonical payload chained with `prev`). The first
+record's `prev` is 64 zeros (GENESIS). `recallweave verify` recomputes the whole
+chain and reports:
+
+- sequence gaps,
+- broken `prev` links,
+- any record whose contents no longer match its digest.
+
+This detects accidental corruption and casual tampering. **It is not a
+cryptographic signature** — see limitations.
+
+---
