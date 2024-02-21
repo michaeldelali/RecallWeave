@@ -77,3 +77,15 @@ This detects accidental corruption and casual tampering. **It is not a
 cryptographic signature** — see limitations.
 
 ---
+
+## 3. Lifecycle operations
+
+| operation      | command                | effect                                                            |
+|----------------|------------------------|-------------------------------------------------------------------|
+| assert         | `add`                  | append an `assert` (or `supersede` if `--supersedes` given)       |
+| dedupe         | *(automatic on add)*   | identical normalized content + same kind ⇒ reuse existing id      |
+| supersede      | `supersede`            | replace an old memory; old becomes `superseded_by`                |
+| forget (one)   | `forget <id>`          | append a `tombstone`                                              |
+| forget (TTL)   | `gc`                   | tombstone every expired memory                                    |
+| conflicts      | `conflicts`            | report (never mutate) detected conflicts                          |
+| compaction     | `compact`              | rewrite the log, dropping retired records, rebuilding the chain   |
