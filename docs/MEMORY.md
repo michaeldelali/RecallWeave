@@ -101,3 +101,15 @@ to the same fingerprint. On `add`, if a **live** memory of the **same kind** has
 that fingerprint, no new record is written and the existing id is returned. This
 is exact/normalized‑lexical dedupe — deterministic and explainable.
 
+### Conflict detection
+
+Two deterministic, explainable detectors run over the live set:
+
+1. **duplicate‑content‑different‑kind** — the same normalized content stored
+   under two different kinds (usually a modelling mistake).
+2. **preference‑polarity** — two live `preference` memories that share a subject
+   token but differ on a recognised antonym from a small built‑in table
+   (`dark`/`light`, `concise`/`verbose`, `enable`/`disable`, …). A shared subject
+   token is required so `"prefers dark theme"` vs `"prefers light beer"` does
+   **not** clash.
+
