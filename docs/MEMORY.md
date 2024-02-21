@@ -89,3 +89,15 @@ cryptographic signature** — see limitations.
 | forget (TTL)   | `gc`                   | tombstone every expired memory                                    |
 | conflicts      | `conflicts`            | report (never mutate) detected conflicts                          |
 | compaction     | `compact`              | rewrite the log, dropping retired records, rebuilding the chain   |
+| verify         | `verify`               | check the integrity chain                                         |
+| query / filter | `list`, `query`, `get` | read the materialized state                                       |
+| export         | `export`               | write a portable **memory‑pack** for viewers                      |
+
+### Deterministic dedupe
+
+Content is **normalized** before fingerprinting: trim → collapse internal
+whitespace → lowercase. So `"Loves  DARK\tmode"` and `"loves dark mode"` collapse
+to the same fingerprint. On `add`, if a **live** memory of the **same kind** has
+that fingerprint, no new record is written and the existing id is returned. This
+is exact/normalized‑lexical dedupe — deterministic and explainable.
+
