@@ -113,3 +113,15 @@ Two deterministic, explainable detectors run over the live set:
    token is required so `"prefers dark theme"` vs `"prefers light beer"` does
    **not** clash.
 
+Detection never mutates state. You resolve a conflict explicitly by
+`supersede`‑ing or `forget`‑ing one side.
+
+### Forgetting & compaction
+
+- **TTL forgetting** (`gc`) tombstones memories whose `created_at + ttl_secs` has
+  passed. Expired memories already drop out of `list`/`query`; `gc` makes the
+  retirement explicit and durable in the log.
+- **Compaction** (`compact`) reads the live set, drops tombstoned / superseded /
+  expired records, and re‑weaves the survivors into a fresh log starting from
+  GENESIS. Ids and `created_at` are preserved, so the materialized live set is
+  identical before and after. Compaction is the *only* operation that rewrites
