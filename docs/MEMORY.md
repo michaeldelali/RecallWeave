@@ -137,3 +137,15 @@ plus derived statistics, the detected conflicts, and the integrity head. It does
 **not** contain the log or the hash chain — viewers never need to understand
 chaining. Fields:
 
+```jsonc
+{
+  "format": "recallweave-pack",
+  "format_version": 1,
+  "generated_at": 1710000500,
+  "integrity_head": "<64 hex>",
+  "record_count": 7,
+  "live_count": 6,
+  "counts_by_kind": { "episodic": 1, "semantic": 1, ... },
+  "tag_counts": { "infra": 2, "ui": 2, ... },
+  "conflicts": [ { "a", "b", "kind", "explanation" } ],
+  "memories": [ /* full Memory objects */ ]
