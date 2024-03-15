@@ -149,3 +149,14 @@ chaining. Fields:
   "tag_counts": { "infra": 2, "ui": 2, ... },
   "conflicts": [ { "a", "b", "kind", "explanation" } ],
   "memories": [ /* full Memory objects */ ]
+}
+```
+
+The TypeScript **tapestry** viewer in `viewer/` consumes exactly this.
+
+---
+
+## 5. Why no dependencies?
+
+The Rust engine uses the **standard library only** — no `serde`, no `sha2`, no
+`clap`. This keeps the memory format auditable end‑to‑end (the JSON codec, the
