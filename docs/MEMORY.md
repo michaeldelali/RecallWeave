@@ -125,3 +125,15 @@ Detection never mutates state. You resolve a conflict explicitly by
   expired records, and re‑weaves the survivors into a fresh log starting from
   GENESIS. Ids and `created_at` are preserved, so the materialized live set is
   identical before and after. Compaction is the *only* operation that rewrites
+  history; it is written atomically (temp file + rename).
+
+---
+
+## 4. The memory‑pack export format
+
+`export` produces a single, self‑describing JSON document (`format:
+"recallweave-pack"`, `format_version: 1`). It contains only the **live** memories
+plus derived statistics, the detected conflicts, and the integrity head. It does
+**not** contain the log or the hash chain — viewers never need to understand
+chaining. Fields:
+
