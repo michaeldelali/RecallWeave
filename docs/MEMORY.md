@@ -160,3 +160,15 @@ The TypeScript **tapestry** viewer in `viewer/` consumes exactly this.
 
 The Rust engine uses the **standard library only** — no `serde`, no `sha2`, no
 `clap`. This keeps the memory format auditable end‑to‑end (the JSON codec, the
+hash, and the CLI parser are all a few hundred readable lines), makes the binary
+trivial to build offline, and removes supply‑chain surface for something that
+holds an agent's long‑term memory. The trade‑off is that we ship a small JSON
+codec and a custom digest instead of reusing mature crates.
+
+---
+
+## <a name="honest-limitations"></a>6. Honest limitations
+
+`recallweave` is a **memory lifecycle engine, not a semantic memory / vector
+database.** Being blunt about the boundaries:
+
