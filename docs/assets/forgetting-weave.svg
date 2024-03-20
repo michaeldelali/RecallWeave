@@ -5,3 +5,10 @@
     <pattern id="linen2" width="8" height="8" patternUnits="userSpaceOnUse">
       <rect width="8" height="8" fill="#f4efe4"/>
       <path d="M0 0 L8 0 M0 4 L8 4" stroke="#e6ddcc" stroke-width="0.6"/>
+      <path d="M0 0 L0 8 M4 0 L4 8" stroke="#ede5d5" stroke-width="0.6"/>
+    </pattern>
+  </defs>
+
+  <rect x="0" y="0" width="720" height="320" fill="url(#linen2)"/>
+  <text x="360" y="30" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="18" fill="#2b2118" font-weight="bold">recallweave · the forgetting weave</text>
+
