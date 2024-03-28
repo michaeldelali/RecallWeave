@@ -39,3 +39,9 @@
     <circle r="12" fill="none" stroke="#b8860b" stroke-width="2"/>
     <line x1="0" y1="0" x2="0" y2="-9" stroke="#b8860b" stroke-width="2">
       <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="9s" repeatCount="indefinite"/>
+    </line>
+  </g>
+
+  <!-- tombstoned thread: gets cut in the middle (a gap opens) -->
+  <line x1="80" y1="210" x2="360" y2="210" stroke="#e07a5f" stroke-width="6" stroke-linecap="round">
+    <animate attributeName="x2" values="640;640;360;360;640" keyTimes="0;0.35;0.6;0.9;1" dur="9s" repeatCount="indefinite"/>
