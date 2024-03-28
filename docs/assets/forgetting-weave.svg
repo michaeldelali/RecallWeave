@@ -32,3 +32,10 @@
   <!-- expiring thread: fades and becomes dashed as TTL elapses -->
   <line x1="80" y1="170" x2="640" y2="170" stroke="#d4a017" stroke-width="6" stroke-linecap="round">
     <animate attributeName="stroke-opacity" values="1;1;0.25;0.25;1" keyTimes="0;0.3;0.55;0.9;1" dur="9s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-dasharray" values="0 0;0 0;5 6;5 6;0 0" keyTimes="0;0.3;0.55;0.9;1" dur="9s" repeatCount="indefinite"/>
+  </line>
+  <!-- a small "ttl clock" that drains next to the expiring thread -->
+  <g transform="translate(660,170)">
+    <circle r="12" fill="none" stroke="#b8860b" stroke-width="2"/>
+    <line x1="0" y1="0" x2="0" y2="-9" stroke="#b8860b" stroke-width="2">
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="9s" repeatCount="indefinite"/>
