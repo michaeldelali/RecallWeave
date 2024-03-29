@@ -6,3 +6,10 @@
       <rect width="8" height="8" fill="#f6f1e7"/>
       <path d="M0 0 L8 0 M0 4 L8 4" stroke="#e8e0d0" stroke-width="0.6"/>
       <path d="M0 0 L0 8 M4 0 L4 8" stroke="#efe8da" stroke-width="0.6"/>
+    </pattern>
+    <linearGradient id="frame" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a97644"/>
+      <stop offset="1" stop-color="#7c522b"/>
+    </linearGradient>
+  </defs>
+
