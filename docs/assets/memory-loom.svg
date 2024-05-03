@@ -20,3 +20,10 @@
   <rect x="40" y="34" width="640" height="14" rx="7" fill="url(#frame)"/>
   <rect x="40" y="272" width="640" height="14" rx="7" fill="url(#frame)"/>
 
+  <!-- warp: vertical guide threads the weft crosses -->
+  <g stroke="#cbb89a" stroke-width="1.4">
+    <line x1="80" y1="52" x2="80" y2="268"/>
+    <line x1="120" y1="52" x2="120" y2="268"/>
+    <line x1="160" y1="52" x2="160" y2="268"/>
+    <line x1="200" y1="52" x2="200" y2="268"/>
+    <line x1="240" y1="52" x2="240" y2="268"/>
