@@ -13,3 +13,10 @@
     </linearGradient>
   </defs>
 
+  <rect x="0" y="0" width="720" height="320" fill="url(#linen)"/>
+
+  <!-- loom frame -->
+  <rect x="40" y="40" width="640" height="240" rx="10" fill="none" stroke="url(#frame)" stroke-width="10"/>
+  <rect x="40" y="34" width="640" height="14" rx="7" fill="url(#frame)"/>
+  <rect x="40" y="272" width="640" height="14" rx="7" fill="url(#frame)"/>
+
