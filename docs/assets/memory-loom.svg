@@ -49,3 +49,11 @@
     <animate attributeName="x2" values="72;72;648;648;72" keyTimes="0;0.15;0.5;0.9;1" dur="8s" repeatCount="indefinite"/>
   </line>
   <!-- procedural (indigo) -->
+  <line x1="72" y1="170" x2="72" y2="170" stroke="#5f7adb" stroke-width="7" stroke-linecap="round">
+    <animate attributeName="x2" values="72;72;648;648;72" keyTimes="0;0.30;0.65;0.9;1" dur="8s" repeatCount="indefinite"/>
+  </line>
+  <!-- episodic (terracotta) -->
+  <line x1="72" y1="210" x2="72" y2="210" stroke="#e07a5f" stroke-width="7" stroke-linecap="round">
+    <animate attributeName="x2" values="72;72;648;648;72" keyTimes="0;0.45;0.8;0.9;1" dur="8s" repeatCount="indefinite"/>
+  </line>
+
