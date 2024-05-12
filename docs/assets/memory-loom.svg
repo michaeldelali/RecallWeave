@@ -42,3 +42,10 @@
   <!-- woven weft rows, each a memory kind. They "grow" then hold, looping. -->
   <!-- semantic (moss) -->
   <line x1="72" y1="90" x2="72" y2="90" stroke="#3d8361" stroke-width="7" stroke-linecap="round">
+    <animate attributeName="x2" values="72;648;648;72" keyTimes="0;0.35;0.9;1" dur="8s" repeatCount="indefinite"/>
+  </line>
+  <!-- preference (saffron) -->
+  <line x1="72" y1="130" x2="72" y2="130" stroke="#d4a017" stroke-width="7" stroke-linecap="round">
+    <animate attributeName="x2" values="72;72;648;648;72" keyTimes="0;0.15;0.5;0.9;1" dur="8s" repeatCount="indefinite"/>
+  </line>
+  <!-- procedural (indigo) -->
