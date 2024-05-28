@@ -38,3 +38,10 @@
 <line x1="718" y1="148" x2="718" y2="202" stroke="#e07a5f" stroke-opacity="0.08" stroke-width="1"/>
 <line x1="740" y1="148" x2="740" y2="202" stroke="#e07a5f" stroke-opacity="0.08" stroke-width="1"/>
 <line x1="762" y1="148" x2="762" y2="202" stroke="#e07a5f" stroke-opacity="0.08" stroke-width="1"/>
+<line x1="784" y1="148" x2="784" y2="202" stroke="#e07a5f" stroke-opacity="0.08" stroke-width="1"/>
+<line x1="806" y1="148" x2="806" y2="202" stroke="#e07a5f" stroke-opacity="0.08" stroke-width="1"/>
+<line x1="828" y1="148" x2="828" y2="202" stroke="#e07a5f" stroke-opacity="0.08" stroke-width="1"/>
+<g opacity="0.95"><line x1="423.6" y1="160.9" x2="496.4" y2="160.9" stroke="#e07a5f" stroke-width="3.3" stroke-linecap="round"><animate attributeName="y1" values="160.9;159.4;160.9" dur="3.59s" repeatCount="indefinite"/><animate attributeName="y2" values="160.9;162.4;160.9" dur="3.59s" repeatCount="indefinite"/></line><title>[episodic] deploy failed at 14:03 due to bad env var
+confidence 0.60
+source user
+tags: infra</title></g>
