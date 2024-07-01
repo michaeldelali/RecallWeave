@@ -122,3 +122,10 @@ tags: infra</title></g>
 <line x1="762" y1="376" x2="762" y2="430" stroke="#5f7adb" stroke-opacity="0.08" stroke-width="1"/>
 <line x1="784" y1="376" x2="784" y2="430" stroke="#5f7adb" stroke-opacity="0.08" stroke-width="1"/>
 <line x1="806" y1="376" x2="806" y2="430" stroke="#5f7adb" stroke-opacity="0.08" stroke-width="1"/>
+<line x1="828" y1="376" x2="828" y2="430" stroke="#5f7adb" stroke-opacity="0.08" stroke-width="1"/>
+<g opacity="0.95"><line x1="410.4" y1="414.0" x2="509.6" y2="414.0" stroke="#5f7adb" stroke-width="4.2" stroke-linecap="round"><animate attributeName="y1" values="414.0;412.5;414.0" dur="5.10s" repeatCount="indefinite"/><animate attributeName="y2" values="414.0;415.5;414.0" dur="5.10s" repeatCount="indefinite"/></line><title>[procedural] rotate the API token by running ops runbook step 3
+confidence 0.90
+source user
+tags: ops</title></g>
+<rect x="60" y="462" width="780" height="90" rx="10" fill="#d4a017" fill-opacity="0.10" stroke="#d4a017" stroke-opacity="0.5"/>
+<text x="68" y="482" font-family="Georgia, serif" font-size="15" fill="#d4a017" font-weight="bold">preference · 3</text>
