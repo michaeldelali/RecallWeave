@@ -129,3 +129,10 @@ source user
 tags: ops</title></g>
 <rect x="60" y="462" width="780" height="90" rx="10" fill="#d4a017" fill-opacity="0.10" stroke="#d4a017" stroke-opacity="0.5"/>
 <text x="68" y="482" font-family="Georgia, serif" font-size="15" fill="#d4a017" font-weight="bold">preference · 3</text>
+<line x1="80" y1="490" x2="80" y2="544" stroke="#d4a017" stroke-opacity="0.08" stroke-width="1"/>
+<line x1="102" y1="490" x2="102" y2="544" stroke="#d4a017" stroke-opacity="0.08" stroke-width="1"/>
+<line x1="124" y1="490" x2="124" y2="544" stroke="#d4a017" stroke-opacity="0.08" stroke-width="1"/>
+<line x1="146" y1="490" x2="146" y2="544" stroke="#d4a017" stroke-opacity="0.08" stroke-width="1"/>
+<line x1="168" y1="490" x2="168" y2="544" stroke="#d4a017" stroke-opacity="0.08" stroke-width="1"/>
+<line x1="190" y1="490" x2="190" y2="544" stroke="#d4a017" stroke-opacity="0.08" stroke-width="1"/>
+<line x1="212" y1="490" x2="212" y2="544" stroke="#d4a017" stroke-opacity="0.08" stroke-width="1"/>
