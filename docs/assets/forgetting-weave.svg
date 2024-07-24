@@ -59,3 +59,18 @@
 
   <!-- compaction sweep: a broom of light passes and the cloth tightens -->
   <rect x="80" y="66" width="14" height="188" fill="#ffffff" fill-opacity="0.35">
+    <animate attributeName="x" values="80;80;80;640;80" keyTimes="0;0.85;0.9;0.98;1" dur="9s" repeatCount="indefinite"/>
+    <animate attributeName="fill-opacity" values="0;0;0.5;0.5;0" keyTimes="0;0.88;0.9;0.98;1" dur="9s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- legend -->
+  <g font-family="Georgia, serif" font-size="12" fill="#4a3f33">
+    <text x="56" y="94" text-anchor="end">semantic</text>
+    <text x="56" y="134" text-anchor="end">procedural</text>
+    <text x="56" y="174" text-anchor="end">episodic (ttl)</text>
+    <text x="56" y="214" text-anchor="end">episodic (cut)</text>
+  </g>
+  <text x="360" y="285" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#8a7d6d">time-to-live fades a thread · a tombstone cuts one · compaction re-weaves what remains</text>
+</svg>
+
+<!-- draft note 436 -->
