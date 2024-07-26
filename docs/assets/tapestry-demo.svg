@@ -164,3 +164,27 @@ tags: ops</title></g>
 <line x1="784" y1="490" x2="784" y2="544" stroke="#d4a017" stroke-opacity="0.08" stroke-width="1"/>
 <line x1="806" y1="490" x2="806" y2="544" stroke="#d4a017" stroke-opacity="0.08" stroke-width="1"/>
 <line x1="828" y1="490" x2="828" y2="544" stroke="#d4a017" stroke-opacity="0.08" stroke-width="1"/>
+<g opacity="0.95"><line x1="172.5" y1="505.3" x2="254.1" y2="505.3" stroke="#d4a017" stroke-width="3.6" stroke-linecap="round"><animate attributeName="y1" values="505.3;503.8;505.3" dur="4.76s" repeatCount="indefinite"/><animate attributeName="y2" values="505.3;506.8;505.3" dur="4.76s" repeatCount="indefinite"/></line><title>[preference] prefers dark theme
+confidence 0.70
+source user
+tags: ui</title></g>
+<g opacity="0.95"><line x1="414.8" y1="533.0" x2="505.2" y2="533.0" stroke="#d4a017" stroke-width="3.9" stroke-linecap="round"><animate attributeName="y1" values="533.0;531.5;533.0" dur="4.82s" repeatCount="indefinite"/><animate attributeName="y2" values="533.0;534.5;533.0" dur="4.82s" repeatCount="indefinite"/></line><title>[preference] prefers concise answers
+confidence 0.80
+source user
+tags: style</title></g>
+<g opacity="0.95"><line x1="670.3" y1="508.3" x2="743.1" y2="508.3" stroke="#d4a017" stroke-width="3.3" stroke-linecap="round"><animate attributeName="y1" values="508.3;506.8;508.3" dur="3.94s" repeatCount="indefinite"/><animate attributeName="y2" values="508.3;509.8;508.3" dur="3.94s" repeatCount="indefinite"/></line><title>[preference] prefers light theme
+confidence 0.60
+source user
+tags: ui</title></g>
+<g><line x1="213.3" y1="505.3" x2="706.7" y2="508.3" stroke="#c1121f" stroke-width="1.6" stroke-dasharray="5 4" opacity="0.85"><animate attributeName="stroke-dashoffset" values="0;18" dur="1.2s" repeatCount="indefinite"/></line><title>conflict (preference-polarity): preferences appear to conflict on 'dark' vs 'light'</title></g>
+<rect x="60" y="591" width="14" height="14" rx="3" fill="#e07a5f"/>
+<text x="80" y="602" font-family="Georgia, serif" font-size="13" fill="#4a3f33">episodic</text>
+<rect x="210" y="591" width="14" height="14" rx="3" fill="#3d8361"/>
+<text x="230" y="602" font-family="Georgia, serif" font-size="13" fill="#4a3f33">semantic</text>
+<rect x="360" y="591" width="14" height="14" rx="3" fill="#5f7adb"/>
+<text x="380" y="602" font-family="Georgia, serif" font-size="13" fill="#4a3f33">procedural</text>
+<rect x="510" y="591" width="14" height="14" rx="3" fill="#d4a017"/>
+<text x="530" y="602" font-family="Georgia, serif" font-size="13" fill="#4a3f33">preference</text>
+<text x="60" y="626" font-family="Georgia, serif" font-size="11" fill="#8a7d6d">thread length = confidence · dashed = retired · red = conflict · knot = has links</text>
+</svg>
+<!-- draft note 438 -->
