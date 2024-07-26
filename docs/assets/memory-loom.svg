@@ -64,3 +64,19 @@
       keyTimes="0;0.20;0.25;0.45;0.5;0.70;0.75;0.95;1" dur="8s" repeatCount="indefinite"/>
     <ellipse cx="0" cy="0" rx="26" ry="10" fill="#8a5a2b" stroke="#5c3a1a" stroke-width="2"/>
     <circle cx="0" cy="0" r="3.5" fill="#f6f1e7"/>
+    <polygon points="-26,0 -34,-4 -34,4" fill="#5c3a1a"/>
+    <polygon points="26,0 34,-4 34,4" fill="#5c3a1a"/>
+  </g>
+
+  <!-- labels -->
+  <g font-family="Georgia, 'Times New Roman', serif" font-size="13" fill="#4a3f33">
+    <text x="56" y="94" text-anchor="end">semantic</text>
+    <text x="56" y="134" text-anchor="end">preference</text>
+    <text x="56" y="174" text-anchor="end">procedural</text>
+    <text x="56" y="214" text-anchor="end">episodic</text>
+  </g>
+  <text x="360" y="26" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="#2b2118" font-weight="bold">recallweave · the memory loom</text>
+  <text x="360" y="308" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#8a7d6d">each pass of the shuttle records one typed memory into the append-only weave</text>
+</svg>
+
+<!-- draft note 437 -->
