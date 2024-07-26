@@ -172,3 +172,34 @@ codec and a custom digest instead of reusing mature crates.
 `recallweave` is a **memory lifecycle engine, not a semantic memory / vector
 database.** Being blunt about the boundaries:
 
+- **No semantic matching.** Dedupe, conflict detection, and `query --contains`
+  are **purely lexical**. `"prefers dark theme"` and `"wants a dark colour
+  scheme"` are, to this engine, unrelated strings. It will not find paraphrases,
+  synonyms, or translations. There are no embeddings and no vector index.
+- **The conflict detector is a heuristic.** Preference‑polarity relies on a tiny,
+  hand‑curated antonym table and a shared‑token check. It will miss real
+  conflicts phrased with words outside the table, and it can produce false
+  positives when an antonym pair appears coincidentally. It is meant as a *nudge*,
+  not a truth oracle.
+- **The digest is a checksum, not a cryptographic hash.** `verify` detects
+  accidental corruption and casual tampering. It is **not** SHA‑256 and makes no
+  preimage/collision‑resistance claims. An attacker who can rewrite the whole
+  file can recompute a valid chain. If you need authenticity, sign the exported
+  pack with a real signature scheme out of band.
+- **Confidence is subjective metadata.** The engine stores and filters on it but
+  never *computes* or updates it. There is no Bayesian belief revision.
+- **Single‑process, no concurrency control.** The store assumes one writer.
+  Concurrent writers to the same directory can interleave and corrupt the log.
+  Writes within a process are atomic (temp + rename), but there is no file lock.
+- **Time is caller‑supplied logic.** `created_at`/`now` are epoch seconds you can
+  override with `--now` for reproducibility. TTL math is simple addition; there
+  is no timezone or calendar handling.
+- **Full history is retained until compaction.** The log grows with every event.
+  `compact` reclaims space but discards the audit trail of retired memories.
+
+These are deliberate choices for a small, auditable, local‑first tool. If your
+use case needs semantic recall, run recallweave *alongside* a vector store: use
+recallweave for the lifecycle (provenance, TTL, supersession, tombstones,
+integrity) and the vector store for similarity search.
+
+<!-- draft note 441 -->
