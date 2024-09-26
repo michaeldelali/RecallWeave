@@ -201,3 +201,27 @@ These are deliberate choices for a small, auditable, local‑first tool. If your
 use case needs semantic recall, run recallweave *alongside* a vector store: use
 recallweave for the lifecycle (provenance, TTL, supersession, tombstones,
 integrity) and the vector store for similarity search.
+
+
+## Appendix - one week in a store, step by step
+
+This appendix follows the shipped demo store record by record, the way a new
+contributor should read it on their first day.
+
+1. **Weave.** The demo starts with three kinds - a fact, a link and an event -
+   each validated at weave time. The kind tag decides which fields must and
+   must not be present; bad records are rejected before they touch the log.
+2. **Dedupe.** Weaving the same payload again is a no-op: the identical row is
+   collapsed, and the output says so explicitly rather than silently.
+3. **Supersede.** Re-weaving with changed content supersedes the old record -
+   the old row stays in the log, the new row points back at it. Nothing is
+   ever rewritten.
+4. **Conflict.** The demo then weaves a deliberately crossed thread and shows
+   the conflict report naming both records.
+5. **Verify.** `verify` walks the chain and confirms every link; tampering
+   with any byte of `log.jsonl` makes the walk stop at the first bad record.
+6. **Export.** The pack carries per-record checksums, so a store copied to
+   another machine re-verifies identically.
+
+Run it with `sh examples/demo.sh` from the repo root; it finishes in under a
+second and regenerates the demo store from scratch.
