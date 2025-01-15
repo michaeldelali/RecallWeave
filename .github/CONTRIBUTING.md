@@ -14,3 +14,9 @@ TypeScript viewer builds on plain `tsc`. Every rule below serves that goal.
   add new record kinds, don't mutate old ones.
 - **Determinism is tested.** Dedupe, compaction, export and SVG rendering must
   produce byte-identical output for identical inputs. Extend
+  `tests/lifecycle.rs` when you touch any of them.
+- **Every lifecycle command ships with a CLI test.** New subcommands land with
+  a case in `tests/cli.rs` and a section in the README command reference.
+
+## Local workflow
+
