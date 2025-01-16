@@ -25,3 +25,9 @@ make build     # cargo build + viewer tsc build
 make test      # cargo test + viewer tests
 cargo fmt      # formatting is checked in CI (cargo fmt --check)
 cargo clippy --all-targets -- -D warnings   # warnings deny warnings
+```
+
+Please make sure CI's exact checks pass locally before opening a PR.
+
+## Pull requests
+
