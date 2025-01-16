@@ -20,3 +20,8 @@ TypeScript viewer builds on plain `tsc`. Every rule below serves that goal.
 
 ## Local workflow
 
+```bash
+make build     # cargo build + viewer tsc build
+make test      # cargo test + viewer tests
+cargo fmt      # formatting is checked in CI (cargo fmt --check)
+cargo clippy --all-targets -- -D warnings   # warnings deny warnings
