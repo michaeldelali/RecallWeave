@@ -31,3 +31,9 @@ Please make sure CI's exact checks pass locally before opening a PR.
 
 ## Pull requests
 
+- One topic per PR.
+- Conventional commit messages (`feat:`, `fix:`, `docs:`, `test:`, `chore:`).
+- Update `CHANGELOG.md` under `[Unreleased]` as part of your change.
+- Include a transcript of the command you exercised when the change touches
+  CLI behavior.
+
