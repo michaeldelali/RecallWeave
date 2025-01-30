@@ -21,3 +21,8 @@ trim to the records involved.
 recallweave --dir <store> <command> ...
 ```
 
+**Version**
+
+The git revision (or release tag) you ran.
+
+**Expected vs actual**
