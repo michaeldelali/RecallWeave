@@ -16,3 +16,8 @@ and what came out versus what you expected.
 
 Attach the store directory or a trimmed `memory-pack.json`. Small files only -
 trim to the records involved.
+
+```text
+recallweave --dir <store> <command> ...
+```
+
