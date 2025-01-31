@@ -11,3 +11,7 @@ assignees: ""
 Describe the real workflow that RecallWeave misses today (a new record kind,
 a new query shape, a compaction policy, a viewer rendering).
 
+**Proposed behavior**
+
+Exact subcommand or flag, default values, and how it interacts with the
+append-only weave. Remember the ground rules: the engine stays stdlib-only,
