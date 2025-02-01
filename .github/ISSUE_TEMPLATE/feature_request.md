@@ -15,3 +15,7 @@ a new query shape, a compaction policy, a viewer rendering).
 
 Exact subcommand or flag, default values, and how it interacts with the
 append-only weave. Remember the ground rules: the engine stays stdlib-only,
+and existing store bytes never change meaning.
+
+**Determinism statement**
+
