@@ -12,3 +12,6 @@
 
 - [ ] `cargo fmt --check` + `cargo clippy --all-targets -- -D warnings` clean
 - [ ] `cargo test` + viewer tests green
+- [ ] the weave format stays append-only (no meaning change for existing bytes)
+- [ ] determinism: identical inputs still produce byte-identical output
+- [ ] `CHANGELOG.md` updated under `[Unreleased]`
