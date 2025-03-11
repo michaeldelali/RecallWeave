@@ -17,3 +17,7 @@ If you find a security-relevant issue - for example a store file that can
 crash the engine, a path-traversal via `--dir` or the export pack, or an SVG
 that escapes its escaping - please report it privately:
 
+- Email: `michaeldelali@users.noreply.github.com` (via GitHub contact)
+- Or open a GitHub security advisory on this repository.
+
+Include the store/pack files and the command line used. We aim to acknowledge
