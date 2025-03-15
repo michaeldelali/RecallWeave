@@ -42,3 +42,14 @@ jobs:
         run: cargo test --verbose
 
   viewer:
+    name: TypeScript viewer
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: examples/Achievements/projects/recallweave/viewer
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
