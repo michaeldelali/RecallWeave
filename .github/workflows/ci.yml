@@ -30,3 +30,15 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.toml') }}
 
       - name: Format check
+        run: cargo fmt --check
+
+      - name: Clippy (deny warnings)
+        run: cargo clippy --all-targets -- -D warnings
+
+      - name: Build
+        run: cargo build --release --verbose
+
+      - name: Test
+        run: cargo test --verbose
+
+  viewer:
