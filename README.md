@@ -483,4 +483,4 @@ MIT — see [`LICENSE`](LICENSE). Weave freely.
 <sub>recallweave · a loom for what your agent remembers · local-first, dependency-light, honestly scoped</sub>
 </div>
 
-<!-- draft note 560 -->
+<!-- draft note 566 -->
