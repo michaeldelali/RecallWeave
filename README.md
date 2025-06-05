@@ -482,3 +482,25 @@ MIT — see [`LICENSE`](LICENSE). Weave freely.
 <div align="center">
 <sub>recallweave · a loom for what your agent remembers · local-first, dependency-light, honestly scoped</sub>
 </div>
+
+
+---
+
+## Field notes
+
+**One store per agent, not per run.** Point `--dir` at a stable store
+directory in your agent's working root. Weaving into a fresh directory per
+run breaks dedupe - the whole point is that the second identical memory
+collapses, which only works inside one weave.
+
+**Verify on a schedule, not after a crash.** `verify` is cheap enough to run
+in CI nightly. Finding a bad link the week it happens beats finding it during
+an incident review.
+
+**Export before compacting.** Compaction rewrites the tail of the log. Take a
+`memory-pack.json` first - the pack re-imports anywhere, and the checksums
+tell you the round-trip was clean.
+
+**Conflicts are data, not errors.** A crossed thread means two real memories
+disagree. Keep both records in the audit trail; resolve them by superseding
+one of them deliberately, not by deleting history.
