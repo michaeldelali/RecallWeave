@@ -19,3 +19,9 @@ and existing store bytes never change meaning.
 
 **Determinism statement**
 
+How the feature keeps byte-identical output for identical inputs, and which
+test file will pin it (`tests/cli.rs` or `tests/lifecycle.rs`).
+
+**Alternatives considered**
+
+What you tried with the current commands and why it is not enough.
