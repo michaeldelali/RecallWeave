@@ -26,3 +26,11 @@ recallweave --dir <store> <command> ...
 The git revision (or release tag) you ran.
 
 **Expected vs actual**
+
+- Expected:
+- Actual (transcript trimmed):
+
+---
+
+*Note: if `verify` flags your store, attach the verify output - the integrity
+chain points at the first bad record, which is the whole diagnosis.*
