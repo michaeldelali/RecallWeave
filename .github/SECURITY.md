@@ -21,3 +21,10 @@ that escapes its escaping - please report it privately:
 - Or open a GitHub security advisory on this repository.
 
 Include the store/pack files and the command line used. We aim to acknowledge
+reports within 7 days and ship a fix in the next release.
+
+## What we do not consider vulnerabilities
+
+- Content of memories you chose to weave in. Garbage in, loud error out is the
+  intended behavior.
+- The integrity chain flagging a tampered store - that is the feature working.
