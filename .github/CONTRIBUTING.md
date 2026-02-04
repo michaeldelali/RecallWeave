@@ -37,3 +37,13 @@ Please make sure CI's exact checks pass locally before opening a PR.
 - Include a transcript of the command you exercised when the change touches
   CLI behavior.
 
+## Reporting issues
+
+Open a bug report with the store directory involved (or a trimmed
+`memory-pack.json` that reproduces). For integrity-chain failures include the
+`verify` output - that is the whole diagnosis.
+
+## Code of conduct
+
+The Contributor Covenant applies to everyone participating in this project -
+see [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
