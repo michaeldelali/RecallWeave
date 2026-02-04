@@ -1,30 +1,22 @@
-[package]
-name = "recallweave"
-version = "1.0.0"
-edition = "2021"
-rust-version = "1.74"
-description = "A local-first agent memory lifecycle engine: typed memories in an append-only, integrity-chained log with dedupe, conflict detection, forgetting, compaction, verification, query, and portable export."
-license = "MIT"
-readme = "README.md"
-repository = "https://github.com/michaeldelali/recallweave"
-keywords = ["memory", "agent", "append-only", "local-first", "cli"]
-categories = ["command-line-utilities", "data-structures"]
+<!-- One topic per PR. -->
 
-# recallweave is intentionally dependency-free: standard library only.
-# See docs/MEMORY.md for the rationale.
-[dependencies]
+## What
 
-[lib]
-name = "recallweave"
-path = "src/lib.rs"
+<!-- What does this PR change? Engine lifecycle, viewer, docs... -->
 
-[[bin]]
-name = "recallweave"
-path = "src/main.rs"
+## Why
 
-[profile.release]
-opt-level = 3
-lto = true
-strip = true
+<!-- The workflow gap this closes. -->
 
-// draft note 645
+## Verification
+
+- [ ] `cargo fmt --check` + `cargo clippy --all-targets -- -D warnings` clean
+- [ ] `cargo test` + viewer tests green
+- [ ] the weave format stays append-only (no meaning change for existing bytes)
+- [ ] determinism: identical inputs still produce byte-identical output
+- [ ] `CHANGELOG.md` updated under `[Unreleased]`
+- [ ] new subcommands ship with a `tests/cli.rs` case + README command-reference row
+
+```text
+(paste trimmed transcript here)
+```
