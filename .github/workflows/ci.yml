@@ -76,3 +76,23 @@ jobs:
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Build engine
+        run: cargo build --release
+
+      - name: Build viewer
+        run: cd viewer && npm install && npm run build
+
+      - name: Run demo (asserts the full lifecycle end-to-end)
+        run: sh examples/demo.sh
+
+      - name: Verify integrity of the demo store
+        run: ./target/release/recallweave --dir examples/demo-store verify
+
+      - name: Render tapestry from the exported pack
+        run: node viewer/dist/cli.js examples/memory-pack.json --svg /tmp/tapestry.svg
