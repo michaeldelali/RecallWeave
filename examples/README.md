@@ -1,40 +1,30 @@
-# Examples
+[package]
+name = "recallweave"
+version = "1.0.0"
+edition = "2021"
+rust-version = "1.74"
+description = "A local-first agent memory lifecycle engine: typed memories in an append-only, integrity-chained log with dedupe, conflict detection, forgetting, compaction, verification, query, and portable export."
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/michaeldelali/recallweave"
+keywords = ["memory", "agent", "append-only", "local-first", "cli"]
+categories = ["command-line-utilities", "data-structures"]
 
-This directory contains a **runnable** demonstration of recallweave and the
-memory-pack it produces.
+# recallweave is intentionally dependency-free: standard library only.
+# See docs/MEMORY.md for the rationale.
+[dependencies]
 
-## Files
+[lib]
+name = "recallweave"
+path = "src/lib.rs"
 
-| file                | what it is                                                        |
-|---------------------|-------------------------------------------------------------------|
-| `demo.sh`           | POSIX shell demo driving the full lifecycle with the real binary  |
-| `demo.ps1`          | the same demo for PowerShell                                      |
-| `memory-pack.json`  | a committed pack exported by the demo (input for the viewer)      |
-| `demo-store/`       | the append-only store the demo builds (gitignored; regenerated)   |
+[[bin]]
+name = "recallweave"
+path = "src/main.rs"
 
-## Running the demo
+[profile.release]
+opt-level = 3
+lto = true
+strip = true
 
-From the **project root**:
-
-```bash
-# POSIX shell
-sh examples/demo.sh
-
-# PowerShell
-pwsh examples/demo.ps1
-```
-
-The demo is deterministic — every command pins `--now` — so ids, fingerprints,
-and output are stable across runs. It:
-
-1. asserts a `semantic` region fact, then **supersedes** it when the region
-   changes (`us-east-1` → `eu-west-1`);
-2. records three `preference` memories, two of which are in genuine
-   **polarity conflict** (`dark` vs `light` theme);
-3. adds a `procedural` runbook step and an `episodic` note with a **1-day TTL**;
-4. shows that re-adding **normalized-identical** content is **deduped**;
-5. lists the live set, reports the detected **conflict**, checks **integrity**,
-   prints **stats**, and **exports** `memory-pack.json`.
-
-## Turning the pack into a tapestry
-
+// draft note 660
