@@ -27,4 +27,4 @@ opt-level = 3
 lto = true
 strip = true
 
-// draft note 692
+// draft note 704
