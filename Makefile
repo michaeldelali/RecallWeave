@@ -1,30 +1,53 @@
-[package]
-name = "recallweave"
-version = "1.0.0"
-edition = "2021"
-rust-version = "1.74"
-description = "A local-first agent memory lifecycle engine: typed memories in an append-only, integrity-chained log with dedupe, conflict detection, forgetting, compaction, verification, query, and portable export."
-license = "MIT"
-readme = "README.md"
-repository = "https://github.com/michaeldelali/recallweave"
-keywords = ["memory", "agent", "append-only", "local-first", "cli"]
-categories = ["command-line-utilities", "data-structures"]
+# recallweave — build, test, and demo automation.
+#
+# Targets:
+#   make build        release build of the Rust engine
+#   make test         Rust tests + viewer tests
+#   make viewer       install deps and build the TypeScript viewer
+#   make demo         run the demo script and regenerate the tapestry SVG
+#   make verify       build + test + clippy + fmt-check + viewer build/test
+#   make fmt          format Rust sources
+#   make clean        remove build artifacts and the demo store
 
-# recallweave is intentionally dependency-free: standard library only.
-# See docs/MEMORY.md for the rationale.
-[dependencies]
+CARGO ?= cargo
+NPM   ?= npm
+NODE  ?= node
 
-[lib]
-name = "recallweave"
-path = "src/lib.rs"
+.PHONY: all build test viewer viewer-build viewer-test demo verify fmt fmt-check clippy clean
 
-[[bin]]
-name = "recallweave"
-path = "src/main.rs"
+all: build
 
-[profile.release]
-opt-level = 3
-lto = true
-strip = true
+build:
+	$(CARGO) build --release
 
-// draft note 759
+test:
+	$(CARGO) test
+	$(MAKE) viewer-test
+
+viewer: viewer-build
+
+viewer-build:
+	cd viewer && $(NPM) install && $(NPM) run build
+
+viewer-test: viewer-build
+	cd viewer && $(NPM) test
+
+demo: build viewer-build
+	sh examples/demo.sh
+	$(NODE) viewer/dist/cli.js examples/memory-pack.json --svg docs/assets/tapestry-demo.svg
+
+fmt:
+	$(CARGO) fmt
+
+fmt-check:
+	$(CARGO) fmt --check
+
+clippy:
+	$(CARGO) clippy --all-targets -- -D warnings
+
+verify: build clippy fmt-check test
+	@echo "all checks passed"
+
+clean:
+	$(CARGO) clean
+	rm -rf examples/demo-store viewer/dist viewer/node_modules
