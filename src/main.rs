@@ -120,7 +120,11 @@ struct Flags {
 }
 
 impl Flags {
-    fn parse(args: VecDeque<String>, bool_flags: &[&str]) -> Result<Flags, String> {
+    fn parse(
+        args: VecDeque<String>,
+        bool_flags: &[&str],
+        value_flags: &[&str],
+    ) -> Result<Flags, String> {
         let mut map = std::collections::HashMap::new();
         let mut bools = std::collections::HashSet::new();
         let mut positionals = Vec::new();
@@ -129,11 +133,16 @@ impl Flags {
             if let Some(name) = tok.strip_prefix("--") {
                 if bool_flags.contains(&name) {
                     bools.insert(name.to_string());
-                } else {
+                } else if value_flags.contains(&name) {
                     let value = it
                         .next()
                         .ok_or_else(|| format!("flag --{} requires a value", name))?;
                     map.insert(name.to_string(), value);
+                } else {
+                    return Err(format!(
+                        "unknown flag --{} for this command. Try 'recallweave help'.",
+                        name
+                    ));
                 }
             } else {
                 positionals.push(tok);
@@ -180,7 +189,20 @@ fn parse_tags(raw: Option<&str>) -> Vec<String> {
 // ---- commands --------------------------------------------------------------
 
 fn cmd_add(args: VecDeque<String>) -> Result<(), String> {
-    let flags = Flags::parse(args, &["json"])?;
+    let flags = Flags::parse(
+        args,
+        &["json"],
+        &[
+            "dir",
+            "now",
+            "kind",
+            "content",
+            "ttl",
+            "tags",
+            "links",
+            "supersedes",
+        ],
+    )?;
     let kind = MemoryKind::parse(
         flags
             .get("kind")
@@ -234,7 +256,7 @@ fn cmd_add(args: VecDeque<String>) -> Result<(), String> {
 }
 
 fn cmd_list(args: VecDeque<String>) -> Result<(), String> {
-    let flags = Flags::parse(args, &["json", "all"])?;
+    let flags = Flags::parse(args, &["json", "all"], &["dir", "now"])?;
     let store = Store::open(&flags.dir())?;
     let now = clock(&flags);
     let mems = if flags.has("all") {
@@ -247,7 +269,21 @@ fn cmd_list(args: VecDeque<String>) -> Result<(), String> {
 }
 
 fn cmd_query(args: VecDeque<String>) -> Result<(), String> {
-    let flags = Flags::parse(args, &["json", "all"])?;
+    let flags = Flags::parse(
+        args,
+        &["json", "all"],
+        &[
+            "dir",
+            "now",
+            "kind",
+            "tag",
+            "contains",
+            "min-confidence",
+            "source",
+            "sort",
+            "limit",
+        ],
+    )?;
     let store = Store::open(&flags.dir())?;
     let now = clock(&flags);
     let pool = if flags.has("all") {
@@ -288,7 +324,7 @@ fn cmd_query(args: VecDeque<String>) -> Result<(), String> {
 }
 
 fn cmd_get(args: VecDeque<String>) -> Result<(), String> {
-    let flags = Flags::parse(args, &["json"])?;
+    let flags = Flags::parse(args, &["json"], &["dir", "now", "id"])?;
     let id = flags
         .positionals
         .first()
@@ -309,7 +345,11 @@ fn cmd_get(args: VecDeque<String>) -> Result<(), String> {
 }
 
 fn cmd_supersede(args: VecDeque<String>) -> Result<(), String> {
-    let flags = Flags::parse(args, &["json"])?;
+    let flags = Flags::parse(
+        args,
+        &["json"],
+        &["dir", "now", "old", "content", "kind", "tags", "links"],
+    )?;
     let old_id = flags
         .get("old")
         .ok_or("supersede requires --old <id>")?
@@ -364,7 +404,7 @@ fn cmd_supersede(args: VecDeque<String>) -> Result<(), String> {
 }
 
 fn cmd_forget(args: VecDeque<String>) -> Result<(), String> {
-    let flags = Flags::parse(args, &["json"])?;
+    let flags = Flags::parse(args, &["json"], &["dir", "now", "id", "reason"])?;
     let id = flags
         .positionals
         .first()
@@ -384,7 +424,7 @@ fn cmd_forget(args: VecDeque<String>) -> Result<(), String> {
 }
 
 fn cmd_forget_expired(args: VecDeque<String>) -> Result<(), String> {
-    let flags = Flags::parse(args, &["json"])?;
+    let flags = Flags::parse(args, &["json"], &["dir", "now"])?;
     let mut store = Store::open(&flags.dir())?;
     let now = clock(&flags);
     let forgotten = store.forget_expired(now)?;
@@ -404,7 +444,7 @@ fn cmd_forget_expired(args: VecDeque<String>) -> Result<(), String> {
 }
 
 fn cmd_conflicts(args: VecDeque<String>) -> Result<(), String> {
-    let flags = Flags::parse(args, &["json"])?;
+    let flags = Flags::parse(args, &["json"], &["dir", "now"])?;
     let store = Store::open(&flags.dir())?;
     let now = clock(&flags);
     let conflicts = store.detect_conflicts(now);
@@ -433,7 +473,7 @@ fn cmd_conflicts(args: VecDeque<String>) -> Result<(), String> {
 }
 
 fn cmd_compact(args: VecDeque<String>) -> Result<(), String> {
-    let flags = Flags::parse(args, &["json"])?;
+    let flags = Flags::parse(args, &["json"], &["dir", "now"])?;
     let mut store = Store::open(&flags.dir())?;
     let now = clock(&flags);
     let report = store.compact(now)?;
@@ -475,7 +515,7 @@ fn cmd_compact(args: VecDeque<String>) -> Result<(), String> {
 }
 
 fn cmd_verify(args: VecDeque<String>) -> Result<(), String> {
-    let flags = Flags::parse(args, &["json"])?;
+    let flags = Flags::parse(args, &["json"], &["dir", "now"])?;
     let store = Store::open(&flags.dir())?;
     let report = store.verify();
     if flags.has("json") {
@@ -506,7 +546,7 @@ fn cmd_verify(args: VecDeque<String>) -> Result<(), String> {
 }
 
 fn cmd_export(args: VecDeque<String>) -> Result<(), String> {
-    let flags = Flags::parse(args, &[])?;
+    let flags = Flags::parse(args, &[], &["dir", "now", "out"])?;
     let store = Store::open(&flags.dir())?;
     let now = clock(&flags);
     let pack = store.export_pack(now);
@@ -523,7 +563,7 @@ fn cmd_export(args: VecDeque<String>) -> Result<(), String> {
 }
 
 fn cmd_stats(args: VecDeque<String>) -> Result<(), String> {
-    let flags = Flags::parse(args, &["json"])?;
+    let flags = Flags::parse(args, &["json"], &["dir", "now"])?;
     let store = Store::open(&flags.dir())?;
     let now = clock(&flags);
     let pack = store.export_pack(now);
