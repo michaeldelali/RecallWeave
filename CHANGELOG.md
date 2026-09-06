@@ -11,6 +11,12 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - (planned) remote mirrors: push a store to object storage with the chain intact.
 - (planned) query DSL: structured queries beyond the current filters.
 
+### Fixed
+
+- Unknown flags are now rejected per command with a clear error instead of
+  being silently ignored - a typo like `--jsn` can no longer disable a flag
+  you meant to pass.
+
 ## [1.0.0] - 2026-08-11
 
 ### Added
