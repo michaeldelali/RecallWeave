@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: examples/Achievements/projects/recallweave
+        working-directory: .
     steps:
       - uses: actions/checkout@v4
 
@@ -26,7 +26,7 @@ jobs:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
-            examples/Achievements/projects/recallweave/target
+            target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.toml') }}
 
       - name: Format check
@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: examples/Achievements/projects/recallweave/viewer
+        working-directory: viewer
     steps:
       - uses: actions/checkout@v4
 
@@ -70,7 +70,7 @@ jobs:
     needs: [engine, viewer]
     defaults:
       run:
-        working-directory: examples/Achievements/projects/recallweave
+        working-directory: .
     steps:
       - uses: actions/checkout@v4
 
